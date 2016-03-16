@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="ca305eba-6959-4ae3-a690-217401d34f0e" solutionId="ca305eba-6959-4ae3-a690-217401d34f0e" resetWebServer="true" sharePointProductVersion="15.0" name="SuperMarket" xmlns="http://schemas.microsoft.com/VisualStudio/2008/SharePointTools/PackageModel">
+  <assemblies>
+    <customAssembly location="Microsoft.Practices.ServiceLocation.dll" deploymentTarget="GlobalAssemblyCache" sourcePath="..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll">
+      <safeControls>
+        <safeControl assemblyName="Microsoft.Practices.ServiceLocation" namespaceName="Microsoft.Practices.ServiceLocation" typeName="*" isSafeAgainstScript="false" />
+      </safeControls>
+    </customAssembly>
+    <customAssembly location="Microsoft.Practices.Unity.dll" deploymentTarget="GlobalAssemblyCache" sourcePath="..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.dll">
+      <safeControls>
+        <safeControl assemblyName="Microsoft.Practices.Unity" namespaceName="Microsoft.Practices.Unity" typeName="*" isSafeAgainstScript="false" />
+      </safeControls>
+    </customAssembly>
+    <customAssembly location="Microsoft.Practices.Unity.Configuration.dll" deploymentTarget="GlobalAssemblyCache" sourcePath="..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.Configuration.dll">
+      <safeControls>
+        <safeControl assemblyName="Microsoft.Practices.Unity.Configuration" namespaceName="Microsoft.Practices.Unity.Configuration" typeName="*" isSafeAgainstScript="false" />
+      </safeControls>
+    </customAssembly>
+    <customAssembly location="Microsoft.Practices.Unity.RegistrationByConvention.dll" deploymentTarget="GlobalAssemblyCache" sourcePath="..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll">
+      <safeControls>
+        <safeControl assemblyName="Microsoft.Practices.Unity.RegistrationByConvention" namespaceName="Microsoft.Practices.Unity.RegistrationByConvention" typeName="*" isSafeAgainstScript="false" />
+      </safeControls>
+    </customAssembly>
+  </assemblies>
+  <features>
+    <featureReference itemId="e3c84dd9-9652-433b-bd58-8e1c8dec630a" />
+  </features>
+  <projectItems>
+    <projectItemReference itemId="58c0205f-ad32-4daa-a7dc-85774a7a717a" />
+  </projectItems>
+</package>

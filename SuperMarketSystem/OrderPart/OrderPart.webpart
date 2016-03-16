@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<webParts>
+  <webPart xmlns="http://schemas.microsoft.com/WebPart/v3">
+    <metaData>
+      <type name="SuperMarketSystem.OrderPart.OrderPart, $SharePoint.Project.AssemblyFullName$" />
+      <importErrorMessage>$Resources:core,ImportErrorMessage;</importErrorMessage>
+    </metaData>
+    <data>
+      <properties>
+        <property name="Title" type="string">SuperMarketSystem - OrderPart</property>
+        <property name="Description" type="string">Order Part</property>
+        <property name="CatalogIconImageUrl" type="string">/_layouts/15/images/SuperMarketSystem/download.jpg</property>
+        <property name="TitleIconImageUrl" type="string">/_layouts/15/images/SuperMarketSystem/download.jpg</property>
+      </properties>
+    </data>
+  </webPart>
+</webParts>

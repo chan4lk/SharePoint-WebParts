@@ -95,6 +95,30 @@
       <SharePointProjectItemId>{58c0205f-ad32-4daa-a7dc-85774a7a717a}</SharePointProjectItemId>
     </None>
     <None Include="key.snk" />
+    <None Include="Lists\Invoice\InvoiceInstance\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{9aea2cc5-5317-422f-8e4a-65886497f77b}</SharePointProjectItemId>
+    </None>
+    <None Include="Lists\Invoice\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{7202bc7f-4e08-4d76-842d-b22c9c846a53}</SharePointProjectItemId>
+    </None>
+    <None Include="Lists\Order\OrderInstance\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{69939789-ca81-493e-b4e1-674c9329eec5}</SharePointProjectItemId>
+    </None>
+    <None Include="Lists\Order\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{c5afd3a4-59cc-48c3-b3e3-471185379ced}</SharePointProjectItemId>
+    </None>
+    <None Include="Lists\ProductCategory\ProductCategoryInstance\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{9d5bc17f-beef-447d-a9f7-4aa510f3ddd6}</SharePointProjectItemId>
+    </None>
+    <None Include="Lists\ProductCategory\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{ebdad9db-8bfe-46d4-9b2a-1659b3bae2d6}</SharePointProjectItemId>
+    </None>
+    <None Include="Lists\Product\ProductInstance\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{08fc874b-bcf6-4c72-bdaf-d32cca5794ea}</SharePointProjectItemId>
+    </None>
+    <None Include="Lists\Product\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{77d26698-8746-4479-8e6b-2d6061d1c16b}</SharePointProjectItemId>
+    </None>
     <None Include="OrderPart\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{6165827f-5dba-4541-ac97-fb7b52ddf482}</SharePointProjectItemId>
     </None>
@@ -107,6 +131,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\SuperMarketSystem\download.jpg" />
+    <Content Include="Lists\Invoice\Elements.xml" />
+    <Content Include="Lists\Invoice\InvoiceInstance\Elements.xml" />
+    <Content Include="Lists\Invoice\Schema.xml" />
+    <Content Include="Lists\Order\Elements.xml" />
+    <Content Include="Lists\Order\OrderInstance\Elements.xml" />
+    <Content Include="Lists\Order\Schema.xml" />
+    <Content Include="Lists\ProductCategory\Elements.xml" />
+    <Content Include="Lists\ProductCategory\ProductCategoryInstance\Elements.xml" />
+    <Content Include="Lists\ProductCategory\Schema.xml" />
+    <Content Include="Lists\Product\Elements.xml" />
+    <Content Include="Lists\Product\ProductInstance\Elements.xml" />
+    <Content Include="Lists\Product\Schema.xml" />
     <Content Include="OrderPart\OrderPart.ascx">
       <Generator>SharePointWebPartCodeGenerator</Generator>
       <LastGenOutput>OrderPart.ascx.g.cs</LastGenOutput>

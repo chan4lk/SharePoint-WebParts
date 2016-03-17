@@ -10,9 +10,15 @@ using System.Web.UI.WebControls.WebParts;
 
 namespace SuperMarketSystem.OrderPart
 {
+    /// <summary>
+    /// The Order view code behind.
+    /// </summary>
+    /// <seealso cref="System.Web.UI.WebControls.WebParts.WebPart" />
+    /// <seealso cref="SuperMarketSystem.Views.IOrderView" />
     [ToolboxItemAttribute(false)]
     public partial class OrderPart : WebPart, IOrderView
     {
+        #region Properties - Public Members
         /// <summary>
         /// Gets or sets the model.
         /// </summary>
@@ -31,8 +37,14 @@ namespace SuperMarketSystem.OrderPart
         /// <value>
         /// The presenter.
         /// </value>
-        public IOrderPresenter Presenter { get; set; }
+        public IOrderPresenter Presenter
+        {
+            get;
+            set;
+        } 
+        #endregion
 
+        #region Methods - Constructors
         // Uncomment the following SecurityPermission attribute only when doing Performance Profiling using
         // the Instrumentation method, and then remove the SecurityPermission attribute when the code is ready
         // for production. Because the SecurityPermission attribute bypasses the security check for callers of
@@ -41,8 +53,10 @@ namespace SuperMarketSystem.OrderPart
         public OrderPart()
         {
             this.Presenter = ConfigurationManager.Container.Resolve<IOrderPresenter>();
-        }
+        } 
+        #endregion
 
+        #region Methods - Event Handlers
         /// <summary>
         /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
         /// </summary>
@@ -87,6 +101,20 @@ namespace SuperMarketSystem.OrderPart
         }
 
         /// <summary>
+        /// Called when [row created].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void OnRowCreated(object sender, EventArgs e)
+        {
+            /// Handle.
+            this.Add();
+        }
+
+        #endregion
+
+        #region Methods - IOrderView Members
+        /// <summary>
         /// Add product item.
         /// </summary>
         public void Add()
@@ -100,6 +128,7 @@ namespace SuperMarketSystem.OrderPart
         public void Submit()
         {
             this.Presenter.Submit();
-        }
+        } 
+        #endregion
     }
 }

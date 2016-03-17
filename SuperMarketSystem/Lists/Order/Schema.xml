@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<List xmlns:ows="Microsoft SharePoint" Title="Order" FolderCreation="FALSE" Direction="$Resources:Direction;" Url="Lists/Order" BaseType="0" xmlns="http://schemas.microsoft.com/sharepoint/">
+  <MetaData>
+    <ContentTypes>
+      
+      
+    <ContentType ID="0x0100d830d03b50c34be4bb69cf92b93d60b6" Name="ListFieldsContentType"><FieldRefs><FieldRef ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Name="Title" /><FieldRef ID="{0f1980ab-16b9-439e-9a77-0b39e700f94d}" Name="OrderId" /><FieldRef ID="{2afcb27a-c1de-4332-abfe-5c5d7cdf77af}" Name="InvoiceId" /><FieldRef ID="{ec3acad6-24de-4279-9678-4bdc3fdd48eb}" Name="ProductId" /><FieldRef ID="{557d9341-0ae3-40a6-b2b3-d7da87b2e473}" Name="Quantity" /><FieldRef ID="{6249583f-5a46-431d-afeb-d97d895eb695}" Name="Total" /></FieldRefs></ContentType><ContentTypeRef ID="0x01">
+        <Folder TargetName="Item" />
+      </ContentTypeRef><ContentTypeRef ID="0x0120" /></ContentTypes>
+    <Fields>
+      
+    <Field ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Type="Text" Name="Title" DisplayName="$Resources:core,Title;" Required="FALSE" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="Title" MaxLength="255" /><Field Name="OrderId" ID="{0f1980ab-16b9-439e-9a77-0b39e700f94d}" DisplayName="OrderId" Type="Number" Required="TRUE" /><Field Name="InvoiceId" ID="{2afcb27a-c1de-4332-abfe-5c5d7cdf77af}" DisplayName="InvoiceId" Type="Lookup" /><Field Name="ProductId" ID="{ec3acad6-24de-4279-9678-4bdc3fdd48eb}" DisplayName="ProductId" Type="Lookup" /><Field Name="Quantity" ID="{557d9341-0ae3-40a6-b2b3-d7da87b2e473}" DisplayName="Quantity" Type="Number" /><Field Name="Total" ID="{6249583f-5a46-431d-afeb-d97d895eb695}" DisplayName="Total" Type="Currency" /></Fields>
+    <Views>
+      
+      
+    <View BaseViewID="0" Type="HTML" MobileView="TRUE" TabularView="FALSE">
+        <Toolbar Type="Standard" />
+        <XslLink Default="TRUE">main.xsl</XslLink>
+        <RowLimit Paged="TRUE">30</RowLimit>
+        <ViewFields>
+          
+        <FieldRef Name="LinkTitleNoMenu"></FieldRef></ViewFields>
+        <Query>
+          <OrderBy>
+            
+          <FieldRef Name="Modified" Ascending="FALSE"></FieldRef></OrderBy>
+        </Query>
+        <ParameterBindings>
+          <ParameterBinding Name="AddNewAnnouncement" Location="Resource(wss,addnewitem)" />
+          <ParameterBinding Name="NoAnnouncements" Location="Resource(wss,noXinviewofY_LIST)" />
+          <ParameterBinding Name="NoAnnouncementsHowTo" Location="Resource(wss,noXinviewofY_ONET_HOME)" />
+        </ParameterBindings>
+      </View><View BaseViewID="1" Type="HTML" WebPartZoneID="Main" DisplayName="$Resources:core,objectiv_schema_mwsidcamlidC24;" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" SetupPath="pages\viewpage.aspx" ImageUrl="/_layouts/15/images/generic.png?rev=23" Url="AllItems.aspx">
+        <Toolbar Type="Standard" />
+        <XslLink Default="TRUE">main.xsl</XslLink>
+        <JSLink>clienttemplates.js</JSLink>
+        <RowLimit Paged="TRUE">30</RowLimit>
+        <ViewFields>
+          
+        <FieldRef Name="OrderId" /><FieldRef Name="InvoiceId" /><FieldRef Name="ProductId" /><FieldRef Name="Quantity" /><FieldRef Name="Total" /></ViewFields>
+        <Query>
+          <OrderBy>
+            
+          <FieldRef Name="ID"></FieldRef></OrderBy>
+        </Query>
+        <ParameterBindings>
+          <ParameterBinding Name="NoAnnouncements" Location="Resource(wss,noXinviewofY_LIST)" />
+          <ParameterBinding Name="NoAnnouncementsHowTo" Location="Resource(wss,noXinviewofY_DEFAULT)" />
+        </ParameterBindings>
+      </View></Views>
+    <Forms>
+      <Form Type="DisplayForm" Url="DispForm.aspx" SetupPath="pages\form.aspx" WebPartZoneID="Main" />
+      <Form Type="EditForm" Url="EditForm.aspx" SetupPath="pages\form.aspx" WebPartZoneID="Main" />
+      <Form Type="NewForm" Url="NewForm.aspx" SetupPath="pages\form.aspx" WebPartZoneID="Main" />
+    </Forms>
+  </MetaData>
+</List>

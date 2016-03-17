@@ -25,7 +25,11 @@
 <div id="Sp-OrderPart">
     <div class="well">
         <h1>Place an Order</h1>
-        <asp:GridView ID="orderView" runat="server"></asp:GridView>
+        <asp:GridView ID="orderView" runat="server" ShowFooter="true" AutoGenerateColumns="false" OnRowCreated="OnRowCreated">
+            <Columns>
+
+            </Columns>
+        </asp:GridView>
 
         <asp:Button CssClass="btn" ID="SubmitButton" runat="server" OnClick="SubmitButtonClick" Text="Submit" />
         <asp:Button CssClass="btn" ID="AddButton" runat="server" OnClick="AddButtonClick" Text="Add" />

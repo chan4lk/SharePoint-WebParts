@@ -56,6 +56,10 @@ namespace SuperMarketSystem.OrderPart {
             this.orderView = @__ctrl;
             @__ctrl.ApplyStyleSheetSkin(this.Page);
             @__ctrl.ID = "orderView";
+            @__ctrl.ShowFooter = true;
+            @__ctrl.AutoGenerateColumns = false;
+            @__ctrl.RowCreated -= new System.Web.UI.WebControls.GridViewRowEventHandler(this.OnRowCreated);
+            @__ctrl.RowCreated += new System.Web.UI.WebControls.GridViewRowEventHandler(this.OnRowCreated);
             return @__ctrl;
         }
         

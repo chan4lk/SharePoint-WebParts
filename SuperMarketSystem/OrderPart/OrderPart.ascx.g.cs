@@ -64,41 +64,57 @@ namespace SuperMarketSystem.OrderPart {
         }
         
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
-        private global::System.Web.UI.DataBoundLiteralControl @__BuildControl__control5() {
-            global::System.Web.UI.DataBoundLiteralControl @__ctrl;
-            @__ctrl = new global::System.Web.UI.DataBoundLiteralControl(2, 1);
+        private global::System.Web.UI.WebControls.Label @__BuildControl__control5() {
+            global::System.Web.UI.WebControls.Label @__ctrl;
+            @__ctrl = new global::System.Web.UI.WebControls.Label();
             @__ctrl.TemplateControl = this;
-            @__ctrl.SetStaticString(0, "\r\n                        ");
-            @__ctrl.SetStaticString(1, "\r\n                    ");
-            @__ctrl.DataBinding += new System.EventHandler(this.@__DataBind__control5);
+            @__ctrl.ApplyStyleSheetSkin(this.Page);
+            @__ctrl.ID = "IdLabel";
+            @__ctrl.DataBinding += new System.EventHandler(this.@__DataBinding__control5);
             return @__ctrl;
         }
         
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
-        public void @__DataBind__control5(object sender, System.EventArgs e) {
+        public void @__DataBinding__control5(object sender, System.EventArgs e) {
+            System.Web.UI.WebControls.Label dataBindingExpressionBuilderTarget;
             System.Web.UI.IDataItemContainer Container;
-            System.Web.UI.DataBoundLiteralControl target;
-            target = ((System.Web.UI.DataBoundLiteralControl)(sender));
-            Container = ((System.Web.UI.IDataItemContainer)(target.BindingContainer));
-            target.SetDataBoundString(0, global::System.Convert.ToString(Eval("ProductId"), global::System.Globalization.CultureInfo.CurrentCulture));
+            dataBindingExpressionBuilderTarget = ((System.Web.UI.WebControls.Label)(sender));
+            Container = ((System.Web.UI.IDataItemContainer)(dataBindingExpressionBuilderTarget.BindingContainer));
+            if ((this.Page.GetDataItem() != null)) {
+                dataBindingExpressionBuilderTarget.Text = global::System.Convert.ToString(this.Eval("ProductId"), global::System.Globalization.CultureInfo.CurrentCulture);
+            }
         }
         
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
         private void @__BuildControl__control4(System.Web.UI.Control @__ctrl) {
-            global::System.Web.UI.DataBoundLiteralControl @__ctrl1;
-            @__ctrl1 = this.@__BuildControl__control5();
             System.Web.UI.IParserAccessor @__parser = ((System.Web.UI.IParserAccessor)(@__ctrl));
+            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n                      "));
+            global::System.Web.UI.WebControls.Label @__ctrl1;
+            @__ctrl1 = this.@__BuildControl__control5();
             @__parser.AddParsedSubObject(@__ctrl1);
+            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n                    "));
         }
         
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
-        private global::System.Web.UI.WebControls.DropDownList @__BuildControl__control7() {
-            global::System.Web.UI.WebControls.DropDownList @__ctrl;
-            @__ctrl = new global::System.Web.UI.WebControls.DropDownList();
+        public System.Collections.Specialized.IOrderedDictionary @__ExtractValues__control4(System.Web.UI.Control @__container) {
+            System.Collections.Specialized.OrderedDictionary @__table;
+            System.Web.UI.WebControls.Label IdLabel;
+            IdLabel = ((System.Web.UI.WebControls.Label)(@__container.FindControl("IdLabel")));
+            @__table = new System.Collections.Specialized.OrderedDictionary();
+            if ((IdLabel != null)) {
+                @__table["ProductId"] = IdLabel.Text;
+            }
+            return @__table;
+        }
+        
+        [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
+        private global::System.Web.UI.WebControls.TextBox @__BuildControl__control7() {
+            global::System.Web.UI.WebControls.TextBox @__ctrl;
+            @__ctrl = new global::System.Web.UI.WebControls.TextBox();
             @__ctrl.TemplateControl = this;
             @__ctrl.ApplyStyleSheetSkin(this.Page);
-            @__ctrl.DataTextField = "ProductId";
-            @__ctrl.DataSourceID = "ProductIDs";
+            @__ctrl.ID = "ProductIdText";
+            @__ctrl.Text = "0";
             return @__ctrl;
         }
         
@@ -106,28 +122,8 @@ namespace SuperMarketSystem.OrderPart {
         private void @__BuildControl__control6(System.Web.UI.Control @__ctrl) {
             System.Web.UI.IParserAccessor @__parser = ((System.Web.UI.IParserAccessor)(@__ctrl));
             @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n                        "));
-            global::System.Web.UI.WebControls.DropDownList @__ctrl1;
-            @__ctrl1 = this.@__BuildControl__control7();
-            @__parser.AddParsedSubObject(@__ctrl1);
-            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n                    "));
-        }
-        
-        [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
-        private global::System.Web.UI.WebControls.TextBox @__BuildControl__control9() {
-            global::System.Web.UI.WebControls.TextBox @__ctrl;
-            @__ctrl = new global::System.Web.UI.WebControls.TextBox();
-            @__ctrl.TemplateControl = this;
-            @__ctrl.ApplyStyleSheetSkin(this.Page);
-            @__ctrl.ID = "ProductIdText";
-            return @__ctrl;
-        }
-        
-        [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
-        private void @__BuildControl__control8(System.Web.UI.Control @__ctrl) {
-            System.Web.UI.IParserAccessor @__parser = ((System.Web.UI.IParserAccessor)(@__ctrl));
-            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n                        "));
             global::System.Web.UI.WebControls.TextBox @__ctrl1;
-            @__ctrl1 = this.@__BuildControl__control9();
+            @__ctrl1 = this.@__BuildControl__control7();
             @__parser.AddParsedSubObject(@__ctrl1);
             @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n                    "));
         }
@@ -136,84 +132,86 @@ namespace SuperMarketSystem.OrderPart {
         private global::System.Web.UI.WebControls.TemplateField @__BuildControl__control3() {
             global::System.Web.UI.WebControls.TemplateField @__ctrl;
             @__ctrl = new global::System.Web.UI.WebControls.TemplateField();
-            @__ctrl.ItemTemplate = new System.Web.UI.CompiledBindableTemplateBuilder(new System.Web.UI.BuildTemplateMethod(this.@__BuildControl__control4), null);
-            @__ctrl.InsertItemTemplate = new System.Web.UI.CompiledBindableTemplateBuilder(new System.Web.UI.BuildTemplateMethod(this.@__BuildControl__control6), null);
-            @__ctrl.FooterTemplate = new System.Web.UI.CompiledTemplateBuilder(new System.Web.UI.BuildTemplateMethod(this.@__BuildControl__control8));
+            @__ctrl.ItemTemplate = new System.Web.UI.CompiledBindableTemplateBuilder(new System.Web.UI.BuildTemplateMethod(this.@__BuildControl__control4), new System.Web.UI.ExtractTemplateValuesMethod(this.@__ExtractValues__control4));
+            @__ctrl.FooterTemplate = new System.Web.UI.CompiledTemplateBuilder(new System.Web.UI.BuildTemplateMethod(this.@__BuildControl__control6));
             @__ctrl.HeaderText = "Product ID";
             return @__ctrl;
         }
         
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
-        private global::System.Web.UI.DataBoundLiteralControl @__BuildControl__control12() {
-            global::System.Web.UI.DataBoundLiteralControl @__ctrl;
-            @__ctrl = new global::System.Web.UI.DataBoundLiteralControl(2, 1);
-            @__ctrl.TemplateControl = this;
-            @__ctrl.SetStaticString(0, "\r\n                        ");
-            @__ctrl.SetStaticString(1, "\r\n                    ");
-            @__ctrl.DataBinding += new System.EventHandler(this.@__DataBind__control12);
-            return @__ctrl;
-        }
-        
-        [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
-        public void @__DataBind__control12(object sender, System.EventArgs e) {
-            System.Web.UI.IDataItemContainer Container;
-            System.Web.UI.DataBoundLiteralControl target;
-            target = ((System.Web.UI.DataBoundLiteralControl)(sender));
-            Container = ((System.Web.UI.IDataItemContainer)(target.BindingContainer));
-            target.SetDataBoundString(0, global::System.Convert.ToString(Eval("Quantity"), global::System.Globalization.CultureInfo.CurrentCulture));
-        }
-        
-        [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
-        private void @__BuildControl__control11(System.Web.UI.Control @__ctrl) {
-            global::System.Web.UI.DataBoundLiteralControl @__ctrl1;
-            @__ctrl1 = this.@__BuildControl__control12();
-            System.Web.UI.IParserAccessor @__parser = ((System.Web.UI.IParserAccessor)(@__ctrl));
-            @__parser.AddParsedSubObject(@__ctrl1);
-        }
-        
-        [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
-        private global::System.Web.UI.WebControls.TextBox @__BuildControl__control14() {
-            global::System.Web.UI.WebControls.TextBox @__ctrl;
-            @__ctrl = new global::System.Web.UI.WebControls.TextBox();
+        private global::System.Web.UI.WebControls.Label @__BuildControl__control10() {
+            global::System.Web.UI.WebControls.Label @__ctrl;
+            @__ctrl = new global::System.Web.UI.WebControls.Label();
             @__ctrl.TemplateControl = this;
             @__ctrl.ApplyStyleSheetSkin(this.Page);
-            @__ctrl.ID = "QuantityText";
+            @__ctrl.ID = "QuantityLabel";
+            @__ctrl.DataBinding += new System.EventHandler(this.@__DataBinding__control10);
             return @__ctrl;
         }
         
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
-        private void @__BuildControl__control13(System.Web.UI.Control @__ctrl) {
+        public void @__DataBinding__control10(object sender, System.EventArgs e) {
+            System.Web.UI.WebControls.Label dataBindingExpressionBuilderTarget;
+            System.Web.UI.IDataItemContainer Container;
+            dataBindingExpressionBuilderTarget = ((System.Web.UI.WebControls.Label)(sender));
+            Container = ((System.Web.UI.IDataItemContainer)(dataBindingExpressionBuilderTarget.BindingContainer));
+            dataBindingExpressionBuilderTarget.Text = global::System.Convert.ToString( Eval("Quantity") , global::System.Globalization.CultureInfo.CurrentCulture);
+        }
+        
+        [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
+        private void @__BuildControl__control9(System.Web.UI.Control @__ctrl) {
             System.Web.UI.IParserAccessor @__parser = ((System.Web.UI.IParserAccessor)(@__ctrl));
             @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n                        "));
-            global::System.Web.UI.WebControls.TextBox @__ctrl1;
-            @__ctrl1 = this.@__BuildControl__control14();
+            global::System.Web.UI.WebControls.Label @__ctrl1;
+            @__ctrl1 = this.@__BuildControl__control10();
             @__parser.AddParsedSubObject(@__ctrl1);
             @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n                    "));
         }
         
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
-        private global::System.Web.UI.WebControls.TemplateField @__BuildControl__control10() {
+        private global::System.Web.UI.WebControls.TextBox @__BuildControl__control12() {
+            global::System.Web.UI.WebControls.TextBox @__ctrl;
+            @__ctrl = new global::System.Web.UI.WebControls.TextBox();
+            @__ctrl.TemplateControl = this;
+            @__ctrl.ApplyStyleSheetSkin(this.Page);
+            @__ctrl.ID = "QuantityText";
+            @__ctrl.Text = "0";
+            return @__ctrl;
+        }
+        
+        [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
+        private void @__BuildControl__control11(System.Web.UI.Control @__ctrl) {
+            System.Web.UI.IParserAccessor @__parser = ((System.Web.UI.IParserAccessor)(@__ctrl));
+            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n                        "));
+            global::System.Web.UI.WebControls.TextBox @__ctrl1;
+            @__ctrl1 = this.@__BuildControl__control12();
+            @__parser.AddParsedSubObject(@__ctrl1);
+            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n                    "));
+        }
+        
+        [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
+        private global::System.Web.UI.WebControls.TemplateField @__BuildControl__control8() {
             global::System.Web.UI.WebControls.TemplateField @__ctrl;
             @__ctrl = new global::System.Web.UI.WebControls.TemplateField();
-            @__ctrl.ItemTemplate = new System.Web.UI.CompiledBindableTemplateBuilder(new System.Web.UI.BuildTemplateMethod(this.@__BuildControl__control11), null);
-            @__ctrl.FooterTemplate = new System.Web.UI.CompiledTemplateBuilder(new System.Web.UI.BuildTemplateMethod(this.@__BuildControl__control13));
+            @__ctrl.ItemTemplate = new System.Web.UI.CompiledBindableTemplateBuilder(new System.Web.UI.BuildTemplateMethod(this.@__BuildControl__control9), null);
+            @__ctrl.FooterTemplate = new System.Web.UI.CompiledTemplateBuilder(new System.Web.UI.BuildTemplateMethod(this.@__BuildControl__control11));
             @__ctrl.HeaderText = "Quantity";
             return @__ctrl;
         }
         
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
-        private global::System.Web.UI.DataBoundLiteralControl @__BuildControl__control17() {
+        private global::System.Web.UI.DataBoundLiteralControl @__BuildControl__control15() {
             global::System.Web.UI.DataBoundLiteralControl @__ctrl;
             @__ctrl = new global::System.Web.UI.DataBoundLiteralControl(2, 1);
             @__ctrl.TemplateControl = this;
             @__ctrl.SetStaticString(0, "\r\n                        ");
             @__ctrl.SetStaticString(1, "\r\n                    ");
-            @__ctrl.DataBinding += new System.EventHandler(this.@__DataBind__control17);
+            @__ctrl.DataBinding += new System.EventHandler(this.@__DataBind__control15);
             return @__ctrl;
         }
         
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
-        public void @__DataBind__control17(object sender, System.EventArgs e) {
+        public void @__DataBind__control15(object sender, System.EventArgs e) {
             System.Web.UI.IDataItemContainer Container;
             System.Web.UI.DataBoundLiteralControl target;
             target = ((System.Web.UI.DataBoundLiteralControl)(sender));
@@ -222,45 +220,41 @@ namespace SuperMarketSystem.OrderPart {
         }
         
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
-        private void @__BuildControl__control16(System.Web.UI.Control @__ctrl) {
+        private void @__BuildControl__control14(System.Web.UI.Control @__ctrl) {
             global::System.Web.UI.DataBoundLiteralControl @__ctrl1;
-            @__ctrl1 = this.@__BuildControl__control17();
+            @__ctrl1 = this.@__BuildControl__control15();
             System.Web.UI.IParserAccessor @__parser = ((System.Web.UI.IParserAccessor)(@__ctrl));
             @__parser.AddParsedSubObject(@__ctrl1);
         }
         
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
-        private global::System.Web.UI.WebControls.Button @__BuildControl__control19() {
+        private global::System.Web.UI.WebControls.Button @__BuildControl__control17() {
             global::System.Web.UI.WebControls.Button @__ctrl;
             @__ctrl = new global::System.Web.UI.WebControls.Button();
             @__ctrl.TemplateControl = this;
             @__ctrl.ApplyStyleSheetSkin(this.Page);
-            @__ctrl.ID = "AddButton";
+            @__ctrl.CommandName = "AddToCart";
             @__ctrl.Text = "Add";
-            @__ctrl.Click -= new System.EventHandler(this.AddButton_Click);
-            @__ctrl.Click += new System.EventHandler(this.AddButton_Click);
             return @__ctrl;
         }
         
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
-        private void @__BuildControl__control18(System.Web.UI.Control @__ctrl) {
+        private void @__BuildControl__control16(System.Web.UI.Control @__ctrl) {
             System.Web.UI.IParserAccessor @__parser = ((System.Web.UI.IParserAccessor)(@__ctrl));
             @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n                        "));
             global::System.Web.UI.WebControls.Button @__ctrl1;
-            @__ctrl1 = this.@__BuildControl__control19();
+            @__ctrl1 = this.@__BuildControl__control17();
             @__parser.AddParsedSubObject(@__ctrl1);
             @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n                    "));
         }
         
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
-        private global::System.Web.UI.WebControls.TemplateField @__BuildControl__control15() {
+        private global::System.Web.UI.WebControls.TemplateField @__BuildControl__control13() {
             global::System.Web.UI.WebControls.TemplateField @__ctrl;
             @__ctrl = new global::System.Web.UI.WebControls.TemplateField();
-            @__ctrl.ItemTemplate = new System.Web.UI.CompiledBindableTemplateBuilder(new System.Web.UI.BuildTemplateMethod(this.@__BuildControl__control16), null);
-            @__ctrl.FooterTemplate = new System.Web.UI.CompiledTemplateBuilder(new System.Web.UI.BuildTemplateMethod(this.@__BuildControl__control18));
+            @__ctrl.ItemTemplate = new System.Web.UI.CompiledBindableTemplateBuilder(new System.Web.UI.BuildTemplateMethod(this.@__BuildControl__control14), null);
+            @__ctrl.FooterTemplate = new System.Web.UI.CompiledTemplateBuilder(new System.Web.UI.BuildTemplateMethod(this.@__BuildControl__control16));
             @__ctrl.HeaderText = "Total";
-            @__ctrl.ItemStyle.HorizontalAlign = global::System.Web.UI.WebControls.HorizontalAlign.Right;
-            @__ctrl.FooterStyle.HorizontalAlign = global::System.Web.UI.WebControls.HorizontalAlign.Right;
             return @__ctrl;
         }
         
@@ -270,10 +264,10 @@ namespace SuperMarketSystem.OrderPart {
             @__ctrl1 = this.@__BuildControl__control3();
             @__ctrl.Add(@__ctrl1);
             global::System.Web.UI.WebControls.TemplateField @__ctrl2;
-            @__ctrl2 = this.@__BuildControl__control10();
+            @__ctrl2 = this.@__BuildControl__control8();
             @__ctrl.Add(@__ctrl2);
             global::System.Web.UI.WebControls.TemplateField @__ctrl3;
-            @__ctrl3 = this.@__BuildControl__control15();
+            @__ctrl3 = this.@__BuildControl__control13();
             @__ctrl.Add(@__ctrl3);
         }
         
@@ -285,8 +279,11 @@ namespace SuperMarketSystem.OrderPart {
             @__ctrl.ApplyStyleSheetSkin(this.Page);
             @__ctrl.ID = "orderView";
             @__ctrl.ShowFooter = true;
+            @__ctrl.ShowHeaderWhenEmpty = true;
             @__ctrl.AutoGenerateColumns = false;
             this.@__BuildControl__control2(@__ctrl.Columns);
+            @__ctrl.RowCommand -= new System.Web.UI.WebControls.GridViewCommandEventHandler(this.OnRowCommand);
+            @__ctrl.RowCommand += new System.Web.UI.WebControls.GridViewCommandEventHandler(this.OnRowCommand);
             @__ctrl.RowCreated -= new System.Web.UI.WebControls.GridViewRowEventHandler(this.OnRowCreated);
             @__ctrl.RowCreated += new System.Web.UI.WebControls.GridViewRowEventHandler(this.OnRowCreated);
             return @__ctrl;

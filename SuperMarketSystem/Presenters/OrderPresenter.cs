@@ -37,15 +37,13 @@ namespace SuperMarketSystem.Presenters
         {
         }
 
+        /// <summary>
+        /// Initailizes the specified view.
+        /// </summary>
+        /// <param name="view">The view.</param>
         public void Initailize(IOrderView view)
         {
-            this.View = view;
-            this.View.Model.Items = new List<ProductItem>
-            {
-                new ProductItem{Quantity = 1, ProductId = 3, Total = 25.5M},
-                new ProductItem{Quantity = 2, ProductId = 3, Total = 55.5M},
-                new ProductItem{Quantity = 3, ProductId = 3, Total = 12.5M}
-            };
+            this.View = view;            
         }
 
         /// <summary>
@@ -56,8 +54,13 @@ namespace SuperMarketSystem.Presenters
         /// </param>
         public void Add(ProductItem item)
         {
+            ///// Workarround for showing the empty grid.
+            //if (this.View.Model.Items.Count == 1)
+            //{
+            //    this.View.Model.Items.Clear();
+            //}
+
             this.View.Model.Items.Add(item);
-            this.View.Draw();
             Console.WriteLine("Item added");
         }
 

@@ -48,6 +48,13 @@ namespace SuperMarketSystem.OrderPart
         }
         #endregion
 
+        #region Constants - Privae Memebers
+        private const string quantityLabelID = "QuantityLabel";
+        private const string IdLabelID = "IdLabel";
+        private const string quantityTextID = "QuantityText";
+        private const string IdTextID = "ProductIdText"; 
+        #endregion
+
         #region Methods - Constructors
         // Uncomment the following SecurityPermission attribute only when doing Performance Profiling using
         // the Instrumentation method, and then remove the SecurityPermission attribute when the code is ready
@@ -57,7 +64,6 @@ namespace SuperMarketSystem.OrderPart
         public OrderPart()
         {
             this.Presenter = ConfigurationManager.Container.Resolve<IOrderPresenter>();
-            this.Model = new OrderViewModel();
             this.Presenter.Initailize(this);
         }
         #endregion
@@ -80,8 +86,14 @@ namespace SuperMarketSystem.OrderPart
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load(object sender, EventArgs e)
         {
-                this.ProductIds = new List<int> { 1, 2, 3, 4 };
+            this.Model = new OrderViewModel();
+            this.Model.Items = new List<ProductItem>();
+
+            if (!Page.IsPostBack)
+            {                
                 this.Draw();
+            }
+           
         }
 
         /// <summary>
@@ -91,7 +103,7 @@ namespace SuperMarketSystem.OrderPart
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void ClearButtonClick(object sender, EventArgs e)
         {
-            this.Add();
+            this.Clear();
         }
 
         /// <summary>
@@ -116,9 +128,21 @@ namespace SuperMarketSystem.OrderPart
             Console.WriteLine("Row Created");
         }
 
-        protected void AddButton_Click(object sender, EventArgs e)
+        protected void OnRowCommand(object sender,  GridViewCommandEventArgs e)
         {
-            this.Add();
+            if (e.CommandName == "AddToCart")
+            {
+                // Retrieve the row index stored in the 
+                // CommandArgument property.
+                // int index = Convert.ToInt32(e.CommandArgument);
+
+                // Retrieve the row that contains the button 
+                // from the Rows collection.
+                // GridViewRow row = orderView.Rows[index];
+
+                this.Add();
+            }
+
         }
 
         #endregion
@@ -129,9 +153,9 @@ namespace SuperMarketSystem.OrderPart
         /// </summary>
         public void Add()
         {
-            TextBox quantityText = this.orderView.FooterRow.FindControl("QuantityText") as TextBox;
-            TextBox productIdText = this.orderView.FooterRow.FindControl("ProductIdText") as TextBox;
-            this.Presenter.Add(int.Parse(productIdText.Text), int.Parse(quantityText.Text));
+            ReserveItems();
+            InsertNewItem();
+            this.Draw();
         }
 
         /// <summary>
@@ -141,20 +165,73 @@ namespace SuperMarketSystem.OrderPart
         {
             this.Presenter.Submit();
         }
-        #endregion
 
-
+        /// <summary>
+        /// Draws the grid.
+        /// </summary>
         public void Draw()
         {
-            this.orderView.DataSource = this.Model.Items;
-            this.orderView.DataBind();
+            if (this.Model.Items.Count == 0) ///Workaaround for showing the empty grid.
+            {
+                this.Clear();
+            }
+            else
+            {
+                this.orderView.DataSource = this.Model.Items;
+                this.orderView.DataBind();
+            }
         }
 
+        /// <summary>
+        /// Clears the grid.
+        /// </summary>
         public void Clear()
         {
             this.Model.Items = new List<ProductItem>();
+            this.Model.Items.Add(new ProductItem());      ///Workaaround for showing the empty grid.      
             this.orderView.DataSource = this.Model.Items;
             this.orderView.DataBind();
+            this.orderView.Rows[0].Visible = false;     ///Workaaround for showing the empty grid.
         }
+        #endregion
+
+        #region Methods - Helpers
+        /// <summary>
+        /// Inserts the new item.
+        /// </summary>
+        private void InsertNewItem()
+        {
+            TextBox quantityText = this.orderView.FooterRow.FindControl(quantityTextID) as TextBox;
+            TextBox productIdText = this.orderView.FooterRow.FindControl(IdTextID) as TextBox;
+
+            if (string.IsNullOrEmpty(productIdText.Text) || string.IsNullOrEmpty(quantityText.Text))
+            {
+                return;
+            }
+
+            int productId = int.Parse(productIdText.Text);
+            int quantity = int.Parse(quantityText.Text);
+            this.Presenter.Add(productId, quantity);
+        }
+
+        /// <summary>
+        /// Reserves the items.
+        /// </summary>
+        private void ReserveItems()
+        {
+            for (int i = 0; i < this.orderView.Rows.Count; i++)
+            {
+                Label quantityLabel = this.orderView.Rows[i].FindControl(quantityLabelID) as Label;
+                Label idLabel = this.orderView.Rows[i].FindControl(IdLabelID) as Label;
+                if (string.IsNullOrEmpty(quantityLabel.Text) || string.IsNullOrEmpty(idLabel.Text))
+                {
+                    continue;
+                }
+                int productId = int.Parse(idLabel.Text);
+                int quantity = int.Parse(quantityLabel.Text);
+                this.Presenter.Add(productId, quantity);
+            }
+        } 
+        #endregion
     }
 }

@@ -48,40 +48,37 @@
     <div class="well">
         <h1>Place an Order</h1>
         <asp:Button CssClass="btn" ID="ClearButton" runat="server" OnClick="ClearButtonClick" Text="New" />
-        <asp:GridView ID="orderView" runat="server" ShowFooter="true" AutoGenerateColumns="false" OnRowCreated="OnRowCreated">
+        <asp:GridView 
+            ID="orderView" 
+            runat="server" 
+            ShowFooter="true" 
+            ShowHeaderWhenEmpty="true" 
+            AutoGenerateColumns="false" 
+            OnRowCommand="OnRowCommand"
+            OnRowCreated="OnRowCreated">
             <Columns>
                 <asp:TemplateField HeaderText="Product ID">
                     <ItemTemplate>
-                        <%# Eval("ProductId") %>
+                      <asp:Label ID="IdLabel" runat="server" Text='<%# Bind("ProductId") %>'></asp:Label>
                     </ItemTemplate>
-                    <InsertItemTemplate>
-                        <asp:DropDownList
-                            DataTextField="ProductId"
-                            DataSourceID="ProductIDs"
-                            runat="server" />
-                    </InsertItemTemplate>
                     <FooterTemplate>
-                        <asp:TextBox ID="ProductIdText" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="ProductIdText" runat="server" Text="0"></asp:TextBox>
                     </FooterTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Quantity">
                     <ItemTemplate>
-                        <%# Eval("Quantity") %>
+                        <asp:Label ID="QuantityLabel" runat="server" Text='<%# Eval("Quantity") %>'></asp:Label>
                     </ItemTemplate>
                     <FooterTemplate>
-                        <asp:TextBox ID="QuantityText" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="QuantityText" runat="server" Text="0"></asp:TextBox>
                     </FooterTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="Total"
-                    ItemStyle-HorizontalAlign="Right"
-                    FooterStyle-HorizontalAlign="Right">
+                <asp:TemplateField HeaderText="Total">
                     <ItemTemplate>
-                        <%#Eval("Total", "{0:c}") %>
+                        <%# Eval("Total", "{0:c}") %>
                     </ItemTemplate>
                     <FooterTemplate>
-                        <asp:Button ID="AddButton"
-                            runat="server"
-                            OnClick="AddButton_Click" Text="Add"/>
+                        <asp:Button CommandName="AddToCart" Text="Add" runat="server"/>
                     </FooterTemplate>
                 </asp:TemplateField>
             </Columns>

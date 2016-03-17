@@ -54,9 +54,10 @@ namespace SuperMarketSystem.Presenters
         /// <param name="item">
         /// The item.
         /// </param>
-        public void Add(Models.ProductItem item)
+        public void Add(ProductItem item)
         {
             this.View.Model.Items.Add(item);
+            this.View.Draw();
             Console.WriteLine("Item added");
         }
 
@@ -71,6 +72,26 @@ namespace SuperMarketSystem.Presenters
                 Command command = new PlaceOrderCommand() { Order = order};
                 command.Execute();
             }
+            this.View.Clear();
+        }
+
+
+        /// <summary>
+        /// Adds the specified product identifier.
+        /// </summary>
+        /// <param name="productId">The product identifier.</param>
+        /// <param name="quantity">The quantity.</param>
+        public void Add(int productId, int quantity)
+        {
+            var item = new ProductItem
+            { 
+                ProductId = productId, 
+                Quantity = quantity, 
+                Total = productId* quantity 
+                ///TODO: calculate total
+            };
+
+            this.Add(item);
         }
     }
 }

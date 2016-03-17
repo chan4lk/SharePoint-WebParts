@@ -6,6 +6,7 @@ using SuperMarketSystem.Views;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 
 namespace SuperMarketSystem.OrderPart
@@ -31,17 +32,20 @@ namespace SuperMarketSystem.OrderPart
             set;
         }
 
+        public List<int> ProductIds { get; set; }
+
         /// <summary>
         /// Gets or sets the presenter.
         /// </summary>
         /// <value>
         /// The presenter.
         /// </value>
+        [Dependency]
         public IOrderPresenter Presenter
         {
             get;
             set;
-        } 
+        }
         #endregion
 
         #region Methods - Constructors
@@ -53,7 +57,9 @@ namespace SuperMarketSystem.OrderPart
         public OrderPart()
         {
             this.Presenter = ConfigurationManager.Container.Resolve<IOrderPresenter>();
-        } 
+            this.Model = new OrderViewModel();
+            this.Presenter.Initailize(this);
+        }
         #endregion
 
         #region Methods - Event Handlers
@@ -74,10 +80,8 @@ namespace SuperMarketSystem.OrderPart
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load(object sender, EventArgs e)
         {
-            this.Model = new OrderViewModel();
-            this.Presenter.Initailize(this);
-            this.orderView.DataSource = this.Model.Items;
-            this.orderView.DataBind();
+                this.ProductIds = new List<int> { 1, 2, 3, 4 };
+                this.Draw();
         }
 
         /// <summary>
@@ -85,7 +89,7 @@ namespace SuperMarketSystem.OrderPart
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void AddButtonClick(object sender, EventArgs e)
+        private void ClearButtonClick(object sender, EventArgs e)
         {
             this.Add();
         }
@@ -108,6 +112,12 @@ namespace SuperMarketSystem.OrderPart
         private void OnRowCreated(object sender, EventArgs e)
         {
             /// Handle.
+            //this.Add();
+            Console.WriteLine("Row Created");
+        }
+
+        protected void AddButton_Click(object sender, EventArgs e)
+        {
             this.Add();
         }
 
@@ -119,7 +129,9 @@ namespace SuperMarketSystem.OrderPart
         /// </summary>
         public void Add()
         {
-            this.Presenter.Add(new ProductItem { Quantity = 3, ProductId = 3, Total = 12.5M });
+            TextBox quantityText = this.orderView.FooterRow.FindControl("QuantityText") as TextBox;
+            TextBox productIdText = this.orderView.FooterRow.FindControl("ProductIdText") as TextBox;
+            this.Presenter.Add(int.Parse(productIdText.Text), int.Parse(quantityText.Text));
         }
 
         /// <summary>
@@ -128,7 +140,21 @@ namespace SuperMarketSystem.OrderPart
         public void Submit()
         {
             this.Presenter.Submit();
-        } 
+        }
         #endregion
+
+
+        public void Draw()
+        {
+            this.orderView.DataSource = this.Model.Items;
+            this.orderView.DataBind();
+        }
+
+        public void Clear()
+        {
+            this.Model.Items = new List<ProductItem>();
+            this.orderView.DataSource = this.Model.Items;
+            this.orderView.DataBind();
+        }
     }
 }

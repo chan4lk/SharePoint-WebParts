@@ -137,7 +137,9 @@
     <Content Include="Lists\Order\Elements.xml" />
     <Content Include="Lists\Order\OrderInstance\Elements.xml" />
     <Content Include="Lists\Order\Schema.xml" />
-    <Content Include="Lists\ProductCategory\Elements.xml" />
+    <Content Include="Lists\ProductCategory\Elements.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Lists\ProductCategory\ProductCategoryInstance\Elements.xml" />
     <Content Include="Lists\ProductCategory\Schema.xml" />
     <Content Include="Lists\Product\Elements.xml" />

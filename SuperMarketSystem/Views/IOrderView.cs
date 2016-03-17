@@ -28,6 +28,16 @@ namespace SuperMarketSystem.Views
         /// <summary>
         /// Submits this instance.
         /// </summary>
-        void Submit(); 
+        void Submit();
+
+        /// <summary>
+        /// Draws the grid.
+        /// </summary>
+        void Draw();
+
+        /// <summary>
+        /// Clears the grid.
+        /// </summary>
+        void Clear();
     }
 }

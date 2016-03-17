@@ -29,6 +29,13 @@ namespace SuperMarketSystem.Presenters
         void Add(ProductItem item);
 
         /// <summary>
+        /// Adds the specified product identifier.
+        /// </summary>
+        /// <param name="productId">The product identifier.</param>
+        /// <param name="quantity">The quantity.</param>
+        void Add(int productId, int quantity);
+
+        /// <summary>
         /// Submits this order.
         /// </summary>
         void Submit();

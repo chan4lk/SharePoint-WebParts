@@ -6,23 +6,15 @@ using System.Threading.Tasks;
 
 namespace SuperMarketSystem.Models
 {
-    public class ProductItem
+    public class Invoice
     {
         /// <summary>
-        /// Gets or sets the product identifier.
+        /// Gets or sets the identifier.
         /// </summary>
         /// <value>
-        /// The product identifier.
+        /// The identifier.
         /// </value>
-        public int ProductId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the quantity.
-        /// </summary>
-        /// <value>
-        /// The quantity.
-        /// </value>
-        public int Quantity { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Gets or sets the total.
@@ -31,5 +23,13 @@ namespace SuperMarketSystem.Models
         /// The total.
         /// </value>
         public decimal Total { get; set; }
+
+        /// <summary>
+        /// Gets or sets the date.
+        /// </summary>
+        /// <value>
+        /// The date.
+        /// </value>
+        public DateTime Date { get; set; }
     }
 }

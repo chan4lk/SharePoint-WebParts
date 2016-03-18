@@ -56,12 +56,6 @@ namespace SuperMarketSystem.Presenters
         /// </param>
         public void Add(ProductItem item)
         {
-            ///// Workarround for showing the empty grid.
-            //if (this.View.Model.Items.Count == 1)
-            //{
-            //    this.View.Model.Items.Clear();
-            //}
-
             this.View.Model.Items.Add(item);
             Console.WriteLine("Item added");
         }
@@ -71,11 +65,33 @@ namespace SuperMarketSystem.Presenters
         /// </summary>
         public void Submit()
         {
+            int invoiceID = 0;
+            var total = this.View.Model.Total;
+
+            Command command = new CreateInvoiceCommand
+            {
+                Invoice = new Invoice
+                {
+                    Total = total,
+                    Date = DateTime.Now
+                }
+            };
+
+            command.Execute();
+
+            invoiceID = ((CreateInvoiceCommand)command).InvoiceId;            
+
             foreach (var item in this.View.Model.Items)
             {
-                var order = new Order() { ProductId = item.ProductId, Total = item.Total };
-                Command command = new PlaceOrderCommand() { Order = order};
-                command.Execute();
+                var order = new Order() 
+                { 
+                    ProductId = item.ProductId,
+                    InvoiceId = invoiceID,
+                    Quantity= item.Quantity, 
+                    Total = item.Total 
+                };
+                Command orderCommand = new CreateOrderCommand() { Order = order};
+                orderCommand.Execute();
             }
             this.View.Clear();
         }
@@ -94,12 +110,20 @@ namespace SuperMarketSystem.Presenters
                 return;
             }
 
+            GetProductPriceCommand command = new GetProductPriceCommand()
+            { 
+                ProductId = productId
+            };
+
+            command.Execute();
+
+            Product product = command.Product;
+
             var item = new ProductItem
             { 
                 ProductId = productId, 
                 Quantity = quantity, 
-                Total = productId * quantity 
-                ///TODO: calculate total
+                Total = quantity * product.Price 
             };
 
             this.Add(item);

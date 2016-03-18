@@ -9,7 +9,7 @@
       </ContentTypeRef><ContentTypeRef ID="0x0120" /></ContentTypes>
     <Fields>
       
-    <Field ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Type="Text" Name="Title" DisplayName="$Resources:core,Title;" Required="FALSE" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="Title" MaxLength="255" /><Field Name="OrderId" ID="{0f1980ab-16b9-439e-9a77-0b39e700f94d}" DisplayName="OrderId" Type="Number" Required="TRUE" /><Field Name="InvoiceId" ID="{2afcb27a-c1de-4332-abfe-5c5d7cdf77af}" DisplayName="InvoiceId" Type="Lookup" /><Field Name="ProductId" ID="{ec3acad6-24de-4279-9678-4bdc3fdd48eb}" DisplayName="ProductId" Type="Lookup" /><Field Name="Quantity" ID="{557d9341-0ae3-40a6-b2b3-d7da87b2e473}" DisplayName="Quantity" Type="Number" /><Field Name="Total" ID="{6249583f-5a46-431d-afeb-d97d895eb695}" DisplayName="Total" Type="Currency" /></Fields>
+    <Field ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Type="Text" Name="Title" DisplayName="$Resources:core,Title;" Required="FALSE" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="Title" MaxLength="255" /><Field Name="OrderId" ID="{0f1980ab-16b9-439e-9a77-0b39e700f94d}" DisplayName="OrderId" Type="Number" Required="FALSE" /><Field Name="InvoiceId" ID="{2afcb27a-c1de-4332-abfe-5c5d7cdf77af}" DisplayName="InvoiceId" Type="Lookup" List="Invoice" ShowField="InvoiceId" /><Field Name="ProductId" ID="{ec3acad6-24de-4279-9678-4bdc3fdd48eb}" DisplayName="ProductId" Type="Lookup" List="Product" ShowField="ProductId" /><Field Name="Quantity" ID="{557d9341-0ae3-40a6-b2b3-d7da87b2e473}" DisplayName="Quantity" Type="Number" /><Field Name="Total" ID="{6249583f-5a46-431d-afeb-d97d895eb695}" DisplayName="Total" Type="Currency" /></Fields>
     <Views>
       
       
@@ -37,7 +37,7 @@
         <RowLimit Paged="TRUE">30</RowLimit>
         <ViewFields>
           
-        <FieldRef Name="OrderId" /><FieldRef Name="InvoiceId" /><FieldRef Name="ProductId" /><FieldRef Name="Quantity" /><FieldRef Name="Total" /></ViewFields>
+        <FieldRef Name="InvoiceId" /><FieldRef Name="ProductId" /><FieldRef Name="Quantity" /><FieldRef Name="Total" /><FieldRef Name="ID" /></ViewFields>
         <Query>
           <OrderBy>
             

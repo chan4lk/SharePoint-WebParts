@@ -20,12 +20,18 @@ namespace SuperMarketSystem.Models
         public List<ProductItem> Items { get; set; }
 
         /// <summary>
-        /// Gets or sets the total.
+        /// Gets the total.
         /// </summary>
         /// <value>
         /// The total.
         /// </value>
-        public decimal Total { get; set; }
+        public decimal Total
+        {
+            get
+            {
+                return this.Items.Sum(i => i.Total);
+            }
+        }
 
         /// <summary>
         /// Gets or sets the name of the user.

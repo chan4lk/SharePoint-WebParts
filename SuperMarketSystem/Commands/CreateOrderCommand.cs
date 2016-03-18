@@ -1,4 +1,5 @@
 ﻿using SuperMarketSystem.Models;
+using SuperMarketSystem.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace SuperMarketSystem.Commands
     /// This command place a new order.
     /// </summary>
     /// <seealso cref="SuperMarketSystem.Commands.Command" />
-    public class PlaceOrderCommand : Command
+    public class CreateOrderCommand : Command
     {
         /// <summary>
         /// Gets or sets the order.
@@ -24,9 +25,9 @@ namespace SuperMarketSystem.Commands
         /// <summary>
         /// Executes the asynchronous.
         /// </summary>
-        public override void ExecuteAsync()
+        public override Task ExecuteAsync()
         {
-            Console.WriteLine("Execute async {0} ", Order.ProductId);
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -34,7 +35,17 @@ namespace SuperMarketSystem.Commands
         /// </summary>
         public override void Execute()
         {
-            ExecuteAsync();
+            try
+            {
+                IRepository<Order> repository = new OrderRepository();
+                repository.Create(this.Order);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Could not create order");
+                throw;
+            }
+           
         }
     }
 }

@@ -1,4 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Elements xmlns="http://schemas.microsoft.com/sharepoint/">
-  <ListInstance Title="Product" OnQuickLaunch="TRUE" TemplateType="10001" Url="Lists/Product" Description="Products"></ListInstance>
+  <ListInstance Title="Product" OnQuickLaunch="TRUE" TemplateType="10001" Url="Lists/Product" Description="Products">
+    <Data>
+      <Rows>
+        <Row>
+          <Field Name="ProductId">1</Field>
+          <Field Name="CategoryName">1</Field>
+          <Field Name="Price">20</Field>
+        </Row>
+        <Row>
+          <Field Name="ProductId">2</Field>
+          <Field Name="CategoryName">3</Field>
+          <Field Name="Price">40</Field>
+        </Row>
+        <Row>
+          <Field Name="ProductId">3</Field>
+          <Field Name="CategoryName">2</Field>
+          <Field Name="Price">80</Field>
+        </Row>
+        <Row>
+          <Field Name="ProductId">4</Field>
+          <Field Name="CategoryName">4</Field>
+          <Field Name="Price">120</Field>
+        </Row>
+      </Rows>
+    </Data>
+  </ListInstance>
 </Elements>

@@ -4,12 +4,12 @@
     <ContentTypes>
       
       
-    <ContentType ID="0x0100fd516ae7b0ef40528957a4d951870010" Name="ListFieldsContentType"><FieldRefs><FieldRef ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Name="Title" /><FieldRef ID="{420f2a68-0060-4267-9c9f-38c805653b3a}" Name="ProductId" /><FieldRef ID="{d5636157-3e12-43aa-8388-d9ee3531d1ce}" Name="Category1" /><FieldRef ID="{8e06c23f-2eca-4d5b-a8d7-aac2e157507e}" Name="Price" /></FieldRefs></ContentType><ContentTypeRef ID="0x01">
+    <ContentType ID="0x0100fd516ae7b0ef40528957a4d951870010" Name="ListFieldsContentType"><FieldRefs><FieldRef ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Name="Title" /><FieldRef ID="{420f2a68-0060-4267-9c9f-38c805653b3a}" Name="ProductId" /><FieldRef ID="{d5636157-3e12-43aa-8388-d9ee3531d1ce}" Name="CategoryName" /><FieldRef ID="{8e06c23f-2eca-4d5b-a8d7-aac2e157507e}" Name="Price" /></FieldRefs></ContentType><ContentTypeRef ID="0x01">
         <Folder TargetName="Item" />
       </ContentTypeRef><ContentTypeRef ID="0x0120" /></ContentTypes>
     <Fields>
       
-    <Field ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Type="Text" Name="Title" DisplayName="$Resources:core,Title;" Required="FALSE" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="Title" MaxLength="255" /><Field Name="ProductId" ID="{420f2a68-0060-4267-9c9f-38c805653b3a}" DisplayName="ProductId" Type="Number" Required="TRUE" /><Field Name="Category1" ID="{d5636157-3e12-43aa-8388-d9ee3531d1ce}" DisplayName="Category" Type="Lookup" /><Field Name="Price" ID="{8e06c23f-2eca-4d5b-a8d7-aac2e157507e}" DisplayName="Price" Type="Currency" /></Fields>
+    <Field ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Type="Text" Name="Title" DisplayName="$Resources:core,Title;" Required="FALSE" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="Title" MaxLength="255" /><Field Name="ProductId" ID="{420f2a68-0060-4267-9c9f-38c805653b3a}" DisplayName="ProductId" Type="Number" Required="TRUE" /><Field Name="CategoryName" ID="{d5636157-3e12-43aa-8388-d9ee3531d1ce}" DisplayName="Category" Type="Lookup" List="Lists/ProductCategory" ShowField="CategoryName" /><Field Name="Price" ID="{8e06c23f-2eca-4d5b-a8d7-aac2e157507e}" DisplayName="Price" Type="Currency" /></Fields>
     <Views>
       
       
@@ -37,7 +37,7 @@
         <RowLimit Paged="TRUE">30</RowLimit>
         <ViewFields>
           
-        <FieldRef Name="ProductId" /><FieldRef Name="Category1" /><FieldRef Name="Price" /></ViewFields>
+        <FieldRef Name="ProductId" /><FieldRef Name="CategoryName" /><FieldRef Name="Price" /></ViewFields>
         <Query>
           <OrderBy>
             

@@ -52,6 +52,14 @@ namespace SuperMarketSystem.Models
         public int ProductId { get; set; }
 
         /// <summary>
+        /// Gets or sets the quantity.
+        /// </summary>
+        /// <value>
+        /// The quantity.
+        /// </value>
+        public int Quantity { get; set; }
+
+        /// <summary>
         /// Gets or sets the total.
         /// </summary>
         /// <value>

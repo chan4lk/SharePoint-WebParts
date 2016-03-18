@@ -71,13 +71,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\Command.cs" />
-    <Compile Include="Commands\PlaceOrderCommand.cs" />
+    <Compile Include="Commands\CreateInvoiceCommand.cs" />
+    <Compile Include="Commands\GetProductPriceCommand.cs" />
+    <Compile Include="Commands\CreateOrderCommand.cs" />
     <Compile Include="Common\BasePart.cs" />
     <Compile Include="Common\ConfigurationManager.cs" />
     <Compile Include="Features\SuperMarketFeature\SuperMarketFeature.EventReceiver.cs">
       <DependentUpon>SuperMarketFeature.feature</DependentUpon>
     </Compile>
     <Compile Include="Models\IDomainEntity.cs" />
+    <Compile Include="Models\Invoice.cs" />
+    <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductItem.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderViewModel.cs" />
@@ -90,6 +94,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>OrderPart.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Repository\InvoiceRepository.cs" />
+    <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="Repository\OrderRepository.cs" />
+    <Compile Include="Repository\ProductRepository.cs" />
     <Compile Include="Views\IOrderView.cs" />
   </ItemGroup>
   <ItemGroup>

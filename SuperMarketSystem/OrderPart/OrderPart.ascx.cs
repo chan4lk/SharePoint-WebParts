@@ -97,6 +97,7 @@ namespace SuperMarketSystem.OrderPart
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void SubmitButtonClick(object sender, EventArgs e)
         {
+            this.ReserveItems();
             this.Submit();
         }
 

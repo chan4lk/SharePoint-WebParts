@@ -78,7 +78,7 @@
                         <%# Eval("Total", "{0:c}") %>
                     </ItemTemplate>
                     <FooterTemplate>
-                        <asp:Button CommandName="AddToCart" Text="Add" runat="server"/>
+                        <asp:Button CssClass="btn" CommandName="AddToCart" Text="Add" runat="server"/>
                     </FooterTemplate>
                 </asp:TemplateField>
             </Columns>

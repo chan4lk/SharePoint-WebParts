@@ -17,7 +17,7 @@ namespace SuperMarketSystem.OrderPart
     /// <seealso cref="System.Web.UI.WebControls.WebParts.WebPart" />
     /// <seealso cref="SuperMarketSystem.Views.IOrderView" />
     [ToolboxItemAttribute(false)]
-    public partial class OrderPart : WebPart, IOrderView
+    public partial class OrderPart : BasePart<OrderPresenter, IOrderView>, IOrderView
     {
         #region Properties - Public Members
         /// <summary>
@@ -34,18 +34,6 @@ namespace SuperMarketSystem.OrderPart
 
         public List<int> ProductIds { get; set; }
 
-        /// <summary>
-        /// Gets or sets the presenter.
-        /// </summary>
-        /// <value>
-        /// The presenter.
-        /// </value>
-        [Dependency]
-        public IOrderPresenter Presenter
-        {
-            get;
-            set;
-        }
         #endregion
 
         #region Constants - Privae Memebers
@@ -61,9 +49,8 @@ namespace SuperMarketSystem.OrderPart
         // for production. Because the SecurityPermission attribute bypasses the security check for callers of
         // your constructor, it's not recommended for production purposes.
         // [System.Security.Permissions.SecurityPermission(System.Security.Permissions.SecurityAction.Assert, UnmanagedCode = true)]
-        public OrderPart()
+        public OrderPart():base()
         {
-            this.Presenter = ConfigurationManager.Container.Resolve<IOrderPresenter>();
             this.Presenter.Initailize(this);
         }
         #endregion
@@ -86,9 +73,6 @@ namespace SuperMarketSystem.OrderPart
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load(object sender, EventArgs e)
         {
-            this.Model = new OrderViewModel();
-            this.Model.Items = new List<ProductItem>();
-
             if (!Page.IsPostBack)
             {                
                 this.Draw();
@@ -128,18 +112,15 @@ namespace SuperMarketSystem.OrderPart
             Console.WriteLine("Row Created");
         }
 
+        /// <summary>
+        /// Called when [row command].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="GridViewCommandEventArgs"/> instance containing the event data.</param>
         protected void OnRowCommand(object sender,  GridViewCommandEventArgs e)
         {
             if (e.CommandName == "AddToCart")
             {
-                // Retrieve the row index stored in the 
-                // CommandArgument property.
-                // int index = Convert.ToInt32(e.CommandArgument);
-
-                // Retrieve the row that contains the button 
-                // from the Rows collection.
-                // GridViewRow row = orderView.Rows[index];
-
                 this.Add();
             }
 

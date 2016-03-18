@@ -15,7 +15,7 @@ namespace SuperMarketSystem.Presenters
     /// Order presenter.
     /// </summary>
     /// <seealso cref="SuperMarketSystem.Presenters.IOrderPresenter" />
-    public class OrderPresenter : IOrderPresenter
+    public class OrderPresenter : IOrderPresenter<IOrderView>
     {
         /// <summary>
         /// Gets or sets the view.
@@ -43,7 +43,9 @@ namespace SuperMarketSystem.Presenters
         /// <param name="view">The view.</param>
         public void Initailize(IOrderView view)
         {
-            this.View = view;            
+            this.View = view;
+            this.View.Model = new OrderViewModel();
+            this.View.Model.Items = new List<ProductItem>();
         }
 
         /// <summary>
@@ -86,11 +88,17 @@ namespace SuperMarketSystem.Presenters
         /// <param name="quantity">The quantity.</param>
         public void Add(int productId, int quantity)
         {
+            if (productId == 0 || quantity == 0)
+            {
+                Console.WriteLine("Cannot add item with zero count or id");
+                return;
+            }
+
             var item = new ProductItem
             { 
                 ProductId = productId, 
                 Quantity = quantity, 
-                Total = productId* quantity 
+                Total = productId * quantity 
                 ///TODO: calculate total
             };
 

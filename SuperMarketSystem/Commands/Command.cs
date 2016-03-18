@@ -19,6 +19,6 @@ namespace SuperMarketSystem.Commands
         /// <summary>
         /// Executes the asynchronous.
         /// </summary>
-        public abstract void ExecuteAsync();
+        public abstract Task ExecuteAsync();
     }
 }

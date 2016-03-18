@@ -12,7 +12,7 @@ namespace SuperMarketSystem.Presenters
     /// Order presenter contract.
     /// </summary>
     /// <seealso cref="SuperMarketSystem.Presenters.IPresenter" />
-    public interface IOrderPresenter : IPresenter
+    public interface IOrderPresenter<TView> : IPresenter where TView : IOrderView
     {
         /// <summary>
         /// Gets or sets the view.
@@ -20,7 +20,7 @@ namespace SuperMarketSystem.Presenters
         /// <value>
         /// The view.
         /// </value>
-        IOrderView View { get; set; }
+        TView View { get; set; }
 
         /// <summary>
         /// Adds the specified item.
@@ -44,6 +44,6 @@ namespace SuperMarketSystem.Presenters
         /// Initailizes the specified view.
         /// </summary>
         /// <param name="view">The view.</param>
-        void Initailize(IOrderView view);
+        void Initailize(TView view);
     }
 }

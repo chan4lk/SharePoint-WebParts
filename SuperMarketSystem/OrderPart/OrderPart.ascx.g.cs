@@ -233,6 +233,7 @@ namespace SuperMarketSystem.OrderPart {
             @__ctrl = new global::System.Web.UI.WebControls.Button();
             @__ctrl.TemplateControl = this;
             @__ctrl.ApplyStyleSheetSkin(this.Page);
+            @__ctrl.CssClass = "btn";
             @__ctrl.CommandName = "AddToCart";
             @__ctrl.Text = "Add";
             return @__ctrl;

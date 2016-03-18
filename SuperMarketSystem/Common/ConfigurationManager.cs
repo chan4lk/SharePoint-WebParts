@@ -33,7 +33,7 @@ namespace SuperMarketSystem.Common
                 {
                     _instance = new UnityContainer();
                     _instance.RegisterType<IOrderView, OrderPart.OrderPart>()
-                             .RegisterType<IOrderPresenter, OrderPresenter>();
+                             .RegisterType<IOrderPresenter<IOrderView>, OrderPresenter>();
                 }
 
                 return _instance;

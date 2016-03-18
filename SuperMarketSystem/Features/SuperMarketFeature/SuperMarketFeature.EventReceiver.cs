@@ -6,6 +6,7 @@ using Microsoft.Practices.ServiceLocation;
 using Microsoft.Practices.Unity;
 using SuperMarketSystem.Presenters;
 using SuperMarketSystem.Common;
+using SuperMarketSystem.Views;
 
 namespace SuperMarketSystem.Features.SuperMarketFeature
 {
@@ -21,11 +22,11 @@ namespace SuperMarketSystem.Features.SuperMarketFeature
     {
         // Uncomment the method below to handle the event raised after a feature has been activated.
 
-        public override void FeatureActivated(SPFeatureReceiverProperties properties)
-        {
-            IUnityContainer container = ConfigurationManager.Container;
-            container.RegisterType<IOrderPresenter, OrderPresenter>();
-        }
+        //public override void FeatureActivated(SPFeatureReceiverProperties properties)
+        //{
+        //    IUnityContainer container = ConfigurationManager.Container;
+        //    container.RegisterType<IOrderPresenter<IOrderView>, OrderPresenter>();
+        //}
 
 
         // Uncomment the method below to handle the event raised before a feature is deactivated.

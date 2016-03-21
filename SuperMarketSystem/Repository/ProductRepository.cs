@@ -14,17 +14,36 @@ namespace SuperMarketSystem.Repository
     /// <seealso cref="SuperMarketSystem.Repository.IRepository{SuperMarketSystem.Models.Product}" />
     public class ProductRepository : IRepository<Product>, IDisposable
     {
-        private const string LIST_NAME = "Product";
-        private const string ID_FIELD = "ProductId";
-        private const string CATEGORY_FIELD = "CategoryName";
-        private const string PRICE_FIELD = "Price";
+        /// <summary>
+        /// The list name.
+        /// </summary>
+        private const string ListName = "Product";
+
+        /// <summary>
+        /// The field identifier.
+        /// </summary>
+        private const string FieldId = "ProductId";
+
+        /// <summary>
+        /// The field category.
+        /// </summary>
+        private const string FieldCategory = "CategoryName";
+
+        /// <summary>
+        /// The field price
+        /// </summary>
+        private const string FieldPrice = "Price";
 
         /// <summary>
         /// Creates the specified item.
         /// </summary>
         /// <param name="item">The item.</param>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
+        /// <returns>
+        /// The identifier.
+        /// </returns>
+        /// <exception cref="NotImplementedException">
+        /// This is not implemented.
+        /// </exception>
         public int Create(Product item)
         {
             throw new NotImplementedException();
@@ -34,8 +53,12 @@ namespace SuperMarketSystem.Repository
         /// Updates the specified item.
         /// </summary>
         /// <param name="item">The item.</param>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
+        /// <returns>
+        /// The identifier.
+        /// </returns>
+        /// <exception cref="NotImplementedException">
+        /// This is not implemented.
+        /// </exception>
         public int Update(Product item)
         {
             throw new NotImplementedException();
@@ -45,8 +68,12 @@ namespace SuperMarketSystem.Repository
         /// Deletes the specified identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
+        /// <returns>
+        /// The identifier if success.
+        /// </returns>
+        /// <exception cref="NotImplementedException">
+        /// This is not implemented.
+        /// </exception>
         public int Delete(int id)
         {
             throw new NotImplementedException();
@@ -56,14 +83,16 @@ namespace SuperMarketSystem.Repository
         /// Gets the by identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <returns></returns>
+        /// <returns>
+        /// The product.
+        /// </returns>
         public Product GetById(int id)
         {
             Product item = null;
 
             SPSite site = SPContext.Current.Site;
             SPWeb web = site.RootWeb;
-            SPList list = web.Lists[ProductRepository.LIST_NAME];
+            SPList list = web.Lists[ProductRepository.ListName];
             SPQuery query = new SPQuery()
             {
                 Query = @"<Where><Eq>
@@ -80,9 +109,9 @@ namespace SuperMarketSystem.Repository
             SPListItemCollection products = list.GetItems(query);
             item = new Product
             {
-                ProductId = int.Parse(products[0][ID_FIELD].ToString()),
-                Price = decimal.Parse(products[0][PRICE_FIELD].ToString()),
-                Category = products[0][CATEGORY_FIELD].ToString()
+                ProductId = int.Parse(products[0][FieldId].ToString()),
+                Price = decimal.Parse(products[0][FieldPrice].ToString()),
+                Category = products[0][FieldCategory].ToString().Remove(0, 3)
             };
 
             return item;
@@ -102,7 +131,7 @@ namespace SuperMarketSystem.Repository
             {
                 using (SPWeb web = site.RootWeb)
                 {
-                    SPList list = web.Lists[ProductRepository.LIST_NAME];
+                    SPList list = web.Lists[ProductRepository.ListName];
                     SPQuery query = new SPQuery()
                     {
                         Query = @"<Query>                                   
@@ -121,16 +150,14 @@ namespace SuperMarketSystem.Repository
                     {
                         var item = new Product
                         {
-                            ProductId = int.Parse(product[ID_FIELD].ToString()),
-                            Price = decimal.Parse(product[PRICE_FIELD].ToString()),
-                            Category = product[CATEGORY_FIELD].ToString()
+                            ProductId = int.Parse(product[FieldId].ToString()),
+                            Price = decimal.Parse(product[FieldPrice].ToString()),
+                            Category = product[FieldCategory].ToString()
                         };
 
                         items.Add(item);
                     }
-
                 }
-
             }
 
             return items;

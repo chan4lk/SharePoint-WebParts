@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace SuperMarketSystem.Commands
 {
@@ -19,6 +15,9 @@ namespace SuperMarketSystem.Commands
         /// <summary>
         /// Executes the asynchronous.
         /// </summary>
+        /// <returns>
+        /// The task.
+        /// </returns>
         public abstract Task ExecuteAsync();
     }
 }

@@ -1,9 +1,6 @@
 ﻿using SuperMarketSystem.Models;
 using SuperMarketSystem.Repository;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SuperMarketSystem.Commands
@@ -45,9 +42,17 @@ namespace SuperMarketSystem.Commands
                 Console.WriteLine(exp.Message);
                 throw;
             }
-            
         }
 
+        /// <summary>
+        /// Executes the asynchronous.
+        /// </summary>
+        /// <returns>
+        /// The task.
+        /// </returns>
+        /// <exception cref="NotImplementedException">
+        /// This is not implemented.
+        /// </exception>
         public override Task ExecuteAsync()
         {
             throw new NotImplementedException();

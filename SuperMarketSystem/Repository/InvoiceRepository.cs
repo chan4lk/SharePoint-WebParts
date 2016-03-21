@@ -2,23 +2,41 @@
 using SuperMarketSystem.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SuperMarketSystem.Repository
 {
+    /// <summary>
+    /// The invoice repository.
+    /// </summary>
+    /// <seealso cref="SuperMarketSystem.Repository.IRepository{SuperMarketSystem.Models.Invoice}" />
     public class InvoiceRepository : IRepository<Invoice>
     {
-        private const string LIST_NAME = "Invoice";
-        private const string FIELD_INVOICE_ID = "InvoiceId";
-        private const string FIELD_DATE = "Date";
-        private const string FIELD_TOTAL = "Total";
+        /// <summary>
+        /// The list name.
+        /// </summary>
+        private const string ListName = "Invoice";
+
+        /// <summary>
+        /// The field invoice identifier.
+        /// </summary>
+        private const string FieldInvoiceId = "InvoiceId";
+
+        /// <summary>
+        /// The field date.
+        /// </summary>
+        private const string FieldDate = "Date";
+
+        /// <summary>
+        /// The field total.
+        /// </summary>
+        private const string FieldTotal = "Total";
 
         /// <summary>
         /// Creates the specified invoice.
         /// </summary>
-        /// <param name="invoice">The invoice.</param>
+        /// <param name="invoice">
+        /// The invoice.
+        /// </param>
         /// <returns>
         /// 0 if success.
         /// </returns>
@@ -27,11 +45,11 @@ namespace SuperMarketSystem.Repository
             int result = 0;
 
             SPWeb web = SPContext.Current.Web;
-            SPList list = web.Lists[InvoiceRepository.LIST_NAME];
+            SPList list = web.Lists[InvoiceRepository.ListName];
             SPListItem item = list.Items.Add();
 
-            item[FIELD_TOTAL] = invoice.Total;
-            item[FIELD_DATE] = invoice.Date;
+            item[FieldTotal] = invoice.Total;
+            item[FieldDate] = invoice.Date;
 
             item.Update();
 
@@ -40,21 +58,60 @@ namespace SuperMarketSystem.Repository
             return result;
         }
 
+        /// <summary>
+        /// Updates the specified item.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns>
+        /// Id if success.
+        /// </returns>
+        /// <exception cref="NotImplementedException">
+        /// This is not implemented.
+        /// </exception>
         public int Update(Invoice item)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Deletes the specified identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>
+        /// The identifier if success.
+        /// </returns>
+        /// <exception cref="NotImplementedException">
+        /// This is not implemented.
+        /// </exception>
         public int Delete(int id)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Gets the by identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>
+        /// The invoice.
+        /// </returns>
+        /// <exception cref="NotImplementedException">
+        /// This is not implemented.
+        /// </exception>
         public Invoice GetById(int id)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Gets all.
+        /// </summary>
+        /// <returns>
+        /// All the records.
+        /// </returns>
+        /// <exception cref="NotImplementedException">
+        /// This is not implemented.
+        /// </exception>
         public List<Invoice> GetAll()
         {
             throw new NotImplementedException();

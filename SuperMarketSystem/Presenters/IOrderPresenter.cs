@@ -11,6 +11,7 @@ namespace SuperMarketSystem.Presenters
     /// <summary>
     /// Order presenter contract.
     /// </summary>
+    /// <typeparam name="TView">The type of the view.</typeparam>
     /// <seealso cref="SuperMarketSystem.Presenters.IPresenter" />
     public interface IOrderPresenter<TView> : IPresenter where TView : IOrderView
     {
@@ -41,7 +42,7 @@ namespace SuperMarketSystem.Presenters
         void Submit();
 
         /// <summary>
-        /// Initailizes the specified view.
+        /// Initializes the specified view.
         /// </summary>
         /// <param name="view">The view.</param>
         void Initailize(TView view);

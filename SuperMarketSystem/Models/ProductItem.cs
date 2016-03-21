@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace SuperMarketSystem.Models
 {
+    /// <summary>
+    /// The product item model.
+    /// </summary>
     public class ProductItem
     {
         /// <summary>

@@ -25,6 +25,12 @@ namespace SuperMarketSystem.Commands
         /// <summary>
         /// Executes the asynchronous.
         /// </summary>
+        /// <returns>
+        /// The task.
+        /// </returns>
+        /// <exception cref="NotImplementedException">
+        /// This is not implemented.
+        /// </exception>
         public override Task ExecuteAsync()
         {
             throw new NotImplementedException();
@@ -45,7 +51,6 @@ namespace SuperMarketSystem.Commands
                 Console.WriteLine("Could not create order");
                 throw;
             }
-           
         }
     }
 }

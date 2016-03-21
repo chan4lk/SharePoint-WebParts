@@ -15,7 +15,7 @@ namespace SuperMarketSystem.Models
         /// <summary>
         /// The order identifier.
         /// </summary>
-        private int _orderId;
+        private int orderId;
 
         /// <summary>
         /// Gets or sets the identifier.
@@ -27,11 +27,12 @@ namespace SuperMarketSystem.Models
         {
             get
             {
-                return _orderId;
+                return this.orderId;
             }
+
             set
             {
-                _orderId = value;
+                this.orderId = value;
             }
         }
 

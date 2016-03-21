@@ -30,15 +30,14 @@ namespace SuperMarketSystem.Presenters
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="OrderPresenter"/> class.
+        /// Initializes a new instance of the <see cref="OrderPresenter" /> class.
         /// </summary>
-        /// <param name="view">The view.</param>
         public OrderPresenter()
         {
         }
 
         /// <summary>
-        /// Initailizes the specified view.
+        /// Initializes the specified view.
         /// </summary>
         /// <param name="view">The view.</param>
         public void Initailize(IOrderView view)
@@ -79,23 +78,24 @@ namespace SuperMarketSystem.Presenters
 
             command.Execute();
 
-            invoiceID = ((CreateInvoiceCommand)command).InvoiceId;            
+            invoiceID = ((CreateInvoiceCommand)command).InvoiceId;
 
             foreach (var item in this.View.Model.Items)
             {
-                var order = new Order() 
-                { 
+                var order = new Order()
+                {
                     ProductId = item.ProductId,
                     InvoiceId = invoiceID,
-                    Quantity= item.Quantity, 
-                    Total = item.Total 
+                    Quantity = item.Quantity,
+                    Total = item.Total
                 };
-                Command orderCommand = new CreateOrderCommand() { Order = order};
+
+                Command orderCommand = new CreateOrderCommand() { Order = order };
                 orderCommand.Execute();
             }
+
             this.View.Clear();
         }
-
 
         /// <summary>
         /// Adds the specified product identifier.
@@ -111,7 +111,7 @@ namespace SuperMarketSystem.Presenters
             }
 
             GetProductPriceCommand command = new GetProductPriceCommand()
-            { 
+            {
                 ProductId = productId
             };
 
@@ -120,10 +120,10 @@ namespace SuperMarketSystem.Presenters
             Product product = command.Product;
 
             var item = new ProductItem
-            { 
-                ProductId = productId, 
-                Quantity = quantity, 
-                Total = quantity * product.Price 
+            {
+                ProductId = productId,
+                Quantity = quantity,
+                Total = quantity * product.Price
             };
 
             this.Add(item);

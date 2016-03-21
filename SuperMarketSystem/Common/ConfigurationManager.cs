@@ -17,7 +17,7 @@ namespace SuperMarketSystem.Common
         /// <summary>
         /// The container instance.
         /// </summary>
-        private static IUnityContainer _instance;
+        private static IUnityContainer instance;
 
         /// <summary>
         /// Gets the container.
@@ -29,16 +29,15 @@ namespace SuperMarketSystem.Common
         {
             get
             {
-                if (_instance == null)
+                if (instance == null)
                 {
-                    _instance = new UnityContainer();
-                    _instance.RegisterType<IOrderView, OrderPart.OrderPart>()
+                    instance = new UnityContainer();
+                    instance.RegisterType<IOrderView, OrderPart.OrderPart>()
                              .RegisterType<IOrderPresenter<IOrderView>, OrderPresenter>();
                 }
 
-                return _instance;
+                return instance;
             }
         }
-
     }
 }

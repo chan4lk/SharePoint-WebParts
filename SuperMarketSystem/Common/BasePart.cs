@@ -34,9 +34,12 @@ namespace SuperMarketSystem.Common
         public BasePart()
         {
             if (!(this is TView))
-                throw new InvalidOperationException("Must impliment the generic type TView");
+            {
+                throw new InvalidOperationException("Must implement the generic type TView");
+            }
+
             this.Presenter = ConfigurationManager.Container.Resolve<TPresenter>();
-            this.Presenter.View = (TView)(Object)this;
+            this.Presenter.View = (TView)(object)this;
         }
     }
 }

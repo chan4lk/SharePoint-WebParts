@@ -5,6 +5,10 @@ using System.Threading.Tasks;
 
 namespace SuperMarketSystem.Commands
 {
+    /// <summary>
+    /// The command to create an invoice.
+    /// </summary>
+    /// <seealso cref="SuperMarketSystem.Commands.Command" />
     public class CreateInvoiceCommand : Command
     {
         /// <summary>
@@ -29,14 +33,18 @@ namespace SuperMarketSystem.Commands
         public override void Execute()
         {
             IRepository<Invoice> reposioty = new InvoiceRepository();
-            this.InvoiceId =  reposioty.Create(this.Invoice);
+            this.InvoiceId = reposioty.Create(this.Invoice);
         }
 
         /// <summary>
         /// Executes the asynchronous.
         /// </summary>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
+        /// <returns>
+        /// The task.
+        /// </returns>
+        /// <exception cref="NotImplementedException">
+        /// This is not implemented yet.
+        /// </exception>
         public override Task ExecuteAsync()
         {
             throw new NotImplementedException();

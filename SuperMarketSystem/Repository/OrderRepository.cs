@@ -8,14 +8,41 @@ using System.Threading.Tasks;
 
 namespace SuperMarketSystem.Repository
 {
+    /// <summary>
+    /// The order repository.
+    /// </summary>
+    /// <seealso cref="SuperMarketSystem.Repository.IRepository{SuperMarketSystem.Models.Order}" />
     public class OrderRepository : IRepository<Order>
     {
-        private const string LIST_NAME = "Order";
-        private const string FIELD_ORDER_ID = "OrderId";
-        private const string FIELD_INVOICE_ID = "InvoiceId";
-        private const string FIELD_PRODUCT_ID = "ProductId";
-        private const string FIELD_QUANTITY = "Quantity";
-        private const string FIELD_Total = "Total";
+        /// <summary>
+        /// The list name.
+        /// </summary>
+        private const string ListName = "Order";
+
+        /// <summary>
+        /// The field order identifier.
+        /// </summary>
+        private const string FieldOrderId = "OrderId";
+
+        /// <summary>
+        /// The field invoice identifier.
+        /// </summary>
+        private const string FieldInvoiceId = "InvoiceId";
+
+        /// <summary>
+        /// The field product identifier.
+        /// </summary>
+        private const string FieldProductId = "ProductId";
+
+        /// <summary>
+        /// The field quantity.
+        /// </summary>
+        private const string FieldQuantity = "Quantity";
+
+        /// <summary>
+        /// The field total.
+        /// </summary>
+        private const string FieldTotal = "Total";
 
         /// <summary>
         /// Creates the specified order.
@@ -29,13 +56,13 @@ namespace SuperMarketSystem.Repository
             int result = 0;
 
             SPWeb web = SPContext.Current.Web;
-            SPList list = web.Lists[OrderRepository.LIST_NAME];
+            SPList list = web.Lists[OrderRepository.ListName];
             SPListItem item = list.Items.Add();
 
-            item[FIELD_PRODUCT_ID] = order.ProductId;
-            item[FIELD_INVOICE_ID] = order.InvoiceId;
-            item[FIELD_QUANTITY] = order.Quantity;
-            item[FIELD_Total] = order.Total;
+            item[FieldProductId] = order.ProductId;
+            item[FieldInvoiceId] = order.InvoiceId;
+            item[FieldQuantity] = order.Quantity;
+            item[FieldTotal] = order.Total;
 
             item.Update();
 
@@ -44,21 +71,64 @@ namespace SuperMarketSystem.Repository
             return result;
         }
 
+        /// <summary>
+        /// Updates the specified item.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns>
+        /// The identifier.
+        /// </returns>
+        /// <exception cref="NotImplementedException">
+        /// This is not implemented.
+        /// </exception>
         public int Update(Order item)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Deletes the specified identifier.
+        /// </summary>
+        /// <param name="id">
+        /// The identifier.
+        /// </param>
+        /// <returns>
+        /// The identifier if success.
+        /// </returns>
+        /// <exception cref="NotImplementedException">
+        /// This is not implemented.
+        /// </exception>
         public int Delete(int id)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Gets the by identifier.
+        /// </summary>
+        /// <param name="id">
+        /// The identifier.
+        /// </param>
+        /// <returns>
+        /// The entity.
+        /// </returns>
+        /// <exception cref="NotImplementedException">
+        /// This is not implemented.
+        /// </exception>
         public Order GetById(int id)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Gets all.
+        /// </summary>
+        /// <returns>
+        /// All the entities.
+        /// </returns>
+        /// <exception cref="NotImplementedException">
+        /// This is not implemented.
+        /// </exception>
         public List<Order> GetAll()
         {
             throw new NotImplementedException();

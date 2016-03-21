@@ -14,6 +14,7 @@ namespace SuperMarketSystem.OrderPart
     /// <summary>
     /// The Order view code behind.
     /// </summary>
+    /// <seealso cref="SuperMarketSystem.Common.BasePart{SuperMarketSystem.Presenters.OrderPresenter,SuperMarketSystem.Views.IOrderView}" />
     /// <seealso cref="System.Web.UI.WebControls.WebParts.WebPart" />
     /// <seealso cref="SuperMarketSystem.Views.IOrderView" />
     [ToolboxItemAttribute(false)]
@@ -32,24 +33,50 @@ namespace SuperMarketSystem.OrderPart
             set;
         }
 
+        /// <summary>
+        /// Gets or sets the product ids.
+        /// </summary>
+        /// <value>
+        /// The product ids.
+        /// </value>
         public List<int> ProductIds { get; set; }
 
         #endregion
 
         #region Constants - Privae Memebers
-        private const string quantityLabelID = "QuantityLabel";
+
+        /// <summary>
+        /// The quantity label identifier.
+        /// </summary>
+        private const string QuantityLabelID = "QuantityLabel";
+
+        /// <summary>
+        /// The identifier label identifier.
+        /// </summary>
         private const string IdLabelID = "IdLabel";
-        private const string quantityTextID = "QuantityText";
-        private const string IdTextID = "ProductIdText"; 
+
+        /// <summary>
+        /// The quantity text identifier.
+        /// </summary>
+        private const string QuantityTextID = "QuantityText";
+
+        /// <summary>
+        /// The identifier text identifier.
+        /// </summary>
+        private const string IdTextID = "ProductIdText";
         #endregion
 
         #region Methods - Constructors
-        // Uncomment the following SecurityPermission attribute only when doing Performance Profiling using
-        // the Instrumentation method, and then remove the SecurityPermission attribute when the code is ready
-        // for production. Because the SecurityPermission attribute bypasses the security check for callers of
-        // your constructor, it's not recommended for production purposes.
-        // [System.Security.Permissions.SecurityPermission(System.Security.Permissions.SecurityAction.Assert, UnmanagedCode = true)]
-        public OrderPart():base()
+        /// Uncomment the following SecurityPermission attribute only when doing Performance Profiling using
+        /// the Instrumentation method, and then remove the SecurityPermission attribute when the code is ready
+        /// for production. Because the SecurityPermission attribute bypasses the security check for callers of
+        /// your constructor, it's not recommended for production purposes.
+        /// [System.Security.Permissions.SecurityPermission(System.Security.Permissions.SecurityAction.Assert, UnmanagedCode = true)]
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OrderPart"/> class.
+        /// </summary>
+        public OrderPart()
+            : base()
         {
             this.Presenter.Initailize(this);
         }
@@ -63,7 +90,7 @@ namespace SuperMarketSystem.OrderPart
         protected override void OnInit(EventArgs e)
         {
             base.OnInit(e);
-            InitializeControl();
+            this.InitializeControl();
         }
 
         /// <summary>
@@ -74,10 +101,9 @@ namespace SuperMarketSystem.OrderPart
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
-            {                
+            {
                 this.Draw();
             }
-           
         }
 
         /// <summary>
@@ -105,11 +131,9 @@ namespace SuperMarketSystem.OrderPart
         /// Called when [row created].
         /// </summary>
         /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         private void OnRowCreated(object sender, EventArgs e)
         {
-            /// Handle.
-            //this.Add();
             Console.WriteLine("Row Created");
         }
 
@@ -118,13 +142,12 @@ namespace SuperMarketSystem.OrderPart
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="GridViewCommandEventArgs"/> instance containing the event data.</param>
-        protected void OnRowCommand(object sender,  GridViewCommandEventArgs e)
+        protected void OnRowCommand(object sender, GridViewCommandEventArgs e)
         {
             if (e.CommandName == "AddToCart")
             {
                 this.Add();
             }
-
         }
 
         #endregion
@@ -135,8 +158,8 @@ namespace SuperMarketSystem.OrderPart
         /// </summary>
         public void Add()
         {
-            ReserveItems();
-            InsertNewItem();
+            this.ReserveItems();
+            this.InsertNewItem();
             this.Draw();
         }
 
@@ -153,7 +176,8 @@ namespace SuperMarketSystem.OrderPart
         /// </summary>
         public void Draw()
         {
-            if (this.Model.Items.Count == 0) ///Workaaround for showing the empty grid.
+            // Workaround for showing the empty grid.
+            if (this.Model.Items.Count == 0)
             {
                 this.Clear();
             }
@@ -170,10 +194,10 @@ namespace SuperMarketSystem.OrderPart
         public void Clear()
         {
             this.Model.Items = new List<ProductItem>();
-            this.Model.Items.Add(new ProductItem());      ///Workaaround for showing the empty grid.      
+            this.Model.Items.Add(new ProductItem());      // Workaround for showing the empty grid.      
             this.orderView.DataSource = this.Model.Items;
             this.orderView.DataBind();
-            this.orderView.Rows[0].Visible = false;     ///Workaaround for showing the empty grid.
+            this.orderView.Rows[0].Visible = false;     // Workaround for showing the empty grid.
         }
         #endregion
 
@@ -183,9 +207,10 @@ namespace SuperMarketSystem.OrderPart
         /// </summary>
         private void InsertNewItem()
         {
-            TextBox quantityText = this.orderView.FooterRow.FindControl(quantityTextID) as TextBox;
+            TextBox quantityText = this.orderView.FooterRow.FindControl(QuantityTextID) as TextBox;
             TextBox productIdText = this.orderView.FooterRow.FindControl(IdTextID) as TextBox;
 
+            // Escape invalid items.
             if (string.IsNullOrEmpty(productIdText.Text) || string.IsNullOrEmpty(quantityText.Text))
             {
                 return;
@@ -203,17 +228,20 @@ namespace SuperMarketSystem.OrderPart
         {
             for (int i = 0; i < this.orderView.Rows.Count; i++)
             {
-                Label quantityLabel = this.orderView.Rows[i].FindControl(quantityLabelID) as Label;
+                Label quantityLabel = this.orderView.Rows[i].FindControl(QuantityLabelID) as Label;
                 Label idLabel = this.orderView.Rows[i].FindControl(IdLabelID) as Label;
+
+                // Escape invalid items.
                 if (string.IsNullOrEmpty(quantityLabel.Text) || string.IsNullOrEmpty(idLabel.Text))
                 {
                     continue;
                 }
+
                 int productId = int.Parse(idLabel.Text);
                 int quantity = int.Parse(quantityLabel.Text);
                 this.Presenter.Add(productId, quantity);
             }
-        } 
+        }
         #endregion
     }
 }

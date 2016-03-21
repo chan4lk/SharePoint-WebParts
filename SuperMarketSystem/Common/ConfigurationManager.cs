@@ -1,11 +1,8 @@
 ﻿using Microsoft.Practices.Unity;
+using Microsoft.SharePoint;
 using SuperMarketSystem.Presenters;
 using SuperMarketSystem.Views;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SuperMarketSystem.Common
 {
@@ -14,6 +11,11 @@ namespace SuperMarketSystem.Common
     /// </summary>
     public class ConfigurationManager
     {
+        /// <summary>
+        /// The sales group.
+        /// </summary>
+        public const string SalesGroup = "Sales";
+
         /// <summary>
         /// The container instance.
         /// </summary>
@@ -38,6 +40,33 @@ namespace SuperMarketSystem.Common
 
                 return instance;
             }
+        }
+
+        /// <summary>
+        /// Determines whether this instance is authenticated.
+        /// </summary>
+        /// <returns>
+        /// <c>true</c> if authenticated.
+        /// </returns>
+        public static bool IsAuthenticated()
+        {
+            bool isAuthenticated = false;
+
+            SPWeb web = SPContext.Current.Web;
+
+            SPUser user = web.CurrentUser;
+
+            try
+            {
+                user.Groups.GetByName(ConfigurationManager.SalesGroup);
+                isAuthenticated = true;
+            }
+            catch (Exception)
+            {
+                isAuthenticated = false;
+            } 
+
+            return isAuthenticated;
         }
     }
 }

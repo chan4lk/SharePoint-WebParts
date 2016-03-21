@@ -1,4 +1,6 @@
-﻿using SuperMarketSystem.Common;
+﻿using Microsoft.SharePoint;
+using Microsoft.SharePoint.Utilities;
+using SuperMarketSystem.Common;
 using SuperMarketSystem.Models;
 using SuperMarketSystem.Presenters;
 using SuperMarketSystem.Views;
@@ -114,6 +116,11 @@ namespace SuperMarketSystem.OrderPart
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!ConfigurationManager.IsAuthenticated())
+            {
+                SPUtility.SendAccessDeniedHeader(new SPException("Only users in sales group can access"));
+            }
+
             if (!Page.IsPostBack)
             {
                 this.Draw();
@@ -174,7 +181,7 @@ namespace SuperMarketSystem.OrderPart
             if (e.Row.RowType == DataControlRowType.Footer)
             {
                 Label totalLabel = e.Row.FindControl(OrderPart.TotalLabel) as Label;
-                totalLabel.Text = this.Model.Items.Sum(i => i.Total).ToString("C");
+                totalLabel.Text = this.Model.Total.ToString("C");
             }
         }
 

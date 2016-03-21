@@ -410,8 +410,8 @@ namespace SuperMarketSystem.OrderPart {
             global::System.Web.UI.WebControls.Label @__ctrl3;
             @__ctrl3 = this.@__BuildControlMessageLabel();
             @__parser.AddParsedSubObject(@__ctrl3);
-            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n            </div>\r\n            <div class=\"col\" style=\"width:20%\">\r\n          " +
-                        "      "));
+            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n            </div>\r\n            <div class=\"col\" style=\"width:18%; margin-left:" +
+                        "10px\">\r\n                "));
             global::System.Web.UI.WebControls.Button @__ctrl4;
             @__ctrl4 = this.@__BuildControlSubmitButton();
             @__parser.AddParsedSubObject(@__ctrl4);

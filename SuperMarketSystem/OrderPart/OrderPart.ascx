@@ -111,7 +111,7 @@
             <div class="col" style="width:80%">
                 <asp:Label ID="MessageLabel" CssClass="msg" runat="server"></asp:Label>
             </div>
-            <div class="col" style="width:20%">
+            <div class="col" style="width:18%; margin-left:10px">
                 <asp:Button CssClass="btn submit" ID="SubmitButton" runat="server" OnClick="SubmitButtonClick" Text="Submit" />
             </div>
         </div>

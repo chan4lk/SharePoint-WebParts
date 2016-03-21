@@ -53,7 +53,6 @@ namespace SuperMarketSystem.Common
             bool isAuthenticated = false;
 
             SPWeb web = SPContext.Current.Web;
-
             SPUser user = web.CurrentUser;
 
             try

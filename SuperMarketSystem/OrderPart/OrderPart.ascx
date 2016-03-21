@@ -22,9 +22,9 @@
         width: 100%;
     }
 
-    #Sp-OrderPart table td{
-        text-align: center;
-    }
+        #Sp-OrderPart table td {
+            text-align: center;
+        }
 
     #Sp-OrderPart .btn {
         background: #D1DBEA;
@@ -40,29 +40,32 @@
         padding-right: 5px;
     }
 
-    #Sp-OrderPart #SubmitButton{
-        float:right;
+    #Sp-OrderPart .submit {
+        float: right;
     }
 </style>
 <div id="Sp-OrderPart">
     <div class="well">
         <h1>Place an Order</h1>
         <asp:Button CssClass="btn" ID="ClearButton" runat="server" OnClick="ClearButtonClick" Text="New" />
-        <asp:GridView 
-            ID="orderView" 
-            runat="server" 
-            ShowFooter="true" 
-            ShowHeaderWhenEmpty="true" 
-            AutoGenerateColumns="false" 
+        <asp:GridView
+            ID="orderView"
+            runat="server"
+            ShowFooter="true"
+            ShowHeaderWhenEmpty="true"
+            AutoGenerateColumns="false"
             OnRowCommand="OnRowCommand"
+            OnRowDataBound="RowDataBound"
             OnRowCreated="OnRowCreated">
             <Columns>
                 <asp:TemplateField HeaderText="Product ID">
                     <ItemTemplate>
-                      <asp:Label ID="IdLabel" runat="server" Text='<%# Bind("ProductId") %>'></asp:Label>
+                        <asp:Label ID="IdLabel" runat="server" Text='<%# Bind("ProductId") %>'></asp:Label>
                     </ItemTemplate>
                     <FooterTemplate>
                         <asp:TextBox ID="ProductIdText" runat="server" Text="0"></asp:TextBox>
+                        <br />
+                        <label>Total</label>
                     </FooterTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Quantity">
@@ -71,6 +74,8 @@
                     </ItemTemplate>
                     <FooterTemplate>
                         <asp:TextBox ID="QuantityText" runat="server" Text="0"></asp:TextBox>
+                        <br />
+                        <br />
                     </FooterTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Total">
@@ -78,13 +83,15 @@
                         <%# Eval("Total", "{0:c}") %>
                     </ItemTemplate>
                     <FooterTemplate>
-                        <asp:Button CssClass="btn" CommandName="AddToCart" Text="Add" runat="server"/>
+                        <asp:Button CssClass="btn" CommandName="AddToCart" Text="Add" runat="server" />
+                        <br />
+                        <asp:Label runat="server" ID="TotalLabel"></asp:Label>
                     </FooterTemplate>
                 </asp:TemplateField>
             </Columns>
         </asp:GridView>
 
-        <asp:Button CssClass="btn" ID="SubmitButton" runat="server" OnClick="SubmitButtonClick" Text="Submit" />
+        <asp:Button CssClass="btn submit" ID="SubmitButton" runat="server" OnClick="SubmitButtonClick" Text="Submit" />
 
     </div>
 </div>

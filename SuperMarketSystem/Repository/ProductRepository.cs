@@ -14,6 +14,7 @@ namespace SuperMarketSystem.Repository
     /// <seealso cref="SuperMarketSystem.Repository.IRepository{SuperMarketSystem.Models.Product}" />
     public class ProductRepository : IRepository<Product>, IDisposable
     {
+        #region Fields - Contants
         /// <summary>
         /// The list name.
         /// </summary>
@@ -22,7 +23,7 @@ namespace SuperMarketSystem.Repository
         /// <summary>
         /// The field identifier.
         /// </summary>
-        private const string FieldId = "ProductId";
+        private const string FieldId = "ID";
 
         /// <summary>
         /// The field category.
@@ -32,7 +33,10 @@ namespace SuperMarketSystem.Repository
         /// <summary>
         /// The field price
         /// </summary>
-        private const string FieldPrice = "Price";
+        private const string FieldPrice = "Price"; 
+        #endregion
+        
+        #region Methods - IRepository Members
 
         /// <summary>
         /// Creates the specified item.
@@ -96,14 +100,14 @@ namespace SuperMarketSystem.Repository
             SPQuery query = new SPQuery()
             {
                 Query = @"<Where><Eq>
-                                        <FieldRef Name='ProductId' />
+                                        <FieldRef Name='ID' />
                                         <Value Type='Number'>
                                         " +
                                   id
                                   + @"</Value>
                                     </Eq></Where>
                                   ",
-                ViewFields = string.Concat("<FieldRef Name='CategoryName' />", "<FieldRef Name='ProductId' />", "<FieldRef Name='Price' />")
+                ViewFields = string.Concat("<FieldRef Name='CategoryName' />", "<FieldRef Name='ID' />", "<FieldRef Name='Price' />")
             };
 
             SPListItemCollection products = list.GetItems(query);
@@ -138,7 +142,7 @@ namespace SuperMarketSystem.Repository
                                   </Query>",
                         ViewFields = string.Concat(
                             "<FieldRef Name='Category' />",
-                            "<FieldRef Name='ProductId' />",
+                            "<FieldRef Name='ID' />",
                             "<FieldRef Name='Price' />")
                     };
 
@@ -163,12 +167,16 @@ namespace SuperMarketSystem.Repository
             return items;
         }
 
+        #endregion
+
+        #region Methods - IDisposable Members
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
         /// </summary>
         public void Dispose()
         {
             Console.WriteLine("Disposing");
-        }
+        } 
+        #endregion
     }
 }

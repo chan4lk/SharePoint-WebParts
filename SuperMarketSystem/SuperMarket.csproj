@@ -76,6 +76,7 @@
     <Compile Include="Commands\CreateOrderCommand.cs" />
     <Compile Include="Common\BasePart.cs" />
     <Compile Include="Common\ConfigurationManager.cs" />
+    <Compile Include="Common\Extensions.cs" />
     <Compile Include="Features\SuperMarketFeature\SuperMarketFeature.EventReceiver.cs">
       <DependentUpon>SuperMarketFeature.feature</DependentUpon>
     </Compile>

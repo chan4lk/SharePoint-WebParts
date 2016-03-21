@@ -1,13 +1,9 @@
-﻿using Microsoft.Practices.Unity;
-using SuperMarketSystem.Commands;
+﻿using SuperMarketSystem.Commands;
 using SuperMarketSystem.Common;
 using SuperMarketSystem.Models;
 using SuperMarketSystem.Views;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SuperMarketSystem.Presenters
 {
@@ -17,6 +13,7 @@ namespace SuperMarketSystem.Presenters
     /// <seealso cref="SuperMarketSystem.Presenters.IOrderPresenter" />
     public class OrderPresenter : IOrderPresenter<IOrderView>
     {
+        #region Properties - Public Memebers
         /// <summary>
         /// Gets or sets the view.
         /// </summary>
@@ -27,15 +24,20 @@ namespace SuperMarketSystem.Presenters
         {
             get;
             set;
-        }
+        } 
+        #endregion
 
+        #region Methods - Public Members
+        #region Methods - Public Members - Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="OrderPresenter" /> class.
         /// </summary>
         public OrderPresenter()
         {
-        }
+        } 
+        #endregion
 
+        #region Methods - Public - IOrderPresenter Members
         /// <summary>
         /// Initializes the specified view.
         /// </summary>
@@ -60,10 +62,16 @@ namespace SuperMarketSystem.Presenters
         }
 
         /// <summary>
-        /// Submits this instance.
+        /// Submits this order.
         /// </summary>
         public void Submit()
         {
+            if (this.View.Model.Items.IsEmpty())
+            {
+                Console.WriteLine("Cannot submit empty items");
+                return;
+            }
+
             int invoiceID = 0;
             var total = this.View.Model.Total;
 
@@ -127,6 +135,8 @@ namespace SuperMarketSystem.Presenters
             };
 
             this.Add(item);
-        }
+        }  
+        #endregion
+        #endregion
     }
 }

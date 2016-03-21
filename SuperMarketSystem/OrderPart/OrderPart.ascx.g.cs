@@ -88,7 +88,7 @@ namespace SuperMarketSystem.OrderPart {
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
         private void @__BuildControl__control4(System.Web.UI.Control @__ctrl) {
             System.Web.UI.IParserAccessor @__parser = ((System.Web.UI.IParserAccessor)(@__ctrl));
-            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n                      "));
+            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n                        "));
             global::System.Web.UI.WebControls.Label @__ctrl1;
             @__ctrl1 = this.@__BuildControl__control5();
             @__parser.AddParsedSubObject(@__ctrl1);
@@ -125,7 +125,8 @@ namespace SuperMarketSystem.OrderPart {
             global::System.Web.UI.WebControls.TextBox @__ctrl1;
             @__ctrl1 = this.@__BuildControl__control7();
             @__parser.AddParsedSubObject(@__ctrl1);
-            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n                    "));
+            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n                        <br />\r\n                        <label>Total</label>\r\n " +
+                        "                   "));
         }
         
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
@@ -186,7 +187,8 @@ namespace SuperMarketSystem.OrderPart {
             global::System.Web.UI.WebControls.TextBox @__ctrl1;
             @__ctrl1 = this.@__BuildControl__control12();
             @__parser.AddParsedSubObject(@__ctrl1);
-            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n                    "));
+            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n                        <br />\r\n                        <br />\r\n               " +
+                        "     "));
         }
         
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
@@ -240,12 +242,26 @@ namespace SuperMarketSystem.OrderPart {
         }
         
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
+        private global::System.Web.UI.WebControls.Label @__BuildControl__control18() {
+            global::System.Web.UI.WebControls.Label @__ctrl;
+            @__ctrl = new global::System.Web.UI.WebControls.Label();
+            @__ctrl.TemplateControl = this;
+            @__ctrl.ApplyStyleSheetSkin(this.Page);
+            @__ctrl.ID = "TotalLabel";
+            return @__ctrl;
+        }
+        
+        [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
         private void @__BuildControl__control16(System.Web.UI.Control @__ctrl) {
             System.Web.UI.IParserAccessor @__parser = ((System.Web.UI.IParserAccessor)(@__ctrl));
             @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n                        "));
             global::System.Web.UI.WebControls.Button @__ctrl1;
             @__ctrl1 = this.@__BuildControl__control17();
             @__parser.AddParsedSubObject(@__ctrl1);
+            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n                        <br />\r\n                        "));
+            global::System.Web.UI.WebControls.Label @__ctrl2;
+            @__ctrl2 = this.@__BuildControl__control18();
+            @__parser.AddParsedSubObject(@__ctrl2);
             @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n                    "));
         }
         
@@ -285,6 +301,8 @@ namespace SuperMarketSystem.OrderPart {
             this.@__BuildControl__control2(@__ctrl.Columns);
             @__ctrl.RowCommand -= new System.Web.UI.WebControls.GridViewCommandEventHandler(this.OnRowCommand);
             @__ctrl.RowCommand += new System.Web.UI.WebControls.GridViewCommandEventHandler(this.OnRowCommand);
+            @__ctrl.RowDataBound -= new System.Web.UI.WebControls.GridViewRowEventHandler(this.RowDataBound);
+            @__ctrl.RowDataBound += new System.Web.UI.WebControls.GridViewRowEventHandler(this.RowDataBound);
             @__ctrl.RowCreated -= new System.Web.UI.WebControls.GridViewRowEventHandler(this.OnRowCreated);
             @__ctrl.RowCreated += new System.Web.UI.WebControls.GridViewRowEventHandler(this.OnRowCreated);
             return @__ctrl;
@@ -296,7 +314,7 @@ namespace SuperMarketSystem.OrderPart {
             @__ctrl = new global::System.Web.UI.WebControls.Button();
             this.SubmitButton = @__ctrl;
             @__ctrl.ApplyStyleSheetSkin(this.Page);
-            @__ctrl.CssClass = "btn";
+            @__ctrl.CssClass = "btn submit";
             @__ctrl.ID = "SubmitButton";
             @__ctrl.Text = "Submit";
             @__ctrl.Click -= new System.EventHandler(this.SubmitButtonClick);
@@ -324,9 +342,9 @@ namespace SuperMarketSystem.OrderPart {
         width: 100%;
     }
 
-    #Sp-OrderPart table td{
-        text-align: center;
-    }
+        #Sp-OrderPart table td {
+            text-align: center;
+        }
 
     #Sp-OrderPart .btn {
         background: #D1DBEA;
@@ -342,8 +360,8 @@ namespace SuperMarketSystem.OrderPart {
         padding-right: 5px;
     }
 
-    #Sp-OrderPart #SubmitButton{
-        float:right;
+    #Sp-OrderPart .submit {
+        float: right;
     }
 </style>
 <div id=""Sp-OrderPart"">

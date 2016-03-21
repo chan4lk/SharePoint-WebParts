@@ -4,12 +4,12 @@
     <ContentTypes>
       
       
-    <ContentType ID="0x0100b64e3dc09123464ca4bcb6ca9ac7e69d" Name="ListFieldsContentType"><FieldRefs><FieldRef ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Name="Title" /><FieldRef ID="{62562cdc-e242-472a-a2c0-ca37aff451f8}" Name="InvoiceId" /><FieldRef ID="{21366044-eb9f-4e44-99db-791005522f25}" Name="Total" /><FieldRef ID="{22e6bc6b-ce7a-4a43-92eb-8b6feb984feb}" Name="Date1" /></FieldRefs></ContentType><ContentTypeRef ID="0x01">
+    <ContentType ID="0x0100b64e3dc09123464ca4bcb6ca9ac7e69d" Name="ListFieldsContentType"><FieldRefs><FieldRef ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Name="Title" /><FieldRef ID="{21366044-eb9f-4e44-99db-791005522f25}" Name="Total" /><FieldRef ID="{22e6bc6b-ce7a-4a43-92eb-8b6feb984feb}" Name="Date1" /></FieldRefs></ContentType><ContentTypeRef ID="0x01">
         <Folder TargetName="Item" />
       </ContentTypeRef><ContentTypeRef ID="0x0120" /></ContentTypes>
     <Fields>
       
-    <Field ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Type="Text" Name="Title" DisplayName="$Resources:core,Title;" Required="FALSE" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="Title" MaxLength="255" /><Field Name="InvoiceId" ID="{62562cdc-e242-472a-a2c0-ca37aff451f8}" DisplayName="InvoiceId" Type="Number" Required="TRUE" /><Field Name="Total" ID="{21366044-eb9f-4e44-99db-791005522f25}" DisplayName="Total" Type="Currency" /><Field Name="Date1" ID="{22e6bc6b-ce7a-4a43-92eb-8b6feb984feb}" DisplayName="Date" Type="DateTime" /></Fields>
+    <Field ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Type="Text" Name="Title" DisplayName="$Resources:core,Title;" Required="FALSE" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="Title" MaxLength="255" /><Field Name="Total" ID="{21366044-eb9f-4e44-99db-791005522f25}" DisplayName="Total" Type="Currency" /><Field Name="Date1" ID="{22e6bc6b-ce7a-4a43-92eb-8b6feb984feb}" DisplayName="Date" Type="DateTime" /></Fields>
     <Views>
       
       
@@ -37,7 +37,7 @@
         <RowLimit Paged="TRUE">30</RowLimit>
         <ViewFields>
           
-        <FieldRef Name="InvoiceId" /><FieldRef Name="Total" /><FieldRef Name="Date1" /></ViewFields>
+        <FieldRef Name="ID" /><FieldRef Name="Total" /><FieldRef Name="Date1" /></ViewFields>
         <Query>
           <OrderBy>
             

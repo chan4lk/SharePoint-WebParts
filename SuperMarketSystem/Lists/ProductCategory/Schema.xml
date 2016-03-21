@@ -4,12 +4,12 @@
     <ContentTypes>
       
       
-    <ContentType ID="0x0100991b92fe3f1d443783a187e096d289f4" Name="ListFieldsContentType"><FieldRefs><FieldRef ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Name="Title" /><FieldRef ID="{04139355-604b-464c-911b-aaf6426a93fa}" Name="CategoryId" /><FieldRef ID="{7a9418df-5bce-4bc5-a26b-00cee5ff38a2}" Name="CategoryName" /></FieldRefs></ContentType><ContentTypeRef ID="0x01">
+    <ContentType ID="0x0100991b92fe3f1d443783a187e096d289f4" Name="ListFieldsContentType"><FieldRefs><FieldRef ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Name="Title" /><FieldRef ID="{7a9418df-5bce-4bc5-a26b-00cee5ff38a2}" Name="CategoryName" /></FieldRefs></ContentType><ContentTypeRef ID="0x01">
         <Folder TargetName="Item" />
       </ContentTypeRef><ContentTypeRef ID="0x0120" /></ContentTypes>
     <Fields>
       
-    <Field ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Type="Text" Name="Title" DisplayName="Title" Required="FALSE" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="Title" MaxLength="255" /><Field Name="CategoryId" ID="{04139355-604b-464c-911b-aaf6426a93fa}" DisplayName="CategoryId" Type="Number" Required="TRUE" /><Field Name="CategoryName" ID="{7a9418df-5bce-4bc5-a26b-00cee5ff38a2}" DisplayName="Category" Type="Text" Required="TRUE" /></Fields>
+    <Field ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Type="Text" Name="Title" DisplayName="Title" Required="FALSE" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="Title" MaxLength="255" /><Field Name="CategoryName" ID="{7a9418df-5bce-4bc5-a26b-00cee5ff38a2}" DisplayName="Category" Type="Text" Required="TRUE" /></Fields>
     <Views>
       
       
@@ -37,7 +37,7 @@
         <RowLimit Paged="TRUE">30</RowLimit>
         <ViewFields>
           
-        <FieldRef Name="CategoryId" /><FieldRef Name="CategoryName" /></ViewFields>
+        <FieldRef Name="ID" /><FieldRef Name="CategoryName" /></ViewFields>
         <Query>
           <OrderBy>
             

@@ -2,9 +2,6 @@
 using SuperMarketSystem.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SuperMarketSystem.Repository
 {
@@ -14,6 +11,7 @@ namespace SuperMarketSystem.Repository
     /// <seealso cref="SuperMarketSystem.Repository.IRepository{SuperMarketSystem.Models.Order}" />
     public class OrderRepository : IRepository<Order>
     {
+        #region Fields - Private Members
         /// <summary>
         /// The list name.
         /// </summary>
@@ -22,7 +20,7 @@ namespace SuperMarketSystem.Repository
         /// <summary>
         /// The field order identifier.
         /// </summary>
-        private const string FieldOrderId = "OrderId";
+        private const string FieldOrderId = "ID";
 
         /// <summary>
         /// The field invoice identifier.
@@ -42,8 +40,10 @@ namespace SuperMarketSystem.Repository
         /// <summary>
         /// The field total.
         /// </summary>
-        private const string FieldTotal = "Total";
+        private const string FieldTotal = "Total"; 
+        #endregion
 
+        #region Methods - Public Members(IRepository)
         /// <summary>
         /// Creates the specified order.
         /// </summary>
@@ -132,6 +132,7 @@ namespace SuperMarketSystem.Repository
         public List<Order> GetAll()
         {
             throw new NotImplementedException();
-        }
+        } 
+        #endregion
     }
 }

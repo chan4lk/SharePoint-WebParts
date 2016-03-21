@@ -1,13 +1,12 @@
-﻿using Microsoft.Practices.Unity;
-using SuperMarketSystem.Common;
+﻿using SuperMarketSystem.Common;
 using SuperMarketSystem.Models;
 using SuperMarketSystem.Presenters;
 using SuperMarketSystem.Views;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
 
 namespace SuperMarketSystem.OrderPart
 {
@@ -64,6 +63,11 @@ namespace SuperMarketSystem.OrderPart
         /// The identifier text identifier.
         /// </summary>
         private const string IdTextID = "ProductIdText";
+
+        /// <summary>
+        /// The total label.
+        /// </summary>
+        private const string TotalLabel = "TotalLabel";
         #endregion
 
         #region Methods - Constructors
@@ -147,6 +151,20 @@ namespace SuperMarketSystem.OrderPart
             if (e.CommandName == "AddToCart")
             {
                 this.Add();
+            }
+        }
+
+        /// <summary>
+        /// Handles the RowDataBound event of the orderView control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="GridViewRowEventArgs"/> instance containing the event data.</param>
+        protected void RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.Footer)
+            {
+                Label totalLabel = e.Row.FindControl(OrderPart.TotalLabel) as Label;
+                totalLabel.Text = this.Model.Items.Sum(i => i.Total).ToString("C");
             }
         }
 

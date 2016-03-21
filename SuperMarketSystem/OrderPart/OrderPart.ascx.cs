@@ -68,6 +68,16 @@ namespace SuperMarketSystem.OrderPart
         /// The total label.
         /// </summary>
         private const string TotalLabel = "TotalLabel";
+
+        /// <summary>
+        /// The error class.
+        /// </summary>
+        private const string ErrorClass = "err";
+
+        /// <summary>
+        /// The information class.
+        /// </summary>
+        private const string InfoClass = "info";
         #endregion
 
         #region Methods - Constructors
@@ -216,7 +226,30 @@ namespace SuperMarketSystem.OrderPart
             this.orderView.DataSource = this.Model.Items;
             this.orderView.DataBind();
             this.orderView.Rows[0].Visible = false;     // Workaround for showing the empty grid.
+            this.ShowMessage("Please add items to the cart");
         }
+
+        /// <summary>
+        /// Shows the message.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        public void ShowMessage(string message)
+        {
+            this.MessageLabel.Text = message;
+            this.MessageLabel.CssClass = InfoClass;
+        }
+
+        /// <summary>
+        /// Shows the message.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <param name="isError">if set to <c>true</c> [is error].</param>
+        public void ShowMessage(string message, bool isError)
+        {
+            this.MessageLabel.Text = message;
+            this.MessageLabel.CssClass = ErrorClass;
+        }
+
         #endregion
 
         #region Methods - Helpers

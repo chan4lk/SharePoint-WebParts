@@ -42,6 +42,8 @@ namespace SuperMarketSystem.OrderPart {
         
         protected global::System.Web.UI.WebControls.GridView orderView;
         
+        protected global::System.Web.UI.WebControls.Label MessageLabel;
+        
         protected global::System.Web.UI.WebControls.Button SubmitButton;
         
         public static implicit operator global::System.Web.UI.TemplateControl(OrderPart target) 
@@ -309,6 +311,17 @@ namespace SuperMarketSystem.OrderPart {
         }
         
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
+        private global::System.Web.UI.WebControls.Label @__BuildControlMessageLabel() {
+            global::System.Web.UI.WebControls.Label @__ctrl;
+            @__ctrl = new global::System.Web.UI.WebControls.Label();
+            this.MessageLabel = @__ctrl;
+            @__ctrl.ApplyStyleSheetSkin(this.Page);
+            @__ctrl.ID = "MessageLabel";
+            @__ctrl.CssClass = "msg";
+            return @__ctrl;
+        }
+        
+        [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
         private global::System.Web.UI.WebControls.Button @__BuildControlSubmitButton() {
             global::System.Web.UI.WebControls.Button @__ctrl;
             @__ctrl = new global::System.Web.UI.WebControls.Button();
@@ -361,7 +374,24 @@ namespace SuperMarketSystem.OrderPart {
     }
 
     #Sp-OrderPart .submit {
-        float: right;
+        margin:5px auto !Important;
+        display: block;
+    }
+    #Sp-OrderPart .col {
+        display:block;
+        float:left;
+    }
+
+    #Sp-OrderPart .msg {
+        height:100%;
+    }
+
+    #Sp-OrderPart .info {
+        color:#000;
+    }
+
+    #Sp-OrderPart .err {
+         color:#f00;
     }
 </style>
 <div id=""Sp-OrderPart"">
@@ -375,11 +405,17 @@ namespace SuperMarketSystem.OrderPart {
             global::System.Web.UI.WebControls.GridView @__ctrl2;
             @__ctrl2 = this.@__BuildControlorderView();
             @__parser.AddParsedSubObject(@__ctrl2);
-            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n\r\n        "));
-            global::System.Web.UI.WebControls.Button @__ctrl3;
-            @__ctrl3 = this.@__BuildControlSubmitButton();
+            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n        <div style=\"display:flex;margin-top:10px;\">\r\n            <div class=\"co" +
+                        "l\" style=\"width:80%\">\r\n                "));
+            global::System.Web.UI.WebControls.Label @__ctrl3;
+            @__ctrl3 = this.@__BuildControlMessageLabel();
             @__parser.AddParsedSubObject(@__ctrl3);
-            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n\r\n    </div>\r\n</div>\r\n"));
+            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n            </div>\r\n            <div class=\"col\" style=\"width:20%\">\r\n          " +
+                        "      "));
+            global::System.Web.UI.WebControls.Button @__ctrl4;
+            @__ctrl4 = this.@__BuildControlSubmitButton();
+            @__parser.AddParsedSubObject(@__ctrl4);
+            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n            </div>\r\n        </div>\r\n        <div></div>\r\n    </div>\r\n</div>\r\n"));
         }
         
         private void InitializeControl() {

@@ -50,7 +50,6 @@ namespace SuperMarketSystem.Repository
 
             item[FieldTotal] = invoice.Total;
             item[FieldDate] = invoice.Date;
-
             item.Update();
 
             result = item.ID;

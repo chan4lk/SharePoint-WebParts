@@ -24,7 +24,7 @@ namespace SuperMarketSystem.Presenters
         {
             get;
             set;
-        } 
+        }
         #endregion
 
         #region Methods - Public Members
@@ -34,7 +34,7 @@ namespace SuperMarketSystem.Presenters
         /// </summary>
         public OrderPresenter()
         {
-        } 
+        }
         #endregion
 
         #region Methods - Public - IOrderPresenter Members
@@ -58,7 +58,7 @@ namespace SuperMarketSystem.Presenters
         public void Add(ProductItem item)
         {
             this.View.Model.Items.Add(item);
-            Console.WriteLine("Item added");
+            this.View.ShowMessage("Item added to cart");
         }
 
         /// <summary>
@@ -68,41 +68,43 @@ namespace SuperMarketSystem.Presenters
         {
             if (this.View.Model.Items.IsEmpty())
             {
-                Console.WriteLine("Cannot submit empty items");
+                this.View.ShowMessage("There are no orders.", true);
                 return;
             }
 
-            int invoiceID = 0;
-            var total = this.View.Model.Total;
-
-            Command command = new CreateInvoiceCommand
+            try
             {
-                Invoice = new Invoice
+                int invoiceID = this.CreateInvoice();
+
+                foreach (var item in this.View.Model.Items)
                 {
-                    Total = total,
-                    Date = DateTime.Now
+                    var order = new Order()
+                    {
+                        ProductId = item.ProductId,
+                        InvoiceId = invoiceID,
+                        Quantity = item.Quantity,
+                        Total = item.Total
+                    };
+
+                    Command orderCommand = new CreateOrderCommand() { Order = order };
+                    try
+                    {
+                        orderCommand.Execute();
+                    }
+                    catch (Exception)
+                    {
+                        this.View.ShowMessage("Could not create Order", true);
+                        break;
+                    }
                 }
-            };
-
-            command.Execute();
-
-            invoiceID = ((CreateInvoiceCommand)command).InvoiceId;
-
-            foreach (var item in this.View.Model.Items)
+            }
+            catch (Exception)
             {
-                var order = new Order()
-                {
-                    ProductId = item.ProductId,
-                    InvoiceId = invoiceID,
-                    Quantity = item.Quantity,
-                    Total = item.Total
-                };
-
-                Command orderCommand = new CreateOrderCommand() { Order = order };
-                orderCommand.Execute();
+                this.View.ShowMessage("Could not create Invoice", true);
             }
 
             this.View.Clear();
+            this.View.ShowMessage("Invoice created");
         }
 
         /// <summary>
@@ -122,21 +124,52 @@ namespace SuperMarketSystem.Presenters
             {
                 ProductId = productId
             };
-
-            command.Execute();
-
-            Product product = command.Product;
-
-            var item = new ProductItem
+            try
             {
-                ProductId = productId,
-                Quantity = quantity,
-                Total = quantity * product.Price
+                command.Execute();
+                Product product = command.Product;
+
+                var item = new ProductItem
+                {
+                    ProductId = productId,
+                    Quantity = quantity,
+                    Total = quantity * product.Price
+                };
+
+                this.Add(item);
+            }
+            catch (Exception)
+            {
+                this.View.ShowMessage("No product item with given ID", true);
+            }
+        }
+        #endregion
+
+        /// <summary>
+        /// Creates the invoice.
+        /// </summary>
+        /// <returns>
+        /// The invoice Identifier.
+        /// </returns>
+        private int CreateInvoice()
+        {
+            int invoiceID = 0;
+            var total = this.View.Model.Total;
+
+            Command command = new CreateInvoiceCommand
+            {
+                Invoice = new Invoice
+                {
+                    Total = total,
+                    Date = DateTime.Now
+                }
             };
 
-            this.Add(item);
-        }  
-        #endregion
+            command.Execute();
+            invoiceID = ((CreateInvoiceCommand)command).InvoiceId;
+
+            return invoiceID;
+        }
         #endregion
     }
 }

@@ -41,7 +41,24 @@
     }
 
     #Sp-OrderPart .submit {
-        float: right;
+        margin:5px auto !Important;
+        display: block;
+    }
+    #Sp-OrderPart .col {
+        display:block;
+        float:left;
+    }
+
+    #Sp-OrderPart .msg {
+        height:100%;
+    }
+
+    #Sp-OrderPart .info {
+        color:#000;
+    }
+
+    #Sp-OrderPart .err {
+         color:#f00;
     }
 </style>
 <div id="Sp-OrderPart">
@@ -90,8 +107,14 @@
                 </asp:TemplateField>
             </Columns>
         </asp:GridView>
-
-        <asp:Button CssClass="btn submit" ID="SubmitButton" runat="server" OnClick="SubmitButtonClick" Text="Submit" />
-
+        <div style="display:flex;margin-top:10px;">
+            <div class="col" style="width:80%">
+                <asp:Label ID="MessageLabel" CssClass="msg" runat="server"></asp:Label>
+            </div>
+            <div class="col" style="width:20%">
+                <asp:Button CssClass="btn submit" ID="SubmitButton" runat="server" OnClick="SubmitButtonClick" Text="Submit" />
+            </div>
+        </div>
+        <div></div>
     </div>
 </div>

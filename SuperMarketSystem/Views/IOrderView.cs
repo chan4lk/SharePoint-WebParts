@@ -39,5 +39,18 @@ namespace SuperMarketSystem.Views
         /// Clears the grid.
         /// </summary>
         void Clear();
+
+        /// <summary>
+        /// Shows the message.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        void ShowMessage(string message);
+
+        /// <summary>
+        /// Shows the message.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <param name="isError">if set to <c>true</c> [is error].</param>
+        void ShowMessage(string message, bool isError);
     }
 }

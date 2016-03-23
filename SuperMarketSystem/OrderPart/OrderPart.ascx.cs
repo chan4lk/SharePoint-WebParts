@@ -1,4 +1,5 @@
-﻿using Microsoft.SharePoint;
+﻿#region Imports
+using Microsoft.SharePoint;
 using Microsoft.SharePoint.Utilities;
 using SuperMarketSystem.Common;
 using SuperMarketSystem.Models;
@@ -7,8 +8,8 @@ using SuperMarketSystem.Views;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Web.UI.WebControls;
+using System.Web.UI.WebControls; 
+#endregion
 
 namespace SuperMarketSystem.OrderPart
 {
@@ -80,6 +81,11 @@ namespace SuperMarketSystem.OrderPart
         /// The information class.
         /// </summary>
         private const string InfoClass = "info";
+
+        /// <summary>
+        /// The add to cart command.
+        /// </summary>
+        private const string AddToCartCommand = "AddToCart";
         #endregion
 
         #region Methods - Constructors
@@ -94,7 +100,6 @@ namespace SuperMarketSystem.OrderPart
         public OrderPart()
             : base()
         {
-            this.Presenter.Initailize(this);
         }
         #endregion
 
@@ -165,7 +170,7 @@ namespace SuperMarketSystem.OrderPart
         /// <param name="e">The <see cref="GridViewCommandEventArgs"/> instance containing the event data.</param>
         protected void OnRowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "AddToCart")
+            if (e.CommandName == OrderPart.AddToCartCommand)
             {
                 this.Add();
             }

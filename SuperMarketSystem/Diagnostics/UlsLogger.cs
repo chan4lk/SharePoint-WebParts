@@ -73,6 +73,7 @@ namespace SuperMarketSystem.Diagnostics
         /// Writes the specified message.
         /// </summary>
         /// <param name="message">The message.</param>
+        /// <param name="eventLevel">The event level.</param>
         /// <param name="level">The level.</param>
         private void Write(string message, EventSeverity eventLevel, TraceSeverity level)
         {

@@ -5,6 +5,9 @@
     /// </summary>
     public enum TraceSeverity
     {
+        /// <summary>
+        /// The none.
+        /// </summary>
         None = 0,
 
         /// <summary>
@@ -16,7 +19,6 @@
         /// Represents an unusual code path and actions that should be monitored.
         /// </summary>
         Monitorable = 15,
-
 
         /// <summary>
         /// Writes high-level detail to the trace log file.

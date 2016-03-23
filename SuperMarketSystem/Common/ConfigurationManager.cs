@@ -1,5 +1,7 @@
 ﻿using Microsoft.Practices.Unity;
 using Microsoft.SharePoint;
+using Microsoft.SharePoint.Administration;
+using SuperMarketSystem.Diagnostics;
 using SuperMarketSystem.Presenters;
 using SuperMarketSystem.Views;
 using System;
@@ -36,6 +38,7 @@ namespace SuperMarketSystem.Common
                     instance = new UnityContainer();
                     instance.RegisterType<IOrderView, OrderPart.OrderPart>()
                              .RegisterType<IOrderPresenter<IOrderView>, OrderPresenter>();
+                    instance.RegisterType<ILogger, UlsLogger>();
                 }
 
                 return instance;
@@ -58,12 +61,12 @@ namespace SuperMarketSystem.Common
             try
             {
                 user.Groups.GetByName(ConfigurationManager.SalesGroup);
-                isAuthenticated = true;
+                isAuthenticated = true;                
             }
             catch (Exception)
             {
                 isAuthenticated = false;
-            } 
+            }
 
             return isAuthenticated;
         }

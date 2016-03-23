@@ -11,6 +11,14 @@ namespace SuperMarketSystem.Commands
     /// <seealso cref="SuperMarketSystem.Commands.Command" />
     public class GetProductPriceCommand : Command
     {
+        #region Fields - Private members
+        /// <summary>
+        /// The product repository.
+        /// </summary>
+        private IRepository<Product> productRepository; 
+        #endregion
+
+        #region Properties - Public members
         /// <summary>
         /// Gets or sets the product identifier.
         /// </summary>
@@ -27,6 +35,28 @@ namespace SuperMarketSystem.Commands
         /// </value>
         public Product Product { get; set; }
 
+        #endregion
+
+        #region Methods - Public Members - Contructors
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GetProductPriceCommand"/> class.
+        /// </summary>
+        public GetProductPriceCommand()
+            : this(new ProductRepository())
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GetProductPriceCommand"/> class.
+        /// </summary>
+        /// <param name="productRepository">The product repository.</param>
+        public GetProductPriceCommand(IRepository<Product> productRepository)
+        {
+            this.productRepository = productRepository;
+        } 
+        #endregion
+
+        #region Methods - Public Members - Command Members
         /// <summary>
         /// Executes this instance.
         /// </summary>
@@ -34,8 +64,7 @@ namespace SuperMarketSystem.Commands
         {
             try
             {
-                IRepository<Product> reposiory = new ProductRepository();
-                this.Product = reposiory.GetById(this.ProductId);
+                this.Product = this.productRepository.GetById(this.ProductId);
             }
             catch (Exception exp)
             {
@@ -56,6 +85,7 @@ namespace SuperMarketSystem.Commands
         public override Task ExecuteAsync()
         {
             throw new NotImplementedException();
-        }
+        } 
+        #endregion
     }
 }

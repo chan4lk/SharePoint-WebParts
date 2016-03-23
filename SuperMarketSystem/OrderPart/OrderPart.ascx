@@ -41,8 +41,9 @@
     }
 
     #Sp-OrderPart .submit {
-        margin:5px auto !Important;
+        margin:0 auto !Important;
         display: block;
+        position:relative;
     }
     #Sp-OrderPart .col {
         display:block;
@@ -61,7 +62,7 @@
          color:#f00;
     }
 </style>
-<div id="Sp-OrderPart">
+<div id="Sp-OrderPart" onkeydown = "return (event.keyCode!=13)">
     <div class="well">
         <h1>Place an Order</h1>
         <asp:Button CssClass="btn" ID="ClearButton" runat="server" OnClick="ClearButtonClick" Text="New" />
@@ -111,10 +112,10 @@
             <div class="col" style="width:80%">
                 <asp:Label ID="MessageLabel" CssClass="msg" runat="server"></asp:Label>
             </div>
-            <div class="col" style="width:18%; margin-left:10px">
+            <div class="col" style="width:20%;">
                 <asp:Button CssClass="btn submit" ID="SubmitButton" runat="server" OnClick="SubmitButtonClick" Text="Submit" />
             </div>
         </div>
-        <div></div>
+        <hr>
     </div>
 </div>

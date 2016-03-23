@@ -12,6 +12,11 @@ namespace SuperMarketSystem.Commands
     public class CreateInvoiceCommand : Command
     {
         /// <summary>
+        /// The invoice repository.
+        /// </summary>
+        private IRepository<Invoice> invoiceRepository;
+
+        /// <summary>
         /// Gets or sets the invoice.
         /// </summary>
         /// <value>
@@ -28,12 +33,27 @@ namespace SuperMarketSystem.Commands
         public int InvoiceId { get; set; }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="CreateInvoiceCommand"/> class.
+        /// </summary>
+        public CreateInvoiceCommand() : this(new InvoiceRepository())
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CreateInvoiceCommand" /> class.
+        /// </summary>
+        /// <param name="invoiceRepository">The invoice repository.</param>
+        public CreateInvoiceCommand(IRepository<Invoice> invoiceRepository)
+        {
+            this.invoiceRepository = invoiceRepository;
+        }
+
+        /// <summary>
         /// Executes this instance.
         /// </summary>
         public override void Execute()
         {
-            IRepository<Invoice> reposioty = new InvoiceRepository();
-            this.InvoiceId = reposioty.Create(this.Invoice);
+            this.InvoiceId = this.invoiceRepository.Create(this.Invoice);
         }
 
         /// <summary>

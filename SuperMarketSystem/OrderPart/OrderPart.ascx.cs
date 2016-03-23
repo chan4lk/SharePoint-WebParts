@@ -123,7 +123,10 @@ namespace SuperMarketSystem.OrderPart
         {
             if (!ConfigurationManager.IsAuthenticated())
             {
-                SPUtility.SendAccessDeniedHeader(new SPException("Only users in sales group can access"));
+                var error = "Only users in sales group can access";
+                SPUtility.LogCustomAppError(error);
+                //// this.Logger.Error(error);
+                SPUtility.SendAccessDeniedHeader(new SPException(error));
             }
 
             if (!Page.IsPostBack)
@@ -160,7 +163,7 @@ namespace SuperMarketSystem.OrderPart
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         private void OnRowCreated(object sender, EventArgs e)
         {
-            Console.WriteLine("Row Created");
+            this.Logger.Info("Row Created");
         }
 
         /// <summary>

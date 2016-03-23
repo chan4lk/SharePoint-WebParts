@@ -14,14 +14,45 @@ namespace SuperMarketSystem.Commands
     /// <seealso cref="SuperMarketSystem.Commands.Command" />
     public class CreateOrderCommand : Command
     {
+        #region Fields - Private Members
+        /// <summary>
+        /// The order repository.
+        /// </summary>
+        private IRepository<Order> orderRepository; 
+        #endregion
+
+        #region Properties - Public Members
         /// <summary>
         /// Gets or sets the order.
         /// </summary>
         /// <value>
         /// The order.
         /// </value>
-        public Order Order { get; set; }
+        public Order Order { get; set; } 
 
+        #endregion
+
+        #region Methods - Public Members - Contructors
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CreateOrderCommand"/> class.
+        /// </summary>
+        public CreateOrderCommand()
+            : this(new OrderRepository())
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CreateOrderCommand"/> class.
+        /// </summary>
+        /// <param name="orderRepository">The order repository.</param>
+        public CreateOrderCommand(IRepository<Order> orderRepository)
+        {
+            // TODO: Complete member initialization
+            this.orderRepository = orderRepository;
+        } 
+        #endregion
+
+        #region Methods - Public Members - Command Members
         /// <summary>
         /// Executes the asynchronous.
         /// </summary>
@@ -43,14 +74,14 @@ namespace SuperMarketSystem.Commands
         {
             try
             {
-                IRepository<Order> repository = new OrderRepository();
-                repository.Create(this.Order);
+                this.Order.Id = this.orderRepository.Create(this.Order);
             }
             catch (Exception)
             {
                 Console.WriteLine("Could not create order");
                 throw;
             }
-        }
+        } 
+        #endregion
     }
 }

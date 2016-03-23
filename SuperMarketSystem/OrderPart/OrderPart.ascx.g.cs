@@ -374,8 +374,9 @@ namespace SuperMarketSystem.OrderPart {
     }
 
     #Sp-OrderPart .submit {
-        margin:5px auto !Important;
+        margin:0 auto !Important;
         display: block;
+        position:relative;
     }
     #Sp-OrderPart .col {
         display:block;
@@ -394,7 +395,7 @@ namespace SuperMarketSystem.OrderPart {
          color:#f00;
     }
 </style>
-<div id=""Sp-OrderPart"">
+<div id=""Sp-OrderPart"" onkeydown = ""return (event.keyCode!=13)"">
     <div class=""well"">
         <h1>Place an Order</h1>
         "));
@@ -410,12 +411,12 @@ namespace SuperMarketSystem.OrderPart {
             global::System.Web.UI.WebControls.Label @__ctrl3;
             @__ctrl3 = this.@__BuildControlMessageLabel();
             @__parser.AddParsedSubObject(@__ctrl3);
-            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n            </div>\r\n            <div class=\"col\" style=\"width:18%; margin-left:" +
-                        "10px\">\r\n                "));
+            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n            </div>\r\n            <div class=\"col\" style=\"width:20%;\">\r\n         " +
+                        "       "));
             global::System.Web.UI.WebControls.Button @__ctrl4;
             @__ctrl4 = this.@__BuildControlSubmitButton();
             @__parser.AddParsedSubObject(@__ctrl4);
-            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n            </div>\r\n        </div>\r\n        <div></div>\r\n    </div>\r\n</div>\r\n"));
+            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n            </div>\r\n        </div>\r\n        <hr>\r\n    </div>\r\n</div>\r\n"));
         }
         
         private void InitializeControl() {

@@ -171,6 +171,5 @@ namespace SuperMarketSystem.Presenters
             return invoiceID;
         } 
         #endregion
-        
     }
 }

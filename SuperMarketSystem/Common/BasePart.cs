@@ -40,6 +40,7 @@ namespace SuperMarketSystem.Common
 
             this.Presenter = ConfigurationManager.Container.Resolve<TPresenter>();
             this.Presenter.View = (TView)(object)this;
+            this.Presenter.Initailize();
         }
     }
 }

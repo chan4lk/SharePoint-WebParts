@@ -41,10 +41,8 @@ namespace SuperMarketSystem.Presenters
         /// <summary>
         /// Initializes the specified view.
         /// </summary>
-        /// <param name="view">The view.</param>
-        public void Initailize(IOrderView view)
+        public void Initailize()
         {
-            this.View = view;
             this.View.Model = new OrderViewModel();
             this.View.Model.Items = new List<ProductItem>();
         }
@@ -144,7 +142,9 @@ namespace SuperMarketSystem.Presenters
             }
         }
         #endregion
+        #endregion
 
+        #region Method - Private Members (Helpers)
         /// <summary>
         /// Creates the invoice.
         /// </summary>
@@ -169,7 +169,8 @@ namespace SuperMarketSystem.Presenters
             invoiceID = ((CreateInvoiceCommand)command).InvoiceId;
 
             return invoiceID;
-        }
+        } 
         #endregion
+        
     }
 }

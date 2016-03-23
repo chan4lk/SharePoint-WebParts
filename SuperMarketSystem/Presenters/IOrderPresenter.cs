@@ -1,10 +1,5 @@
 ﻿using SuperMarketSystem.Models;
 using SuperMarketSystem.Views;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SuperMarketSystem.Presenters
 {
@@ -44,7 +39,6 @@ namespace SuperMarketSystem.Presenters
         /// <summary>
         /// Initializes the specified view.
         /// </summary>
-        /// <param name="view">The view.</param>
-        void Initailize(TView view);
+        void Initailize();
     }
 }

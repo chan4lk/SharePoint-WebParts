@@ -44,15 +44,19 @@ namespace SuperMarketSystem.Repository
         {
             int result = 0;
 
-            SPWeb web = SPContext.Current.Web;
-            SPList list = web.Lists[InvoiceRepository.ListName];
-            SPListItem item = list.Items.Add();
+            using (SPSite site = new SPSite(SPContext.Current.Web.Url))
+            {
+                using (SPWeb web = site.OpenWeb())
+                {
+                    SPList list = web.Lists[InvoiceRepository.ListName];
+                    SPListItem item = list.Items.Add();
 
-            item[FieldTotal] = invoice.Total;
-            item[FieldDate] = invoice.Date;
-            item.Update();
-
-            result = item.ID;
+                    item[FieldTotal] = invoice.Total;
+                    item[FieldDate] = invoice.Date;
+                    item.Update();
+                    result = item.ID;
+                }
+            }
 
             return result;
         }

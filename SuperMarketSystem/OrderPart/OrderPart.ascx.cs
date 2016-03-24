@@ -121,11 +121,9 @@ namespace SuperMarketSystem.OrderPart
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!ConfigurationManager.IsAuthenticated())
+            if (!ConfigurationManager.IsAuthenticated)
             {
                 var error = "Only users in sales group can access";
-                SPUtility.LogCustomAppError(error);
-                //// this.Logger.Error(error);
                 SPUtility.SendAccessDeniedHeader(new SPException(error));
             }
 

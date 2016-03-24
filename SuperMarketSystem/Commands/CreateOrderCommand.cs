@@ -18,7 +18,7 @@ namespace SuperMarketSystem.Commands
         /// <summary>
         /// The order repository.
         /// </summary>
-        private IRepository<Order> orderRepository; 
+        private IRepository<Order> orderRepository;
         #endregion
 
         #region Properties - Public Members
@@ -28,7 +28,7 @@ namespace SuperMarketSystem.Commands
         /// <value>
         /// The order.
         /// </value>
-        public Order Order { get; set; } 
+        public Order Order { get; set; }
 
         #endregion
 
@@ -46,10 +46,11 @@ namespace SuperMarketSystem.Commands
         /// </summary>
         /// <param name="orderRepository">The order repository.</param>
         public CreateOrderCommand(IRepository<Order> orderRepository)
+            : base()
         {
             // TODO: Complete member initialization
             this.orderRepository = orderRepository;
-        } 
+        }
         #endregion
 
         #region Methods - Public Members - Command Members
@@ -78,10 +79,10 @@ namespace SuperMarketSystem.Commands
             }
             catch (Exception)
             {
-                Console.WriteLine("Could not create order");
+                this.Logger.Error("Could not create order");
                 throw;
             }
-        } 
+        }
         #endregion
     }
 }

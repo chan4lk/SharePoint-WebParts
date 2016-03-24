@@ -15,7 +15,7 @@ namespace SuperMarketSystem.Commands
         /// <summary>
         /// The product repository.
         /// </summary>
-        private IRepository<Product> productRepository; 
+        private IRepository<Product> productRepository;
         #endregion
 
         #region Properties - Public members
@@ -51,9 +51,10 @@ namespace SuperMarketSystem.Commands
         /// </summary>
         /// <param name="productRepository">The product repository.</param>
         public GetProductPriceCommand(IRepository<Product> productRepository)
+            : base()
         {
             this.productRepository = productRepository;
-        } 
+        }
         #endregion
 
         #region Methods - Public Members - Command Members
@@ -68,7 +69,7 @@ namespace SuperMarketSystem.Commands
             }
             catch (Exception exp)
             {
-                Console.WriteLine(exp.Message);
+                this.Logger.Error(exp.Message);
                 throw;
             }
         }
@@ -85,7 +86,7 @@ namespace SuperMarketSystem.Commands
         public override Task ExecuteAsync()
         {
             throw new NotImplementedException();
-        } 
+        }
         #endregion
     }
 }

@@ -35,7 +35,8 @@ namespace SuperMarketSystem.Commands
         /// <summary>
         /// Initializes a new instance of the <see cref="CreateInvoiceCommand"/> class.
         /// </summary>
-        public CreateInvoiceCommand() : this(new InvoiceRepository())
+        public CreateInvoiceCommand()
+            : this(new InvoiceRepository())
         {
         }
 
@@ -44,6 +45,7 @@ namespace SuperMarketSystem.Commands
         /// </summary>
         /// <param name="invoiceRepository">The invoice repository.</param>
         public CreateInvoiceCommand(IRepository<Invoice> invoiceRepository)
+            : base()
         {
             this.invoiceRepository = invoiceRepository;
         }
@@ -53,7 +55,15 @@ namespace SuperMarketSystem.Commands
         /// </summary>
         public override void Execute()
         {
-            this.InvoiceId = this.invoiceRepository.Create(this.Invoice);
+            try
+            {
+                this.InvoiceId = this.invoiceRepository.Create(this.Invoice);
+            }
+            catch (Exception)
+            {
+                this.Logger.Error("Could not create the invoice.");
+                throw;
+            }
         }
 
         /// <summary>

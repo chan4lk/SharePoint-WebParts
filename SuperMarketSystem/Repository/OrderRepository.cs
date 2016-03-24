@@ -1,7 +1,9 @@
-﻿using Microsoft.SharePoint;
+﻿#region Imports
+using Microsoft.SharePoint;
 using SuperMarketSystem.Models;
 using System;
-using System.Collections.Generic;
+using System.Collections.Generic; 
+#endregion
 
 namespace SuperMarketSystem.Repository
 {
@@ -55,18 +57,23 @@ namespace SuperMarketSystem.Repository
         {
             int result = 0;
 
-            SPWeb web = SPContext.Current.Web;
-            SPList list = web.Lists[OrderRepository.ListName];
-            SPListItem item = list.Items.Add();
+            using (SPSite site = new SPSite(SPContext.Current.Web.Url))
+            {
+                using (SPWeb web = site.OpenWeb())
+                {
+                    SPList list = web.Lists[OrderRepository.ListName];
+                    SPListItem item = list.Items.Add();
 
-            item[FieldProductId] = order.ProductId;
-            item[FieldInvoiceId] = order.InvoiceId;
-            item[FieldQuantity] = order.Quantity;
-            item[FieldTotal] = order.Total;
+                    item[FieldProductId] = order.ProductId;
+                    item[FieldInvoiceId] = order.InvoiceId;
+                    item[FieldQuantity] = order.Quantity;
+                    item[FieldTotal] = order.Total;
 
-            item.Update();
+                    item.Update();
 
-            result = item.ID;
+                    result = item.ID;
+                }
+            }
 
             return result;
         }

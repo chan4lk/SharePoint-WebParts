@@ -1,9 +1,6 @@
 ﻿using SuperMarketSystem.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.SharePoint;
 
 namespace SuperMarketSystem.Repository
@@ -12,9 +9,10 @@ namespace SuperMarketSystem.Repository
     /// The Product repository.
     /// </summary>
     /// <seealso cref="SuperMarketSystem.Repository.IRepository{SuperMarketSystem.Models.Product}" />
-    public class ProductRepository : IRepository<Product>, IDisposable
+    public class ProductRepository : IRepository<Product>
     {
         #region Fields - Contants
+
         /// <summary>
         /// The list name.
         /// </summary>
@@ -34,6 +32,7 @@ namespace SuperMarketSystem.Repository
         /// The field price
         /// </summary>
         private const string FieldPrice = "Price"; 
+
         #endregion
         
         #region Methods - IRepository Members
@@ -94,29 +93,33 @@ namespace SuperMarketSystem.Repository
         {
             Product item = null;
 
-            SPSite site = SPContext.Current.Site;
-            SPWeb web = site.RootWeb;
-            SPList list = web.Lists[ProductRepository.ListName];
-            SPQuery query = new SPQuery()
+            using (SPSite site = new SPSite(SPContext.Current.Web.Url))
             {
-                Query = @"<Where><Eq>
+                using (SPWeb web = site.OpenWeb())
+                {
+                    SPList list = web.Lists[ProductRepository.ListName];
+                    SPQuery query = new SPQuery()
+                    {
+                        Query = @"<Where><Eq>
                                         <FieldRef Name='ID' />
                                         <Value Type='Number'>
                                         " +
-                                  id
-                                  + @"</Value>
+                                          id
+                                          + @"</Value>
                                     </Eq></Where>
                                   ",
-                ViewFields = string.Concat("<FieldRef Name='CategoryName' />", "<FieldRef Name='ID' />", "<FieldRef Name='Price' />")
-            };
+                        ViewFields = string.Concat("<FieldRef Name='CategoryName' />", "<FieldRef Name='ID' />", "<FieldRef Name='Price' />")
+                    };
 
-            SPListItemCollection products = list.GetItems(query);
-            item = new Product
-            {
-                ProductId = int.Parse(products[0][FieldId].ToString()),
-                Price = decimal.Parse(products[0][FieldPrice].ToString()),
-                Category = products[0][FieldCategory].ToString().Remove(0, 3)
-            };
+                    SPListItemCollection products = list.GetItems(query);
+                    item = new Product
+                    {
+                        ProductId = int.Parse(products[0][FieldId].ToString()),
+                        Price = decimal.Parse(products[0][FieldPrice].ToString()),
+                        Category = products[0][FieldCategory].ToString().Remove(0, 3)
+                    };
+                }
+            }
 
             return item;
         }
@@ -131,9 +134,9 @@ namespace SuperMarketSystem.Repository
         {
             List<Product> items = null;
 
-            using (SPSite site = SPContext.Current.Site)
+            using (SPSite site = new SPSite(SPContext.Current.Web.Url))
             {
-                using (SPWeb web = site.RootWeb)
+                using (SPWeb web = site.OpenWeb())
                 {
                     SPList list = web.Lists[ProductRepository.ListName];
                     SPQuery query = new SPQuery()
@@ -167,16 +170,6 @@ namespace SuperMarketSystem.Repository
             return items;
         }
 
-        #endregion
-
-        #region Methods - IDisposable Members
-        /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-        /// </summary>
-        public void Dispose()
-        {
-            Console.WriteLine("Disposing");
-        } 
         #endregion
     }
 }

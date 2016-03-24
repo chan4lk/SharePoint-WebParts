@@ -1,10 +1,11 @@
-﻿using Microsoft.Practices.Unity;
+﻿#region Imports
+using Microsoft.Practices.Unity;
 using Microsoft.SharePoint;
-using Microsoft.SharePoint.Administration;
 using SuperMarketSystem.Diagnostics;
 using SuperMarketSystem.Presenters;
 using SuperMarketSystem.Views;
-using System;
+using System; 
+#endregion
 
 namespace SuperMarketSystem.Common
 {
@@ -46,29 +47,39 @@ namespace SuperMarketSystem.Common
         }
 
         /// <summary>
-        /// Determines whether this instance is authenticated.
+        /// Gets a value indicating whether this instance is authenticated.
         /// </summary>
-        /// <returns>
-        /// <c>true</c> if authenticated.
-        /// </returns>
-        public static bool IsAuthenticated()
+        /// <value>
+        /// <c>true</c> if this instance is authenticated; otherwise, <c>false</c>.
+        /// </value>
+        public static bool IsAuthenticated
         {
-            bool isAuthenticated = false;
-
-            SPWeb web = SPContext.Current.Web;
-            SPUser user = web.CurrentUser;
-
-            try
+            get
             {
-                user.Groups.GetByName(ConfigurationManager.SalesGroup);
-                isAuthenticated = true;                
-            }
-            catch (Exception)
-            {
-                isAuthenticated = false;
-            }
+                bool isAuthenticated = false;
 
-            return isAuthenticated;
+                using (SPSite site = new SPSite(SPContext.Current.Web.Url))
+                {
+                    using (SPWeb web = site.OpenWeb())
+                    {
+                        SPUser user = web.CurrentUser;
+
+                        try
+                        {
+                            user.Groups.GetByName(ConfigurationManager.SalesGroup);
+                            isAuthenticated = true;
+                        }
+                        catch (Exception)
+                        {
+                            ILogger logger = ConfigurationManager.Container.Resolve<ILogger>();
+                            logger.Error("User is not on the sales group");
+                            isAuthenticated = false;
+                        }
+                    }
+                }
+
+                return isAuthenticated;
+            }
         }
     }
 }

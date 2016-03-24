@@ -25,10 +25,14 @@
         #Sp-OrderPart table td {
             text-align: center;
         }
+    #Sp-OrderPart table th {
+            width: 33%
+        }
 
     #Sp-OrderPart .btn {
         background: #D1DBEA;
-        margin: 5px;
+        margin-top: 5px;
+        margin-bottom: 5px;
         -moz-border-radius: 5px;
         -webkit-border-radius: 5px;
         border-radius: 5px;
@@ -36,83 +40,87 @@
 
     #Sp-OrderPart input[type=text] {
         width: 96%;
-        margin: 2px auto;
+        margin: 5px auto;
         padding-right: 5px;
     }
 
     #Sp-OrderPart .submit {
-        margin:0 auto !Important;
+        margin: 0 auto !Important;
         display: block;
-        position:relative;
+        position: relative;
     }
+
     #Sp-OrderPart .col {
-        display:block;
-        float:left;
+        display: block;
+        float: left;
     }
 
     #Sp-OrderPart .msg {
-        height:100%;
+        height: 100%;
     }
 
     #Sp-OrderPart .info {
-        color:#000;
+        color: #000;
     }
 
     #Sp-OrderPart .err {
-         color:#f00;
+        color: #f00;
     }
 </style>
-<div id="Sp-OrderPart" onkeydown = "return (event.keyCode!=13)">
+<div id="Sp-OrderPart" data-onkeydown="return (event.keyCode!=13)">
     <div class="well">
         <h1>Place an Order</h1>
-        <asp:Button CssClass="btn" ID="ClearButton" runat="server" OnClick="ClearButtonClick" Text="New" />
-        <asp:GridView
-            ID="orderView"
-            runat="server"
-            ShowFooter="true"
-            ShowHeaderWhenEmpty="true"
-            AutoGenerateColumns="false"
-            OnRowCommand="OnRowCommand"
-            OnRowDataBound="RowDataBound"
-            OnRowCreated="OnRowCreated">
-            <Columns>
-                <asp:TemplateField HeaderText="Product ID">
-                    <ItemTemplate>
-                        <asp:Label ID="IdLabel" runat="server" Text='<%# Bind("ProductId") %>'></asp:Label>
-                    </ItemTemplate>
-                    <FooterTemplate>
-                        <asp:TextBox ID="ProductIdText" runat="server" Text="0"></asp:TextBox>
-                        <br />
-                        <label>Total</label>
-                    </FooterTemplate>
-                </asp:TemplateField>
-                <asp:TemplateField HeaderText="Quantity">
-                    <ItemTemplate>
-                        <asp:Label ID="QuantityLabel" runat="server" Text='<%# Eval("Quantity") %>'></asp:Label>
-                    </ItemTemplate>
-                    <FooterTemplate>
-                        <asp:TextBox ID="QuantityText" runat="server" Text="0"></asp:TextBox>
-                        <br />
-                        <br />
-                    </FooterTemplate>
-                </asp:TemplateField>
-                <asp:TemplateField HeaderText="Total">
-                    <ItemTemplate>
-                        <%# Eval("Total", "{0:c}") %>
-                    </ItemTemplate>
-                    <FooterTemplate>
-                        <asp:Button CssClass="btn" CommandName="AddToCart" Text="Add" runat="server" />
-                        <br />
-                        <asp:Label runat="server" ID="TotalLabel"></asp:Label>
-                    </FooterTemplate>
-                </asp:TemplateField>
-            </Columns>
-        </asp:GridView>
-        <div style="display:flex;margin-top:10px;">
-            <div class="col" style="width:80%">
+        <div>
+            <asp:Button CssClass="btn" ID="ClearButton" runat="server" OnClick="ClearButtonClick" Text="New" />
+        </div>
+        <div>
+            <asp:GridView
+                ID="orderView"
+                runat="server"
+                ShowFooter="true"
+                ShowHeaderWhenEmpty="true"
+                AutoGenerateColumns="false"
+                OnRowDataBound="RowDataBound"
+                OnRowCreated="OnRowCreated">
+                <Columns>
+                    <asp:TemplateField HeaderText="Product ID">
+                        <ItemTemplate>
+                            <asp:Label ID="IdLabel" runat="server" Text='<%# Bind("ProductId") %>'></asp:Label>
+                        </ItemTemplate>
+                        <FooterTemplate>
+                            <asp:TextBox ID="ProductIdText" runat="server" Text="0"></asp:TextBox>
+                            <br />
+                            <label>Total</label>
+                        </FooterTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Quantity">
+                        <ItemTemplate>
+                            <asp:Label ID="QuantityLabel" runat="server" Text='<%# Eval("Quantity") %>'></asp:Label>
+                        </ItemTemplate>
+                        <FooterTemplate>
+                            <asp:TextBox ID="QuantityText" runat="server" Text="0" AutoPostBack="true"></asp:TextBox>
+                            <br />
+                            <br />
+                        </FooterTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Total">
+                        <ItemTemplate>
+                            <%# Eval("Total", "{0:c}") %>
+                        </ItemTemplate>
+                        <FooterTemplate>
+                            <br />
+                            <br />
+                            <asp:Label runat="server" ID="TotalLabel"></asp:Label>
+                        </FooterTemplate>
+                    </asp:TemplateField>
+                </Columns>
+            </asp:GridView>
+        </div>
+        <div style="display: flex; margin-top: 10px; min-height:50px">
+            <div class="col" style="width: 67%">
                 <asp:Label ID="MessageLabel" CssClass="msg" runat="server"></asp:Label>
             </div>
-            <div class="col" style="width:20%;">
+            <div class="col" style="width: 33%;">
                 <asp:Button CssClass="btn submit" ID="SubmitButton" runat="server" OnClick="SubmitButtonClick" Text="Submit" />
             </div>
         </div>

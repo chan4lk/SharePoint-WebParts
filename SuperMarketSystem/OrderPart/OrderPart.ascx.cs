@@ -43,6 +43,14 @@ namespace SuperMarketSystem.OrderPart
         /// </value>
         public List<int> ProductIds { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is submitted.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if this instance is submitted; otherwise, <c>false</c>.
+        /// </value>
+        private bool IsSubmitted { get; set; }
+
         #endregion
 
         #region Constants - Privae Memebers
@@ -66,6 +74,11 @@ namespace SuperMarketSystem.OrderPart
         /// The identifier text identifier.
         /// </summary>
         private const string IdTextID = "ProductIdText";
+
+        /// <summary>
+        /// The add button identifier.
+        /// </summary>
+        private const string AddButtonID = "AddButton";
 
         /// <summary>
         /// The total label.
@@ -159,22 +172,16 @@ namespace SuperMarketSystem.OrderPart
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        private void OnRowCreated(object sender, EventArgs e)
+        private void OnRowCreated(object sender, GridViewRowEventArgs e)
         {
-            this.Logger.Info("Row Created");
-        }
-
-        /// <summary>
-        /// Called when [row command].
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="GridViewCommandEventArgs"/> instance containing the event data.</param>
-        protected void OnRowCommand(object sender, GridViewCommandEventArgs e)
-        {
-            if (e.CommandName == OrderPart.AddToCartCommand)
+            if (e.Row.RowType == DataControlRowType.Footer)
             {
-                this.Add();
+                TextBox quantityText = e.Row.FindControl(QuantityTextID) as TextBox;
+                quantityText.TextChanged -= this.OnAdd;
+                quantityText.TextChanged += this.OnAdd;
             }
+
+            this.Logger.Info("Row Created");
         }
 
         /// <summary>
@@ -186,8 +193,31 @@ namespace SuperMarketSystem.OrderPart
         {
             if (e.Row.RowType == DataControlRowType.Footer)
             {
-                Label totalLabel = e.Row.FindControl(OrderPart.TotalLabel) as Label;
-                totalLabel.Text = this.Model.Total.ToString("C");
+                TextBox productIdText = e.Row.FindControl(IdTextID) as TextBox;
+                productIdText.Attributes.Add("onkeydown", "return (event.keyCode!=13)");
+                if (this.IsSubmitted)
+                {
+                    Label totalLabel = e.Row.FindControl(OrderPart.TotalLabel) as Label;
+                    totalLabel.Text = this.Model.Total.ToString("C");
+
+                    TextBox quantityText = e.Row.FindControl(QuantityTextID) as TextBox;                    
+
+                    quantityText.Enabled = false;
+                    productIdText.Enabled = false;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Handles the TextChanged event of the quantityText control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void OnAdd(object sender, EventArgs e)
+        {
+            if (!this.IsSubmitted)
+            {
+                this.Add();
             }
         }
 
@@ -240,6 +270,15 @@ namespace SuperMarketSystem.OrderPart
             this.orderView.DataBind();
             this.orderView.Rows[0].Visible = false;     // Workaround for showing the empty grid.
             this.ShowMessage("Please add items to the cart");
+        }
+
+        /// <summary>
+        /// Freezes this view.
+        /// </summary>
+        public void Freeze()
+        {
+            this.IsSubmitted = true;
+            this.Draw();
         }
 
         /// <summary>

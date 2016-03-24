@@ -101,7 +101,7 @@ namespace SuperMarketSystem.Presenters
                 this.View.ShowMessage("Could not create Invoice", true);
             }
 
-            this.View.Clear();
+            this.View.Freeze();
             this.View.ShowMessage("Invoice created");
         }
 

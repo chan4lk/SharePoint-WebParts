@@ -112,6 +112,12 @@ namespace SuperMarketSystem.Repository
                     };
 
                     SPListItemCollection products = list.GetItems(query);
+
+                    if (products.Count > 1)
+                    {
+                        throw new Exception("Two products cannot have the same ID");
+                    }
+
                     item = new Product
                     {
                         ProductId = int.Parse(products[0][FieldId].ToString()),

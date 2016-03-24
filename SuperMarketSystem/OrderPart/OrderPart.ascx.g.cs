@@ -90,11 +90,11 @@ namespace SuperMarketSystem.OrderPart {
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
         private void @__BuildControl__control4(System.Web.UI.Control @__ctrl) {
             System.Web.UI.IParserAccessor @__parser = ((System.Web.UI.IParserAccessor)(@__ctrl));
-            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n                        "));
+            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n                            "));
             global::System.Web.UI.WebControls.Label @__ctrl1;
             @__ctrl1 = this.@__BuildControl__control5();
             @__parser.AddParsedSubObject(@__ctrl1);
-            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n                    "));
+            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n                        "));
         }
         
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
@@ -123,12 +123,12 @@ namespace SuperMarketSystem.OrderPart {
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
         private void @__BuildControl__control6(System.Web.UI.Control @__ctrl) {
             System.Web.UI.IParserAccessor @__parser = ((System.Web.UI.IParserAccessor)(@__ctrl));
-            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n                        "));
+            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n                            "));
             global::System.Web.UI.WebControls.TextBox @__ctrl1;
             @__ctrl1 = this.@__BuildControl__control7();
             @__parser.AddParsedSubObject(@__ctrl1);
-            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n                        <br />\r\n                        <label>Total</label>\r\n " +
-                        "                   "));
+            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n                            <br />\r\n                            <label>Total</l" +
+                        "abel>\r\n                        "));
         }
         
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
@@ -164,11 +164,11 @@ namespace SuperMarketSystem.OrderPart {
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
         private void @__BuildControl__control9(System.Web.UI.Control @__ctrl) {
             System.Web.UI.IParserAccessor @__parser = ((System.Web.UI.IParserAccessor)(@__ctrl));
-            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n                        "));
+            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n                            "));
             global::System.Web.UI.WebControls.Label @__ctrl1;
             @__ctrl1 = this.@__BuildControl__control10();
             @__parser.AddParsedSubObject(@__ctrl1);
-            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n                    "));
+            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n                        "));
         }
         
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
@@ -179,18 +179,19 @@ namespace SuperMarketSystem.OrderPart {
             @__ctrl.ApplyStyleSheetSkin(this.Page);
             @__ctrl.ID = "QuantityText";
             @__ctrl.Text = "0";
+            @__ctrl.AutoPostBack = true;
             return @__ctrl;
         }
         
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
         private void @__BuildControl__control11(System.Web.UI.Control @__ctrl) {
             System.Web.UI.IParserAccessor @__parser = ((System.Web.UI.IParserAccessor)(@__ctrl));
-            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n                        "));
+            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n                            "));
             global::System.Web.UI.WebControls.TextBox @__ctrl1;
             @__ctrl1 = this.@__BuildControl__control12();
             @__parser.AddParsedSubObject(@__ctrl1);
-            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n                        <br />\r\n                        <br />\r\n               " +
-                        "     "));
+            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n                            <br />\r\n                            <br />\r\n       " +
+                        "                 "));
         }
         
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
@@ -208,8 +209,8 @@ namespace SuperMarketSystem.OrderPart {
             global::System.Web.UI.DataBoundLiteralControl @__ctrl;
             @__ctrl = new global::System.Web.UI.DataBoundLiteralControl(2, 1);
             @__ctrl.TemplateControl = this;
-            @__ctrl.SetStaticString(0, "\r\n                        ");
-            @__ctrl.SetStaticString(1, "\r\n                    ");
+            @__ctrl.SetStaticString(0, "\r\n                            ");
+            @__ctrl.SetStaticString(1, "\r\n                        ");
             @__ctrl.DataBinding += new System.EventHandler(this.@__DataBind__control15);
             return @__ctrl;
         }
@@ -232,19 +233,7 @@ namespace SuperMarketSystem.OrderPart {
         }
         
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
-        private global::System.Web.UI.WebControls.Button @__BuildControl__control17() {
-            global::System.Web.UI.WebControls.Button @__ctrl;
-            @__ctrl = new global::System.Web.UI.WebControls.Button();
-            @__ctrl.TemplateControl = this;
-            @__ctrl.ApplyStyleSheetSkin(this.Page);
-            @__ctrl.CssClass = "btn";
-            @__ctrl.CommandName = "AddToCart";
-            @__ctrl.Text = "Add";
-            return @__ctrl;
-        }
-        
-        [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
-        private global::System.Web.UI.WebControls.Label @__BuildControl__control18() {
+        private global::System.Web.UI.WebControls.Label @__BuildControl__control17() {
             global::System.Web.UI.WebControls.Label @__ctrl;
             @__ctrl = new global::System.Web.UI.WebControls.Label();
             @__ctrl.TemplateControl = this;
@@ -256,15 +245,12 @@ namespace SuperMarketSystem.OrderPart {
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
         private void @__BuildControl__control16(System.Web.UI.Control @__ctrl) {
             System.Web.UI.IParserAccessor @__parser = ((System.Web.UI.IParserAccessor)(@__ctrl));
-            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n                        "));
-            global::System.Web.UI.WebControls.Button @__ctrl1;
+            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n                            <br />\r\n                            <br />\r\n       " +
+                        "                     "));
+            global::System.Web.UI.WebControls.Label @__ctrl1;
             @__ctrl1 = this.@__BuildControl__control17();
             @__parser.AddParsedSubObject(@__ctrl1);
-            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n                        <br />\r\n                        "));
-            global::System.Web.UI.WebControls.Label @__ctrl2;
-            @__ctrl2 = this.@__BuildControl__control18();
-            @__parser.AddParsedSubObject(@__ctrl2);
-            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n                    "));
+            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n                        "));
         }
         
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
@@ -301,8 +287,6 @@ namespace SuperMarketSystem.OrderPart {
             @__ctrl.ShowHeaderWhenEmpty = true;
             @__ctrl.AutoGenerateColumns = false;
             this.@__BuildControl__control2(@__ctrl.Columns);
-            @__ctrl.RowCommand -= new System.Web.UI.WebControls.GridViewCommandEventHandler(this.OnRowCommand);
-            @__ctrl.RowCommand += new System.Web.UI.WebControls.GridViewCommandEventHandler(this.OnRowCommand);
             @__ctrl.RowDataBound -= new System.Web.UI.WebControls.GridViewRowEventHandler(this.RowDataBound);
             @__ctrl.RowDataBound += new System.Web.UI.WebControls.GridViewRowEventHandler(this.RowDataBound);
             @__ctrl.RowCreated -= new System.Web.UI.WebControls.GridViewRowEventHandler(this.OnRowCreated);
@@ -358,10 +342,14 @@ namespace SuperMarketSystem.OrderPart {
         #Sp-OrderPart table td {
             text-align: center;
         }
+    #Sp-OrderPart table th {
+            width: 33%
+        }
 
     #Sp-OrderPart .btn {
         background: #D1DBEA;
-        margin: 5px;
+        margin-top: 5px;
+        margin-bottom: 5px;
         -moz-border-radius: 5px;
         -webkit-border-radius: 5px;
         border-radius: 5px;
@@ -369,50 +357,52 @@ namespace SuperMarketSystem.OrderPart {
 
     #Sp-OrderPart input[type=text] {
         width: 96%;
-        margin: 2px auto;
+        margin: 5px auto;
         padding-right: 5px;
     }
 
     #Sp-OrderPart .submit {
-        margin:0 auto !Important;
+        margin: 0 auto !Important;
         display: block;
-        position:relative;
+        position: relative;
     }
+
     #Sp-OrderPart .col {
-        display:block;
-        float:left;
+        display: block;
+        float: left;
     }
 
     #Sp-OrderPart .msg {
-        height:100%;
+        height: 100%;
     }
 
     #Sp-OrderPart .info {
-        color:#000;
+        color: #000;
     }
 
     #Sp-OrderPart .err {
-         color:#f00;
+        color: #f00;
     }
 </style>
-<div id=""Sp-OrderPart"" onkeydown = ""return (event.keyCode!=13)"">
+<div id=""Sp-OrderPart"" data-onkeydown=""return (event.keyCode!=13)"">
     <div class=""well"">
         <h1>Place an Order</h1>
-        "));
+        <div>
+            "));
             global::System.Web.UI.WebControls.Button @__ctrl1;
             @__ctrl1 = this.@__BuildControlClearButton();
             @__parser.AddParsedSubObject(@__ctrl1);
-            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n        "));
+            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n        </div>\r\n        <div>\r\n            "));
             global::System.Web.UI.WebControls.GridView @__ctrl2;
             @__ctrl2 = this.@__BuildControlorderView();
             @__parser.AddParsedSubObject(@__ctrl2);
-            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n        <div style=\"display:flex;margin-top:10px;\">\r\n            <div class=\"co" +
-                        "l\" style=\"width:80%\">\r\n                "));
+            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n        </div>\r\n        <div style=\"display: flex; margin-top: 10px; min-height" +
+                        ":50px\">\r\n            <div class=\"col\" style=\"width: 67%\">\r\n                "));
             global::System.Web.UI.WebControls.Label @__ctrl3;
             @__ctrl3 = this.@__BuildControlMessageLabel();
             @__parser.AddParsedSubObject(@__ctrl3);
-            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n            </div>\r\n            <div class=\"col\" style=\"width:20%;\">\r\n         " +
-                        "       "));
+            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n            </div>\r\n            <div class=\"col\" style=\"width: 33%;\">\r\n        " +
+                        "        "));
             global::System.Web.UI.WebControls.Button @__ctrl4;
             @__ctrl4 = this.@__BuildControlSubmitButton();
             @__parser.AddParsedSubObject(@__ctrl4);

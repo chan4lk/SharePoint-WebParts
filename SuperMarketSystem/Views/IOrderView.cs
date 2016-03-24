@@ -47,5 +47,10 @@ namespace SuperMarketSystem.Views
         /// <param name="message">The message.</param>
         /// <param name="isError">if set to <c>true</c> [is error].</param>
         void ShowMessage(string message, bool isError);
+
+        /// <summary>
+        /// Freezes this view.
+        /// </summary>
+        void Freeze();
     }
 }

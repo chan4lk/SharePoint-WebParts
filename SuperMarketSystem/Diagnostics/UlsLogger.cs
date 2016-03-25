@@ -1,4 +1,5 @@
 ﻿using Microsoft.SharePoint.Administration;
+using System;
 
 namespace SuperMarketSystem.Diagnostics
 {
@@ -17,6 +18,11 @@ namespace SuperMarketSystem.Diagnostics
         /// The diagnostic service.
         /// </summary>
         private SPDiagnosticsService diagnosticService = SPDiagnosticsService.Local;
+
+        /// <summary>
+        /// The identifier.
+        /// </summary>
+        private uint id = 0;
 
         /// <summary>
         /// Logs the specified message.
@@ -43,12 +49,35 @@ namespace SuperMarketSystem.Diagnostics
         }
 
         /// <summary>
+        /// Logs the specified format.
+        /// </summary>
+        /// <param name="format">The format.</param>
+        /// <param name="level">The level.</param>
+        /// <param name="args">The arguments.</param>
+        public void Log(string format, EventSeverity level, params object[] args)
+        {
+            var message = string.Format(format, args);
+
+            this.Log(message, level);
+        }
+
+        /// <summary>
         /// Error level log the specified message.
         /// </summary>
         /// <param name="message">The message.</param>
         public void Error(string message)
         {
             this.Write(message, EventSeverity.Error, TraceSeverity.High);
+        }
+
+        /// <summary>
+        /// Errors the specified format.
+        /// </summary>
+        /// <param name="format">The format.</param>
+        /// <param name="args">The arguments.</param>
+        public void Error(string format, params object[] args)
+        {
+            this.Error(string.Format(format, args));
         }
 
         /// <summary>
@@ -80,6 +109,16 @@ namespace SuperMarketSystem.Diagnostics
         }
 
         /// <summary>
+        /// Warns with the specified format.
+        /// </summary>
+        /// <param name="format">The format.</param>
+        /// <param name="args">The arguments.</param>
+        public void Warn(string format, params object[] args)
+        {
+           this.Warn(string.Format(format, args));
+        }
+
+        /// <summary>
         /// Writes the specified message.
         /// </summary>
         /// <param name="message">The message.</param>
@@ -88,7 +127,7 @@ namespace SuperMarketSystem.Diagnostics
         private void Write(string message, EventSeverity eventLevel, TraceSeverity level)
         {
             this.diagnosticService.WriteTrace(
-                0,
+                this.id++,
                 new SPDiagnosticsCategory(
                     UlsLogger.Category,
                     (Microsoft.SharePoint.Administration.TraceSeverity)level,

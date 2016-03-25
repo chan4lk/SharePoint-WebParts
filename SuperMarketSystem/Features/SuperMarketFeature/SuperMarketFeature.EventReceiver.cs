@@ -10,6 +10,8 @@ using System;
 using System.Runtime.InteropServices;
 using Microsoft.SharePoint.Administration;
 using SuperMarketSystem.Jobs;
+using SuperMarketSystem.Diagnostics;
+using Microsoft.Practices.Unity;
 
 namespace SuperMarketSystem.Features.SuperMarketFeature
 {
@@ -23,17 +25,35 @@ namespace SuperMarketSystem.Features.SuperMarketFeature
     public class SuperMarketFeatureEventReceiver : SPFeatureReceiver
     {
         /// <summary>
+        /// The logger.
+        /// </summary>
+        private ILogger logger;
+
+        /// <summary>
         /// Occurs after a Feature is activated.
         /// </summary>
         /// <param name="properties">An <see cref="T:Microsoft.SharePoint.SPFeatureReceiverProperties" /> object that represents the properties of the event.</param>
         public override void FeatureActivated(SPFeatureReceiverProperties properties)
         {
             SPSite site = properties.Feature.Parent as SPSite;
-            SPSecurity.RunWithElevatedPrivileges(delegate()
+            this.logger = ConfigurationManager.Container.Resolve<ILogger>();
+            try
             {
-                this.SetPermissions(site);
-                this.CreateJob(site);
-            });
+                SPSecurity.RunWithElevatedPrivileges(delegate()
+                {
+                    this.SetPermissions(site);
+                    this.CreateJob(site);
+                });
+            }
+            catch (Exception exception)
+            {
+                this.logger.Error("could not activate features");
+                this.logger.Error(
+                    "Message: {0}, Stack trace: {1}", 
+                    exception.Message, 
+                    exception.StackTrace);
+                throw;
+            }
         }
         
         /// <summary>
@@ -42,12 +62,25 @@ namespace SuperMarketSystem.Features.SuperMarketFeature
         /// <param name="properties">An <see cref="T:Microsoft.SharePoint.SPFeatureReceiverProperties" /> object that represents the properties of the event.</param>
         public override void FeatureDeactivating(SPFeatureReceiverProperties properties)
         {
-            var site = properties.Feature.Parent as SPSite;
-            SPSecurity.RunWithElevatedPrivileges(delegate()
+            this.logger = ConfigurationManager.Container.Resolve<ILogger>();
+            try
             {
-                this.UnsetPermissions(site);
-                this.DeleteJob(site);
-            });
+                var site = properties.Feature.Parent as SPSite;
+                SPSecurity.RunWithElevatedPrivileges(delegate()
+                {
+                    this.UnsetPermissions(site);
+                    this.DeleteJob(site);
+                });
+            }
+            catch (Exception exception)
+            {
+                this.logger.Error("could not deactivate features");
+                this.logger.Error(
+                    "Message: {0}, Stack trace: {1}",
+                    exception.Message,
+                    exception.StackTrace);
+                throw;
+            }
         }
 
         #region Methods - Private Members - Helpers

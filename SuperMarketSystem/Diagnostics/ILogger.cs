@@ -13,10 +13,25 @@
         void Log(string message, EventSeverity level);
 
         /// <summary>
+        /// Logs with the specified format.
+        /// </summary>
+        /// <param name="format">The format.</param>
+        /// <param name="level">The level.</param>
+        /// <param name="args">The arguments.</param>
+        void Log(string format, EventSeverity level, params object[] args);
+
+        /// <summary>
         /// Error level log the specified message.
         /// </summary>
         /// <param name="message">The message.</param>
         void Error(string message);
+
+        /// <summary>
+        /// Errors the specified format.
+        /// </summary>
+        /// <param name="format">The format.</param>
+        /// <param name="args">The arguments.</param>
+        void Error(string format, params object[] args);
 
         /// <summary>
         /// Information level log the specified message.
@@ -36,5 +51,12 @@
         /// </summary>
         /// <param name="message">The message.</param>
         void Warn(string message);
+
+        /// <summary>
+        /// Warns with the specified format.
+        /// </summary>
+        /// <param name="format">The format.</param>
+        /// <param name="args">The arguments.</param>
+        void Warn(string format, params object[] args);
     }
 }

@@ -19,12 +19,12 @@ namespace SuperMarketSystem.Repository
         /// <summary>
         /// The field invoice identifier.
         /// </summary>
-        private const string FieldInvoiceId = "InvoiceId";
+        private const string FieldInvoiceId = "ID";
 
         /// <summary>
         /// The field date.
         /// </summary>
-        private const string FieldDate = "Date";
+        private const string FieldDate = "InvoiceDate";
 
         /// <summary>
         /// The field total.
@@ -112,12 +112,103 @@ namespace SuperMarketSystem.Repository
         /// <returns>
         /// All the records.
         /// </returns>
-        /// <exception cref="NotImplementedException">
-        /// This is not implemented.
-        /// </exception>
-        public List<Invoice> GetAll()
+        public IEnumerable<Invoice> GetAll()
         {
-            throw new NotImplementedException();
+            List<Invoice> items = null;
+
+            using (SPSite site = new SPSite(SPContext.Current.Web.Url))
+            {
+                using (SPWeb web = site.OpenWeb())
+                {
+                    SPList list = web.Lists[InvoiceRepository.ListName];
+                    SPQuery query = new SPQuery()
+                    {
+                        Query = @"<Query>                                   
+                                  </Query>",
+                        ViewFields = string.Concat(
+                            "<FieldRef Name='InvoiceDate' />",
+                            "<FieldRef Name='ID' />",
+                            "<FieldRef Name='Total' />")
+                    };
+
+                    SPListItemCollection products = list.GetItems(query);
+
+                    items = new List<Invoice>();
+
+                    foreach (SPListItem product in products)
+                    {
+                        var item = new Invoice
+                        {
+                            Id = int.Parse(product[FieldInvoiceId].ToString()),
+                            Total = decimal.Parse(product[FieldTotal].ToString()),
+                            Date = (DateTime)product[FieldDate]
+                        };
+
+                        items.Add(item);
+                    }
+                }
+            }
+
+            return items;
+        }
+
+        /// <summary>
+        /// Gets all.
+        /// </summary>
+        /// <param name="date">The date.</param>
+        /// <returns>
+        /// All the records.
+        /// </returns>
+        public IEnumerable<Invoice> GetByDate(DateTime date)
+        {
+            List<Invoice> items = null;
+
+            using (SPSite site = new SPSite(SPContext.Current.Web.Url))
+            {
+                using (SPWeb web = site.OpenWeb())
+                {
+                    SPList list = web.Lists[InvoiceRepository.ListName];
+                    SPQuery query = new SPQuery()
+                    {
+                        Query = @"<Query>
+                                      <Where>
+                                        <And>
+                                          <Geq>
+                                            <FieldRef Name='InvoiceDate' />
+                                              <Value IncludeTimeValue='TRUE' Type='DateTime'>" + date + @"</Value>
+                                          </Geq>
+                                          <Leq>
+                                            <FieldRef Name='InvoiceDate' />
+                                            <Value IncludeTimeValue='TRUE' Type='DateTime'>" + date.AddDays(1) + @"</Value>
+                                          </Leq>
+                                        </And>
+                                      </Where>
+                                    </Query>",
+                        ViewFields = string.Concat(
+                            "<FieldRef Name='InvoiceDate' />",
+                            "<FieldRef Name='ID' />",
+                            "<FieldRef Name='Total' />")
+                    };
+
+                    SPListItemCollection products = list.GetItems(query);
+
+                    items = new List<Invoice>();
+
+                    foreach (SPListItem product in products)
+                    {
+                        var item = new Invoice
+                        {
+                            Id = int.Parse(product[FieldInvoiceId].ToString()),
+                            Total = decimal.Parse(product[FieldTotal].ToString()),
+                            Date = (DateTime)product[FieldDate]
+                        };
+
+                        items.Add(item);
+                    }
+                }
+            }
+
+            return items;
         }
     }
 }

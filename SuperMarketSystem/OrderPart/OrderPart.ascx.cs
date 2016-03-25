@@ -151,7 +151,7 @@ namespace SuperMarketSystem.OrderPart
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void ClearButtonClick(object sender, EventArgs e)
+        private void OnClearButtonClick(object sender, EventArgs e)
         {
             this.Clear();
         }
@@ -161,7 +161,7 @@ namespace SuperMarketSystem.OrderPart
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void SubmitButtonClick(object sender, EventArgs e)
+        private void OnSubmitButtonClick(object sender, EventArgs e)
         {
             this.ReserveItems();
             this.Submit();
@@ -189,7 +189,7 @@ namespace SuperMarketSystem.OrderPart
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="GridViewRowEventArgs"/> instance containing the event data.</param>
-        protected void RowDataBound(object sender, GridViewRowEventArgs e)
+        protected void OnRowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.Footer)
             {

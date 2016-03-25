@@ -22,12 +22,13 @@
         width: 100%;
     }
 
-        #Sp-OrderPart table td {
-            text-align: center;
-        }
+    #Sp-OrderPart table td {
+        text-align: center;
+    }
+
     #Sp-OrderPart table th {
             width: 33%
-        }
+    }
 
     #Sp-OrderPart .btn {
         background: #D1DBEA;
@@ -42,6 +43,7 @@
         width: 96%;
         margin: 5px auto;
         padding-right: 5px;
+        max-width: 90%;
     }
 
     #Sp-OrderPart .submit {
@@ -71,7 +73,7 @@
     <div class="well">
         <h1>Place an Order</h1>
         <div>
-            <asp:Button CssClass="btn" ID="ClearButton" runat="server" OnClick="ClearButtonClick" Text="New" />
+            <asp:Button CssClass="btn" ID="ClearButton" runat="server" OnClick="OnClearButtonClick" Text="New" />
         </div>
         <div>
             <asp:GridView
@@ -80,7 +82,7 @@
                 ShowFooter="true"
                 ShowHeaderWhenEmpty="true"
                 AutoGenerateColumns="false"
-                OnRowDataBound="RowDataBound"
+                OnRowDataBound="OnRowDataBound"
                 OnRowCreated="OnRowCreated">
                 <Columns>
                     <asp:TemplateField HeaderText="Product ID">
@@ -121,7 +123,7 @@
                 <asp:Label ID="MessageLabel" CssClass="msg" runat="server"></asp:Label>
             </div>
             <div class="col" style="width: 33%;">
-                <asp:Button CssClass="btn submit" ID="SubmitButton" runat="server" OnClick="SubmitButtonClick" Text="Submit" />
+                <asp:Button CssClass="btn submit" ID="SubmitButton" runat="server" OnClick="OnSubmitButtonClick" Text="Submit" />
             </div>
         </div>
         <hr>

@@ -61,6 +61,16 @@ namespace SuperMarketSystem.Diagnostics
         }
 
         /// <summary>
+        /// Information level log the specified message.
+        /// </summary>
+        /// <param name="format">The format.</param>
+        /// <param name="args">The arguments.</param>
+        public void Info(string format, params object[] args)
+        {
+            this.Info(string.Format(format, args));
+        }
+
+        /// <summary>
         /// Warn level log the specified message.
         /// </summary>
         /// <param name="message">The message.</param>

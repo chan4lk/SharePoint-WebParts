@@ -25,6 +25,13 @@
         void Info(string message);
 
         /// <summary>
+        /// Information level log the specified message.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <param name="args">The arguments.</param>
+        void Info(string message, params object[] args);
+
+        /// <summary>
         /// Warn level log the specified message.
         /// </summary>
         /// <param name="message">The message.</param>

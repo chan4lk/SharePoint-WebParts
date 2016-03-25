@@ -136,7 +136,7 @@ namespace SuperMarketSystem.Repository
         /// <returns>
         /// All of the products.
         /// </returns>
-        public List<Product> GetAll()
+        public IEnumerable<Product> GetAll()
         {
             List<Product> items = null;
 

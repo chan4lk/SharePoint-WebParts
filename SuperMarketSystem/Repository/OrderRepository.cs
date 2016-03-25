@@ -136,7 +136,7 @@ namespace SuperMarketSystem.Repository
         /// <exception cref="NotImplementedException">
         /// This is not implemented.
         /// </exception>
-        public List<Order> GetAll()
+        public IEnumerable<Order> GetAll()
         {
             throw new NotImplementedException();
         } 

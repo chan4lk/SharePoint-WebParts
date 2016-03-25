@@ -60,8 +60,8 @@ namespace SuperMarketSystem.OrderPart {
             @__ctrl.CssClass = "btn";
             @__ctrl.ID = "ClearButton";
             @__ctrl.Text = "New";
-            @__ctrl.Click -= new System.EventHandler(this.ClearButtonClick);
-            @__ctrl.Click += new System.EventHandler(this.ClearButtonClick);
+            @__ctrl.Click -= new System.EventHandler(this.OnClearButtonClick);
+            @__ctrl.Click += new System.EventHandler(this.OnClearButtonClick);
             return @__ctrl;
         }
         
@@ -287,8 +287,8 @@ namespace SuperMarketSystem.OrderPart {
             @__ctrl.ShowHeaderWhenEmpty = true;
             @__ctrl.AutoGenerateColumns = false;
             this.@__BuildControl__control2(@__ctrl.Columns);
-            @__ctrl.RowDataBound -= new System.Web.UI.WebControls.GridViewRowEventHandler(this.RowDataBound);
-            @__ctrl.RowDataBound += new System.Web.UI.WebControls.GridViewRowEventHandler(this.RowDataBound);
+            @__ctrl.RowDataBound -= new System.Web.UI.WebControls.GridViewRowEventHandler(this.OnRowDataBound);
+            @__ctrl.RowDataBound += new System.Web.UI.WebControls.GridViewRowEventHandler(this.OnRowDataBound);
             @__ctrl.RowCreated -= new System.Web.UI.WebControls.GridViewRowEventHandler(this.OnRowCreated);
             @__ctrl.RowCreated += new System.Web.UI.WebControls.GridViewRowEventHandler(this.OnRowCreated);
             return @__ctrl;
@@ -314,8 +314,8 @@ namespace SuperMarketSystem.OrderPart {
             @__ctrl.CssClass = "btn submit";
             @__ctrl.ID = "SubmitButton";
             @__ctrl.Text = "Submit";
-            @__ctrl.Click -= new System.EventHandler(this.SubmitButtonClick);
-            @__ctrl.Click += new System.EventHandler(this.SubmitButtonClick);
+            @__ctrl.Click -= new System.EventHandler(this.OnSubmitButtonClick);
+            @__ctrl.Click += new System.EventHandler(this.OnSubmitButtonClick);
             return @__ctrl;
         }
         
@@ -339,12 +339,13 @@ namespace SuperMarketSystem.OrderPart {
         width: 100%;
     }
 
-        #Sp-OrderPart table td {
-            text-align: center;
-        }
+    #Sp-OrderPart table td {
+        text-align: center;
+    }
+
     #Sp-OrderPart table th {
             width: 33%
-        }
+    }
 
     #Sp-OrderPart .btn {
         background: #D1DBEA;
@@ -359,6 +360,7 @@ namespace SuperMarketSystem.OrderPart {
         width: 96%;
         margin: 5px auto;
         padding-right: 5px;
+        max-width: 90%;
     }
 
     #Sp-OrderPart .submit {

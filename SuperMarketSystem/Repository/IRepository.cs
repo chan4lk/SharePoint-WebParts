@@ -54,6 +54,6 @@ namespace SuperMarketSystem.Repository
         /// <returns>
         /// All the entities.
         /// </returns>
-        List<TEntity> GetAll();
+        IEnumerable<TEntity> GetAll();
     }
 }

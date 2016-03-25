@@ -8,7 +8,8 @@ using Microsoft.SharePoint;
 using SuperMarketSystem.Common;
 using System;
 using System.Runtime.InteropServices;
-using System.Linq;
+using Microsoft.SharePoint.Administration;
+using SuperMarketSystem.Jobs;
 
 namespace SuperMarketSystem.Features.SuperMarketFeature
 {
@@ -25,74 +26,139 @@ namespace SuperMarketSystem.Features.SuperMarketFeature
         /// Occurs after a Feature is activated.
         /// </summary>
         /// <param name="properties">An <see cref="T:Microsoft.SharePoint.SPFeatureReceiverProperties" /> object that represents the properties of the event.</param>
-        //public override void FeatureActivated(SPFeatureReceiverProperties properties)
-        //{
-        //    SPWeb web = SPContext.Current.Web;
-        //    web.AllowUnsafeUpdates = true;
-        //    bool groupExists = false;
-
-        //    foreach (SPGroup group in web.SiteGroups)
-        //    {
-        //        if (group.Name == ConfigurationManager.SalesGroup)
-        //        {
-        //            groupExists = true;
-        //            break;
-        //        }
-        //    }
-
-        //    if (groupExists)
-        //    {
-        //        SPGroup sales = web.SiteGroups.GetByName(ConfigurationManager.SalesGroup);
-        //        SPUserCollection users = sales.Users;
-        //        bool isIntheGroup = false;
-        //        foreach (SPUser user in users)
-        //        {
-        //            if (user.LoginName == web.CurrentUser.LoginName)
-        //            {
-        //                isIntheGroup = true;
-        //                break;
-        //            }
-        //        }
-        //        if (!isIntheGroup)
-        //        {
-        //            sales.Users.Add(web.CurrentUser.LoginName, web.CurrentUser.Email, web.CurrentUser.Name, string.Empty);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        web.SiteGroups.Add(ConfigurationManager.SalesGroup, web.CurrentUser, web.CurrentUser, string.Empty);
-        //    }
-
-        //    web.Update();
-        //    web.AllowUnsafeUpdates = false;
-        //}
-
+        public override void FeatureActivated(SPFeatureReceiverProperties properties)
+        {
+            SPSite site = properties.Feature.Parent as SPSite;
+            SPSecurity.RunWithElevatedPrivileges(delegate()
+            {
+                this.SetPermissions(site);
+                this.CreateJob(site);
+            });
+        }
+        
         /// <summary>
         /// Occurs when a Feature is deactivated.
         /// </summary>
         /// <param name="properties">An <see cref="T:Microsoft.SharePoint.SPFeatureReceiverProperties" /> object that represents the properties of the event.</param>
-        //public override void FeatureDeactivating(SPFeatureReceiverProperties properties)
-        //{
-        //    SPWeb web = SPContext.Current.Web;
-        //    web.AllowUnsafeUpdates = true;
-        //    web.SiteGroups.Remove(ConfigurationManager.SalesGroup);
-        //    web.Update();
-        //    web.AllowUnsafeUpdates = false;
-        //}
+        public override void FeatureDeactivating(SPFeatureReceiverProperties properties)
+        {
+            var site = properties.Feature.Parent as SPSite;
+            SPSecurity.RunWithElevatedPrivileges(delegate()
+            {
+                this.UnsetPermissions(site);
+                this.DeleteJob(site);
+            });
+        }
 
-        /// Uncomment the method below to handle the event raised after a feature has been installed.
-        ///public override void FeatureInstalled(SPFeatureReceiverProperties properties)
-        ///{
-        ///}
+        #region Methods - Private Members - Helpers
 
-        /// Uncomment the method below to handle the event raised before a feature is uninstalled.
-        ///public override void FeatureUninstalling(SPFeatureReceiverProperties properties)
-        ///{
-        ///}
+        /// <summary>
+        /// Creates the job.
+        /// </summary>
+        /// <param name="site">The site.</param>
+        private void CreateJob(SPSite site)
+        {
+            foreach (SPJobDefinition job in site.WebApplication.JobDefinitions)
+            {
+                if (job.Name == GenerateReportJob.JobName)
+                {
+                    job.Delete();
+                }
+            }
 
-        /// Uncomment the method below to handle the event raised when a feature is upgrading.
-        ///public override void FeatureUpgrading(SPFeatureReceiverProperties properties, string upgradeActionName, System.Collections.Generic.IDictionary<string, string> parameters)
-        ///{
-        ///}
+            GenerateReportJob reportJob = new GenerateReportJob(
+                GenerateReportJob.JobName,
+                site.WebApplication);
+
+            SPDailySchedule schedule = new SPDailySchedule();
+            schedule.BeginHour = 23;
+            schedule.EndHour = 23;
+            schedule.EndMinute = 59;
+
+            reportJob.Schedule = schedule;
+            reportJob.Update();
+        }
+
+        /// <summary>
+        /// Deletes the job.
+        /// </summary>
+        /// <param name="site">The site.</param>
+        private void DeleteJob(SPSite site)
+        {
+            foreach (SPJobDefinition job in site.WebApplication.JobDefinitions)
+            {
+                if (job.Name == GenerateReportJob.JobName)
+                {
+                    job.Delete();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Sets the permissions.
+        /// </summary>
+        /// <param name="site">
+        /// The site.
+        /// </param>
+        private void SetPermissions(SPSite site)
+        {
+            using (SPWeb web = site.OpenWeb())
+            {
+                web.AllowUnsafeUpdates = true;
+                bool groupExists = false;
+
+                foreach (SPGroup group in web.SiteGroups)
+                {
+                    if (group.Name == ConfigurationManager.SalesGroup)
+                    {
+                        groupExists = true;
+                        break;
+                    }
+                }
+
+                if (groupExists)
+                {
+                    SPGroup sales = web.SiteGroups.GetByName(ConfigurationManager.SalesGroup);
+                    SPUserCollection users = sales.Users;
+                    bool isIntheGroup = false;
+                    foreach (SPUser user in users)
+                    {
+                        if (user.LoginName == web.CurrentUser.LoginName)
+                        {
+                            isIntheGroup = true;
+                            break;
+                        }
+                    }
+                    if (!isIntheGroup)
+                    {
+                        sales.Users.Add(web.CurrentUser.LoginName, web.CurrentUser.Email, web.CurrentUser.Name, string.Empty);
+                    }
+                }
+                else
+                {
+                    web.SiteGroups.Add(ConfigurationManager.SalesGroup, web.CurrentUser, web.CurrentUser, string.Empty);
+                }
+
+                web.Update();
+                web.AllowUnsafeUpdates = false;
+            }
+        }
+
+        /// <summary>
+        /// Unsets the permissions.
+        /// </summary>
+        /// <param name="site">The site.</param>
+        private void UnsetPermissions(SPSite site)
+        {
+            using (SPWeb web = site.OpenWeb())
+            {
+                web.AllowUnsafeUpdates = true;
+                web.SiteGroups.Remove(ConfigurationManager.SalesGroup);
+                web.Update();
+                web.AllowUnsafeUpdates = false;
+            }
+        }
+
+        #endregion
     }
 }

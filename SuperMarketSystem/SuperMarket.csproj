@@ -14,7 +14,7 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{C1CDDADD-2546-481F-9697-4EA41081F2FC};{14822709-B5A1-4724-98CA-57A101D1B079};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <SandboxedSolution>False</SandboxedSolution>
-    <ActiveDeploymentConfiguration>Default</ActiveDeploymentConfiguration>
+    <ActiveDeploymentConfiguration>No Activation</ActiveDeploymentConfiguration>
     <AssemblyDeploymentTarget>GlobalAssemblyCache</AssemblyDeploymentTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -85,6 +85,7 @@
     <Compile Include="Features\SuperMarketFeature\SuperMarketFeature.EventReceiver.cs">
       <DependentUpon>SuperMarketFeature.feature</DependentUpon>
     </Compile>
+    <Compile Include="Jobs\GenerateReportJob.cs" />
     <Compile Include="Models\IDomainEntity.cs" />
     <Compile Include="Models\Invoice.cs" />
     <Compile Include="Models\Product.cs" />

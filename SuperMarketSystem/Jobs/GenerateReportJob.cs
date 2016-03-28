@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text; 
+using System.Text;
 #endregion
 
 namespace SuperMarketSystem.Jobs
@@ -71,7 +71,6 @@ namespace SuperMarketSystem.Jobs
             : base(jobName, service, null, SPJobLockType.None)
         {
             this.Title = GenerateReportJob.JobName;
-            this.Logger = new UlsLogger();
         }
 
         /// <summary>
@@ -83,7 +82,6 @@ namespace SuperMarketSystem.Jobs
             : base(jobName, web, null, SPJobLockType.ContentDatabase)
         {
             this.Title = GenerateReportJob.JobName;
-            this.Logger = ConfigurationManager.Container.Resolve<ILogger>();
         }
 
         #endregion
@@ -94,6 +92,7 @@ namespace SuperMarketSystem.Jobs
         /// <param name="targetInstanceId">For target types of <see cref="T:Microsoft.SharePoint.Administration.SPContentDatabase" /> this is the database ID of the content database being processed by the running job. This value is GUID.Empty for all other target types.</param>
         public override void Execute(Guid targetInstanceId)
         {
+            this.Logger = new UlsLogger();
             this.Logger.Info("Starting to execute");
             SPWebApplication webApp = this.Parent as SPWebApplication;
             SPSite site = webApp.Sites[0];
@@ -105,12 +104,19 @@ namespace SuperMarketSystem.Jobs
                 {
                     this.Logger.Info("Writing to CSV");
                     var csv = new StringBuilder();
+
+                    //// Add data rows
                     foreach (var item in invoices)
                     {
                         csv.AppendFormat("{0}, {1}", item.Id, item.Total);
+                        csv.AppendLine();
                     }
-
+                    
+                    //// Add Total to the footer
                     csv.AppendFormat("Total , {0}", invoices.Sum(i => i.Total));
+                    csv.AppendLine();
+
+                    //// Write to disk.
                     File.WriteAllText(@"C:\data\report.csv", csv.ToString());
                     this.Logger.Info("CSV written successfully.");
                 }
@@ -148,17 +154,19 @@ namespace SuperMarketSystem.Jobs
             List<Invoice> items = null;
             this.Logger.Error("trying to retrieve invoices");
 
-            using (SPWeb web = site.OpenWeb())
+            using (SPSite devSite = new SPSite("http://intranet.cloudapp.net/sites/dev"))
             {
-                this.Logger.Info("Web is open" + web.Name);
-
-                SPList list = web.Lists[GenerateReportJob.ListName];
-
-                this.Logger.Info("list fetched" + list.Title);
-
-                SPQuery query = new SPQuery()
+                using (SPWeb web = devSite.OpenWeb())
                 {
-                    Query = @"<Query>
+                    this.Logger.Info("Web is open" + web.Name);
+
+                    SPList list = web.Lists[GenerateReportJob.ListName];
+
+                    this.Logger.Info("list fetched" + list.Title);
+
+                    SPQuery query = new SPQuery()
+                    {
+                        Query = @"<Query>
                                       <Where>
                                         <And>
                                           <Geq>
@@ -172,28 +180,29 @@ namespace SuperMarketSystem.Jobs
                                         </And>
                                       </Where>
                                     </Query>",
-                    ViewFields = string.Concat(
-                        "<FieldRef Name='InvoiceDate' />",
-                        "<FieldRef Name='ID' />",
-                        "<FieldRef Name='Total' />")
-                };
-
-                SPListItemCollection invoices = list.GetItems(query);
-
-                this.Logger.Info("Invoices collected");
-
-                items = new List<Invoice>();
-
-                foreach (SPListItem invoice in invoices)
-                {
-                    var item = new Invoice
-                    {
-                        Id = int.Parse(invoice[FieldInvoiceId].ToString()),
-                        Total = decimal.Parse(invoice[FieldTotal].ToString()),
-                        Date = (DateTime)invoice[FieldDate]
+                        ViewFields = string.Concat(
+                            "<FieldRef Name='InvoiceDate' />",
+                            "<FieldRef Name='ID' />",
+                            "<FieldRef Name='Total' />")
                     };
-                    this.Logger.Info("Invoice ID: {0} Total: {1} Date: {2}", item.Id, item.Total, item.Date);
-                    items.Add(item);
+
+                    SPListItemCollection invoices = list.GetItems(query);
+
+                    this.Logger.Info("Invoices collected");
+
+                    items = new List<Invoice>();
+
+                    foreach (SPListItem invoice in invoices)
+                    {
+                        var item = new Invoice
+                        {
+                            Id = int.Parse(invoice[FieldInvoiceId].ToString()),
+                            Total = decimal.Parse(invoice[FieldTotal].ToString()),
+                            Date = (DateTime)invoice[FieldDate]
+                        };
+                        this.Logger.Info("Invoice ID: {0} Total: {1} Date: {2}", item.Id, item.Total, item.Date);
+                        items.Add(item);
+                    }
                 }
             }
 

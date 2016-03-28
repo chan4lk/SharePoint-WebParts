@@ -67,7 +67,7 @@ namespace SuperMarketSystem.Features.SuperMarketFeature
             try
             {
                 var site = properties.Feature.Parent as SPSite;
-                SPSecurity.RunWithElevatedPrivileges(delegate
+                SPSecurity.RunWithElevatedPrivileges(delegate()
                 {
                     this.UnsetPermissions(site);
                     this.DeleteJob(site);

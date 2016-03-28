@@ -54,7 +54,7 @@ namespace SuperMarketSystem.Repository
         /// <value>
         /// The site URL.
         /// </value>
-        public string SiteURL { get; set; } 
+        public string SiteUrl { get; set; } 
 
         #endregion
 
@@ -75,7 +75,7 @@ namespace SuperMarketSystem.Repository
         /// <param name="url">The URL.</param>
         public OrderRepository(string url)
         {
-            this.SiteURL = url;
+            this.SiteUrl = url;
         }
         #endregion
 
@@ -91,7 +91,7 @@ namespace SuperMarketSystem.Repository
         {
             int result = 0;
 
-            using (SPSite site = new SPSite(this.SiteURL))
+            using (SPSite site = new SPSite(this.SiteUrl))
             {
                 using (SPWeb web = site.OpenWeb())
                 {

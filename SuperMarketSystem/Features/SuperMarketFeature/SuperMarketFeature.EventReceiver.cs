@@ -117,7 +117,7 @@ namespace SuperMarketSystem.Features.SuperMarketFeature
 
             //// Add Site URL to run the job;
             reportJob.Properties.Add(
-                GenerateReportJob.SiteURLKey, 
+                GenerateReportJob.SiteUrlKey, 
                 SPContext.Current.Web.Url);
 
             reportJob.Update();

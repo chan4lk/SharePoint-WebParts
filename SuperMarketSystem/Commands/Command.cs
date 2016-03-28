@@ -21,7 +21,7 @@ namespace SuperMarketSystem.Commands
         /// <summary>
         /// Initializes a new instance of the <see cref="Command"/> class.
         /// </summary>
-        public Command()
+        protected Command()
         {
             this.Logger = ConfigurationManager.Container.Resolve<ILogger>();
         }

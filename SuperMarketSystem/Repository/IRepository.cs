@@ -14,7 +14,7 @@ namespace SuperMarketSystem.Repository
         /// <value>
         /// The site URL.
         /// </value>
-        string SiteURL { get; set; }
+        string SiteUrl { get; set; }
 
         /// <summary>
         /// Creates the specified item.

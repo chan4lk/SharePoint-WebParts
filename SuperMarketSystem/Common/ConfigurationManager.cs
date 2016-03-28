@@ -4,7 +4,7 @@ using Microsoft.SharePoint;
 using SuperMarketSystem.Diagnostics;
 using SuperMarketSystem.Presenters;
 using SuperMarketSystem.Views;
-using System; 
+using System;
 #endregion
 
 namespace SuperMarketSystem.Common
@@ -38,8 +38,8 @@ namespace SuperMarketSystem.Common
                 {
                     instance = new UnityContainer();
                     instance.RegisterType<IOrderView, OrderPart.OrderPart>()
-                             .RegisterType<IOrderPresenter<IOrderView>, OrderPresenter>();
-                    instance.RegisterType<ILogger, UlsLogger>();
+                            .RegisterType<IOrderPresenter<IOrderView>, OrderPresenter>()
+                            .RegisterType<ILogger, UlsLogger>();
                 }
 
                 return instance;
@@ -80,6 +80,13 @@ namespace SuperMarketSystem.Common
 
                 return isAuthenticated;
             }
+        }
+
+        /// <summary>
+        /// Prevents a default instance of the <see cref="ConfigurationManager"/> class from being created.
+        /// </summary>
+        private ConfigurationManager()
+        {
         }
     }
 }

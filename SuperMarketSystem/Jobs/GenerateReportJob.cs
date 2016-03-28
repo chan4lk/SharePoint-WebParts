@@ -32,7 +32,7 @@ namespace SuperMarketSystem.Jobs
         /// <summary>
         /// The site URL key.
         /// </summary>
-        public const string SiteURLKey = "SPSiteURL";
+        public const string SiteUrlKey = "SPSiteURL";
 
         /// <summary>
         /// The job name.
@@ -126,9 +126,9 @@ namespace SuperMarketSystem.Jobs
             this.logger = new UlsLogger();
             this.logger.Info("Starting to execute");
 
-            if (this.Properties.ContainsKey(GenerateReportJob.SiteURLKey))
+            if (this.Properties.ContainsKey(GenerateReportJob.SiteUrlKey))
             {
-                this.siteURL = this.Properties[SiteURLKey].ToString();
+                this.siteURL = this.Properties[SiteUrlKey].ToString();
 
                 if (!string.IsNullOrEmpty(this.siteURL))
                 {

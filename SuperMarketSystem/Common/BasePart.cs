@@ -36,16 +36,16 @@ namespace SuperMarketSystem.Common
         /// <summary>
         /// Initializes a new instance of the <see cref="BasePart{TPresenter, TView}"/> class.
         /// </summary>
-        public BasePart()
+        protected BasePart()
         {
             if (!(this is TView))
             {
-                throw new InvalidOperationException("Must implement the generic type TView");
+                throw new InvalidOperationException("Must implement the generic type View");
             }
 
             this.Presenter = ConfigurationManager.Container.Resolve<TPresenter>();
             this.Presenter.View = (TView)(object)this;
-            this.Presenter.Initailize();
+            this.Presenter.Initialize();
 
             this.Logger = ConfigurationManager.Container.Resolve<ILogger>();
         }

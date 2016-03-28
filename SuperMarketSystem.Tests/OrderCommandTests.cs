@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿#region Imports
+using NUnit.Framework;
 using Moq;
 using SuperMarketSystem.Repository;
 using SuperMarketSystem.Models;
@@ -6,7 +7,8 @@ using SuperMarketSystem.Commands;
 using Should;
 using SuperMarketSystem.Common;
 using SuperMarketSystem.Diagnostics;
-using Microsoft.Practices.Unity;
+using Microsoft.Practices.Unity; 
+#endregion
 
 namespace SuperMarketSystem.Tests
 {
@@ -30,9 +32,7 @@ namespace SuperMarketSystem.Tests
             var mock = new Mock<IRepository<Order>>();
             mock.Setup(r => r.Create(It.IsAny<Order>())).Returns(1);
             mock.Setup(r => r.Create(null)).Returns(-1);
-
             this.repository = (IRepository<Order>)mock.Object;
-
             ConfigurationManager.Container.RegisterType<ILogger, MockLogger>();
         }
 

@@ -5,5 +5,9 @@
     /// </summary>
     public interface IPresenter
     {
+        /// <summary>
+        /// Initializes the specified view.
+        /// </summary>
+        void Initialize();
     }
 }

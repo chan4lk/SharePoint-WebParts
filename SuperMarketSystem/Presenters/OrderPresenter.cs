@@ -41,7 +41,7 @@ namespace SuperMarketSystem.Presenters
         /// <summary>
         /// Initializes the specified view.
         /// </summary>
-        public void Initailize()
+        public void Initialize()
         {
             this.View.Model = new OrderViewModel();
             this.View.Model.Items = new List<ProductItem>();

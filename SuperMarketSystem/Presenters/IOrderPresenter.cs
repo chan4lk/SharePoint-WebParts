@@ -35,10 +35,5 @@ namespace SuperMarketSystem.Presenters
         /// Submits this order.
         /// </summary>
         void Submit();
-
-        /// <summary>
-        /// Initializes the specified view.
-        /// </summary>
-        void Initailize();
     }
 }

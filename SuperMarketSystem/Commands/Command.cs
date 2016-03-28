@@ -1,7 +1,7 @@
-﻿using SuperMarketSystem.Common;
+﻿using Microsoft.Practices.Unity;
+using SuperMarketSystem.Common;
 using SuperMarketSystem.Diagnostics;
 using System.Threading.Tasks;
-using Microsoft.Practices.Unity;
 
 namespace SuperMarketSystem.Commands
 {

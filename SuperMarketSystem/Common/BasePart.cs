@@ -1,9 +1,9 @@
-﻿using SuperMarketSystem.Presenters;
+﻿using Microsoft.Practices.Unity;
+using SuperMarketSystem.Diagnostics;
+using SuperMarketSystem.Presenters;
 using SuperMarketSystem.Views;
 using System;
 using System.Web.UI.WebControls.WebParts;
-using Microsoft.Practices.Unity;
-using SuperMarketSystem.Diagnostics;
 
 namespace SuperMarketSystem.Common
 {

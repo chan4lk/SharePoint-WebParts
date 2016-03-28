@@ -1,5 +1,4 @@
 ﻿using Microsoft.SharePoint.Administration;
-using System;
 
 namespace SuperMarketSystem.Diagnostics
 {

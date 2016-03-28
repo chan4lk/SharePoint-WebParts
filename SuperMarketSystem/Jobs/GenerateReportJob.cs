@@ -1,4 +1,6 @@
-﻿using Microsoft.SharePoint;
+﻿#region Imports
+using Microsoft.Practices.Unity;
+using Microsoft.SharePoint;
 using Microsoft.SharePoint.Administration;
 using SuperMarketSystem.Common;
 using SuperMarketSystem.Diagnostics;
@@ -7,8 +9,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using Microsoft.Practices.Unity;
+using System.Text; 
+#endregion
 
 namespace SuperMarketSystem.Jobs
 {

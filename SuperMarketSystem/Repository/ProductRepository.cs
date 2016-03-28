@@ -1,7 +1,7 @@
-﻿using SuperMarketSystem.Models;
+﻿using Microsoft.SharePoint;
+using SuperMarketSystem.Models;
 using System;
 using System.Collections.Generic;
-using Microsoft.SharePoint;
 
 namespace SuperMarketSystem.Repository
 {

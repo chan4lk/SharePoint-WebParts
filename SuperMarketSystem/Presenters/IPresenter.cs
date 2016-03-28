@@ -1,5 +1,4 @@
-﻿
-namespace SuperMarketSystem.Presenters
+﻿namespace SuperMarketSystem.Presenters
 {
     /// <summary>
     /// The presenter contract.

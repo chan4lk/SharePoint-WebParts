@@ -1,5 +1,4 @@
-﻿
-namespace SuperMarketSystem.Models
+﻿namespace SuperMarketSystem.Models
 {
     /// <summary>
     /// The order domain item.

@@ -9,6 +9,14 @@ namespace SuperMarketSystem.Repository
     public interface IRepository<TEntity>
     {
         /// <summary>
+        /// Gets or sets the site URL.
+        /// </summary>
+        /// <value>
+        /// The site URL.
+        /// </value>
+        string SiteURL { get; set; }
+
+        /// <summary>
         /// Creates the specified item.
         /// </summary>
         /// <param name="item">The item.</param>

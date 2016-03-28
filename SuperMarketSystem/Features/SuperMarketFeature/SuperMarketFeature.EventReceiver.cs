@@ -30,6 +30,8 @@ namespace SuperMarketSystem.Features.SuperMarketFeature
         /// </summary>
         private ILogger logger;
 
+        #region Methods - Public Memebrs - SPFeatureReciver Memebers
+
         /// <summary>
         /// Occurs after a Feature is activated.
         /// </summary>
@@ -42,7 +44,10 @@ namespace SuperMarketSystem.Features.SuperMarketFeature
             {
                 SPSecurity.RunWithElevatedPrivileges(delegate()
                 {
+                    //// Create Sales group and add current user to the group.
                     this.SetPermissions(site);
+
+                    //// Create timer job to be run with the current site collection.
                     this.CreateJob(site);
                 });
             }
@@ -50,13 +55,13 @@ namespace SuperMarketSystem.Features.SuperMarketFeature
             {
                 this.logger.Error("could not activate features");
                 this.logger.Error(
-                    "Message: {0}, Stack trace: {1}", 
-                    exception.Message, 
+                    "Message: {0}, Stack trace: {1}",
+                    exception.Message,
                     exception.StackTrace);
                 throw;
             }
         }
-        
+
         /// <summary>
         /// Occurs when a Feature is deactivated.
         /// </summary>
@@ -69,7 +74,10 @@ namespace SuperMarketSystem.Features.SuperMarketFeature
                 var site = properties.Feature.Parent as SPSite;
                 SPSecurity.RunWithElevatedPrivileges(delegate()
                 {
+                    //// Unset permission for web part.
                     this.UnsetPermissions(site);
+
+                    //// Delete the time job.
                     this.DeleteJob(site);
                 });
             }
@@ -84,6 +92,8 @@ namespace SuperMarketSystem.Features.SuperMarketFeature
             }
         }
 
+        #endregion
+
         #region Methods - Private Members - Helpers
 
         /// <summary>
@@ -92,24 +102,24 @@ namespace SuperMarketSystem.Features.SuperMarketFeature
         /// <param name="site">The site.</param>
         private void CreateJob(SPSite site)
         {
-            foreach (SPJobDefinition job in site.WebApplication.JobDefinitions)
-            {
-                if (job.Name == GenerateReportJob.JobName)
-                {
-                    job.Delete();
-                }
-            }
+            this.DeleteJob(site);
 
             GenerateReportJob reportJob = new GenerateReportJob(
                 GenerateReportJob.JobName,
                 site.WebApplication);
 
+            //// Schedule to run daily at 11 P.M.
             SPDailySchedule schedule = new SPDailySchedule();
             schedule.BeginHour = 23;
             schedule.EndHour = 23;
             schedule.EndMinute = 59;
-
             reportJob.Schedule = schedule;
+
+            //// Add Site URL to run the job;
+            reportJob.Properties.Add(
+                GenerateReportJob.SiteURLKey, 
+                SPContext.Current.Web.Url);
+
             reportJob.Update();
         }
 

@@ -4,6 +4,9 @@ using SuperMarketSystem.Repository;
 using SuperMarketSystem.Models;
 using SuperMarketSystem.Commands;
 using Should;
+using SuperMarketSystem.Common;
+using SuperMarketSystem.Diagnostics;
+using Microsoft.Practices.Unity;
 
 namespace SuperMarketSystem.Tests
 {
@@ -29,6 +32,8 @@ namespace SuperMarketSystem.Tests
             mock.Setup(r => r.Create(null)).Returns(-1);
 
             this.repository = (IRepository<Order>)mock.Object;
+
+            ConfigurationManager.Container.RegisterType<ILogger, MockLogger>();
         }
 
         /// <summary>
@@ -48,8 +53,21 @@ namespace SuperMarketSystem.Tests
         public void ReturnOnNullTest()
         {
             CreateOrderCommand command = new CreateOrderCommand(this.repository);
+            command.Order = null;
+            command.Execute();
+            command.Order.Id.ShouldBeSameAs(-1);
+        }
+
+        /// <summary>
+        /// Should pass on any order.
+        /// </summary>
+        [Test]
+        public void ShouldPassOnAnyOrder()
+        {
+            CreateOrderCommand command = new CreateOrderCommand(this.repository);
             command.Order = new Order();
-            command.Order.Id.ShouldBeSameAs(1);
+            command.Execute();
+            command.Order.Id.ShouldEqual(1);
         }
     }
 }

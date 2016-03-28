@@ -5,6 +5,7 @@ using Microsoft.SharePoint.Administration;
 using SuperMarketSystem.Common;
 using SuperMarketSystem.Diagnostics;
 using SuperMarketSystem.Models;
+using SuperMarketSystem.Repository;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -20,16 +21,26 @@ namespace SuperMarketSystem.Jobs
     /// <seealso cref="Microsoft.SharePoint.Administration.SPJobDefinition" />
     public class GenerateReportJob : SPJobDefinition
     {
+        #region Constants
+
+        #region Constants - Public Members
         /// <summary>
         /// The list name.
         /// </summary>
         public const string ListName = "Invoice";
 
         /// <summary>
+        /// The site URL key.
+        /// </summary>
+        public const string SiteURLKey = "SPSiteURL";
+
+        /// <summary>
         /// The job name.
         /// </summary>
-        public const string JobName = "Generate Invoice Report Job";
+        public const string JobName = "Generate Invoice Report Job"; 
+        #endregion
 
+        #region Constants - Private Members
         /// <summary>
         /// The field invoice identifier.
         /// </summary>
@@ -46,14 +57,33 @@ namespace SuperMarketSystem.Jobs
         private const string FieldTotal = "Total";
 
         /// <summary>
+        /// The file path.
+        /// </summary>
+        private const string FilePath = @"C:\data\report.csv"; 
+
+        #endregion
+
+        #endregion
+
+        #region Feilds - Private Members
+
+        /// <summary>
+        /// The site URL.
+        /// </summary>
+        private string siteURL;
+
+        /// <summary>
         /// Gets or sets the logger.
         /// </summary>
         /// <value>
         /// The logger.
         /// </value>
-        private ILogger Logger { get; set; }
+        private ILogger logger;
+
+        #endregion
 
         #region Methods - Public Member - Contructors
+
         /// <summary>
         /// Initializes a new instance of the <see cref="GenerateReportJob"/> class.
         /// </summary>
@@ -86,47 +116,24 @@ namespace SuperMarketSystem.Jobs
 
         #endregion
 
+        #region Methods - JobDefinition Members
         /// <summary>
         /// Executes the job definition.
         /// </summary>
         /// <param name="targetInstanceId">For target types of <see cref="T:Microsoft.SharePoint.Administration.SPContentDatabase" /> this is the database ID of the content database being processed by the running job. This value is GUID.Empty for all other target types.</param>
         public override void Execute(Guid targetInstanceId)
         {
-            this.Logger = new UlsLogger();
-            this.Logger.Info("Starting to execute");
-            SPWebApplication webApp = this.Parent as SPWebApplication;
-            SPSite site = webApp.Sites[0];
-            try
+            this.logger = new UlsLogger();
+            this.logger.Info("Starting to execute");
+
+            if (this.Properties.ContainsKey(GenerateReportJob.SiteURLKey))
             {
-                IEnumerable<Invoice> invoices = this.GetInvoicesByDate(site, DateTime.Today);
-                this.Logger.Info("Got invoices");
-                if (invoices.Count() > 0)
+                this.siteURL = this.Properties[SiteURLKey].ToString();
+
+                if (!string.IsNullOrEmpty(this.siteURL))
                 {
-                    this.Logger.Info("Writing to CSV");
-                    var csv = new StringBuilder();
-
-                    //// Add data rows
-                    foreach (var item in invoices)
-                    {
-                        csv.AppendFormat("{0}, {1}", item.Id, item.Total);
-                        csv.AppendLine();
-                    }
-                    
-                    //// Add Total to the footer
-                    csv.AppendFormat("Total , {0}", invoices.Sum(i => i.Total));
-                    csv.AppendLine();
-
-                    //// Write to disk.
-                    File.WriteAllText(@"C:\data\report.csv", csv.ToString());
-                    this.Logger.Info("CSV written successfully.");
+                    this.WriteToFile();
                 }
-            }
-            catch (Exception exception)
-            {
-                this.Logger.Error("Could not generate report exception occurred.");
-                this.Logger.Error(exception.Message);
-                this.Logger.Error(exception.StackTrace);
-                throw;
             }
         }
 
@@ -139,74 +146,67 @@ namespace SuperMarketSystem.Jobs
         protected override bool HasAdditionalUpdateAccess()
         {
             return true;
+        } 
+        #endregion
+
+        #region Methods - Helpers
+
+        /// <summary>
+        /// Writes to file.
+        /// </summary>
+        private void WriteToFile()
+        {
+            try
+            {
+                IEnumerable<Invoice> invoices = this.GetInvoicesByDate(DateTime.Today);
+                this.logger.Info("Got invoices");
+                if (invoices.Count() > 0)
+                {
+                    this.logger.Info("Writing to CSV");
+                    var csv = new StringBuilder();
+
+                    //// Add data rows
+                    foreach (var item in invoices)
+                    {
+                        csv.AppendFormat("{0}, {1}", item.Id, item.Total);
+                        csv.AppendLine();
+                    }
+
+                    //// Add Total to the footer
+                    csv.AppendFormat("Total , {0}", invoices.Sum(i => i.Total));
+                    csv.AppendLine();
+
+                    //// Write to disk.
+                    File.WriteAllText(GenerateReportJob.FilePath, csv.ToString());
+                    this.logger.Info("CSV written successfully.");
+                }
+            }
+            catch (Exception exception)
+            {
+                this.logger.Error("Could not generate report exception occurred.");
+                this.logger.Error(exception.Message);
+                this.logger.Error(exception.StackTrace);
+                throw;
+            }
         }
 
         /// <summary>
         /// Gets the invoices by date.
         /// </summary>
-        /// <param name="site">The site.</param>
         /// <param name="date">The date.</param>
         /// <returns>
         /// All the invoices happened today.
         /// </returns>
-        private IEnumerable<Invoice> GetInvoicesByDate(SPSite site, DateTime date)
+        private IEnumerable<Invoice> GetInvoicesByDate(DateTime date)
         {
-            List<Invoice> items = null;
-            this.Logger.Error("trying to retrieve invoices");
+            IEnumerable<Invoice> items = null;
 
-            using (SPSite devSite = new SPSite("http://intranet.cloudapp.net/sites/dev"))
-            {
-                using (SPWeb web = devSite.OpenWeb())
-                {
-                    this.Logger.Info("Web is open" + web.Name);
+            InvoiceRepository repository = new InvoiceRepository(this.siteURL);
 
-                    SPList list = web.Lists[GenerateReportJob.ListName];
-
-                    this.Logger.Info("list fetched" + list.Title);
-
-                    SPQuery query = new SPQuery()
-                    {
-                        Query = @"<Query>
-                                      <Where>
-                                        <And>
-                                          <Geq>
-                                            <FieldRef Name='InvoiceDate' />
-                                              <Value IncludeTimeValue='TRUE' Type='DateTime'>" + date + @"</Value>
-                                          </Geq>
-                                          <Leq>
-                                            <FieldRef Name='InvoiceDate' />
-                                            <Value IncludeTimeValue='TRUE' Type='DateTime'>" + date.AddDays(1) + @"</Value>
-                                          </Leq>
-                                        </And>
-                                      </Where>
-                                    </Query>",
-                        ViewFields = string.Concat(
-                            "<FieldRef Name='InvoiceDate' />",
-                            "<FieldRef Name='ID' />",
-                            "<FieldRef Name='Total' />")
-                    };
-
-                    SPListItemCollection invoices = list.GetItems(query);
-
-                    this.Logger.Info("Invoices collected");
-
-                    items = new List<Invoice>();
-
-                    foreach (SPListItem invoice in invoices)
-                    {
-                        var item = new Invoice
-                        {
-                            Id = int.Parse(invoice[FieldInvoiceId].ToString()),
-                            Total = decimal.Parse(invoice[FieldTotal].ToString()),
-                            Date = (DateTime)invoice[FieldDate]
-                        };
-                        this.Logger.Info("Invoice ID: {0} Total: {1} Date: {2}", item.Id, item.Total, item.Date);
-                        items.Add(item);
-                    }
-                }
-            }
+            items = repository.GetByDate(date);
 
             return items;
-        }
+        } 
+        #endregion
     }
 }

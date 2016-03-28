@@ -11,6 +11,7 @@ namespace SuperMarketSystem.Repository
     /// <seealso cref="SuperMarketSystem.Repository.IRepository{SuperMarketSystem.Models.Invoice}" />
     public class InvoiceRepository : IRepository<Invoice>
     {
+        #region Constants
         /// <summary>
         /// The list name.
         /// </summary>
@@ -29,8 +30,42 @@ namespace SuperMarketSystem.Repository
         /// <summary>
         /// The field total.
         /// </summary>
-        private const string FieldTotal = "Total";
+        private const string FieldTotal = "Total"; 
+        #endregion
 
+        #region Properties - Public Members
+
+        /// <summary>
+        /// Gets or sets the site URL.
+        /// </summary>
+        /// <value>
+        /// The site URL.
+        /// </value>
+        public string SiteURL { get; set; } 
+
+        #endregion
+
+        #region Methods - Public Members
+        #region Methods - Public Members - Constructors
+        /// <summary>
+        /// Initializes a new instance of the <see cref="InvoiceRepository"/> class.
+        /// </summary>
+        public InvoiceRepository()
+            : this(SPContext.Current.Web.Url)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="InvoiceRepository"/> class.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        public InvoiceRepository(string url)
+        {
+            this.SiteURL = url;
+        }
+        #endregion
+
+        #region Methods - Public Members - IRepository Members
         /// <summary>
         /// Creates the specified invoice.
         /// </summary>
@@ -44,7 +79,7 @@ namespace SuperMarketSystem.Repository
         {
             int result = 0;
 
-            using (SPSite site = new SPSite(SPContext.Current.Web.Url))
+            using (SPSite site = new SPSite(this.SiteURL))
             {
                 using (SPWeb web = site.OpenWeb())
                 {
@@ -116,7 +151,7 @@ namespace SuperMarketSystem.Repository
         {
             List<Invoice> items = null;
 
-            using (SPSite site = new SPSite(SPContext.Current.Web.Url))
+            using (SPSite site = new SPSite(this.SiteURL))
             {
                 using (SPWeb web = site.OpenWeb())
                 {
@@ -163,7 +198,7 @@ namespace SuperMarketSystem.Repository
         {
             List<Invoice> items = null;
 
-            using (SPSite site = new SPSite(SPContext.Current.Web.Url))
+            using (SPSite site = new SPSite(this.SiteURL))
             {
                 using (SPWeb web = site.OpenWeb())
                 {
@@ -210,5 +245,7 @@ namespace SuperMarketSystem.Repository
 
             return items;
         }
+        #endregion 
+        #endregion
     }
 }

@@ -31,10 +31,45 @@ namespace SuperMarketSystem.Repository
         /// <summary>
         /// The field price
         /// </summary>
-        private const string FieldPrice = "Price"; 
+        private const string FieldPrice = "Price";
 
         #endregion
-        
+
+        #region Properties - Public Members
+
+        /// <summary>
+        /// Gets or sets the site URL.
+        /// </summary>
+        /// <value>
+        /// The site URL.
+        /// </value>
+        public string SiteURL { get; set; } 
+
+        #endregion
+
+        #region Methods - Public Members
+
+        #region Methods - Public Members - Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProductRepository"/> class.
+        /// </summary>
+        public ProductRepository()
+            : this(SPContext.Current.Web.Url)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProductRepository"/> class.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        public ProductRepository(string url)
+        {
+            this.SiteURL = url;
+        }
+
+        #endregion
+
         #region Methods - IRepository Members
 
         /// <summary>
@@ -93,7 +128,7 @@ namespace SuperMarketSystem.Repository
         {
             Product item = null;
 
-            using (SPSite site = new SPSite(SPContext.Current.Web.Url))
+            using (SPSite site = new SPSite(this.SiteURL))
             {
                 using (SPWeb web = site.OpenWeb())
                 {
@@ -140,7 +175,7 @@ namespace SuperMarketSystem.Repository
         {
             List<Product> items = null;
 
-            using (SPSite site = new SPSite(SPContext.Current.Web.Url))
+            using (SPSite site = new SPSite(this.SiteURL))
             {
                 using (SPWeb web = site.OpenWeb())
                 {
@@ -176,6 +211,7 @@ namespace SuperMarketSystem.Repository
             return items;
         }
 
+        #endregion 
         #endregion
     }
 }

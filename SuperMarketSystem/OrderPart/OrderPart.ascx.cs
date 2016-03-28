@@ -134,6 +134,7 @@ namespace SuperMarketSystem.OrderPart
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load(object sender, EventArgs e)
         {
+            //// Check if the current user has access to Sales Group.
             if (!ConfigurationManager.IsAuthenticated)
             {
                 var error = "Only users in sales group can access";
@@ -180,8 +181,6 @@ namespace SuperMarketSystem.OrderPart
                 quantityText.TextChanged -= this.OnAdd;
                 quantityText.TextChanged += this.OnAdd;
             }
-
-            this.Logger.Info("Row Created");
         }
 
         /// <summary>
@@ -194,7 +193,11 @@ namespace SuperMarketSystem.OrderPart
             if (e.Row.RowType == DataControlRowType.Footer)
             {
                 TextBox productIdText = e.Row.FindControl(IdTextID) as TextBox;
+
+                //// Disable post back on press Enter key
                 productIdText.Attributes.Add("onkeydown", "return (event.keyCode!=13)");
+
+                //// Disable controls if submit button was hit.
                 if (this.IsSubmitted)
                 {
                     Label totalLabel = e.Row.FindControl(OrderPart.TotalLabel) as Label;

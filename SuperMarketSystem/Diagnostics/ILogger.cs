@@ -24,14 +24,14 @@
         /// Error level log the specified message.
         /// </summary>
         /// <param name="message">The message.</param>
-        void Error(string message);
+        void Err(string message);
 
         /// <summary>
         /// Errors the specified format.
         /// </summary>
         /// <param name="format">The format.</param>
         /// <param name="args">The arguments.</param>
-        void Error(string format, params object[] args);
+        void Err(string format, params object[] args);
 
         /// <summary>
         /// Information level log the specified message.
@@ -42,9 +42,9 @@
         /// <summary>
         /// Information level log the specified message.
         /// </summary>
-        /// <param name="message">The message.</param>
+        /// <param name="format">The format.</param>
         /// <param name="args">The arguments.</param>
-        void Info(string message, params object[] args);
+        void Info(string format, params object[] args);
 
         /// <summary>
         /// Warn level log the specified message.

@@ -76,7 +76,7 @@ namespace SuperMarketSystem.Commands
             }
             catch (Exception)
             {
-                this.Logger.Error("Could not create order");
+                this.Logger.Err(SupermarketResources.OrderCreateError);
                 throw;
             }
         }

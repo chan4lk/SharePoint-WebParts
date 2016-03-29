@@ -12,7 +12,7 @@ namespace SuperMarketSystem.Common
     /// <summary>
     /// The configuration manager.
     /// </summary>
-    public class ConfigurationManager
+    public sealed class ConfigurationManager
     {
         /// <summary>
         /// The sales group.
@@ -37,9 +37,9 @@ namespace SuperMarketSystem.Common
                 if (instance == null)
                 {
                     instance = new UnityContainer();
-                    instance.RegisterType<IOrderView, OrderPart.OrderPart>()
+                    instance.RegisterType<IOrderView, OrderPart.OrderWebPart>()
                             .RegisterType<IOrderPresenter<IOrderView>, OrderPresenter>()
-                            .RegisterType<ILogger, UlsLogger>();
+                            .RegisterType<ILogger, UnifiedSystemLogger>();
                 }
 
                 return instance;
@@ -72,7 +72,7 @@ namespace SuperMarketSystem.Common
                         catch (Exception)
                         {
                             ILogger logger = ConfigurationManager.Container.Resolve<ILogger>();
-                            logger.Error("User is not on the sales group");
+                            logger.Err(SupermarketResources.AuthenticationError);
                             isAuthenticated = false;
                         }
                     }

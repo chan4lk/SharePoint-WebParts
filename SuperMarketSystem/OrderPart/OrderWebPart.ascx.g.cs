@@ -8,11 +8,35 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SuperMarketSystem.OrderPart
-{
-
-
-    public partial class OrderPart {
+namespace SuperMarketSystem.OrderPart {
+    using System.Web.UI.WebControls.Expressions;
+    using System.Web.UI.HtmlControls;
+    using System.Collections;
+    using System.Text;
+    using System.Web.UI;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Xml.Linq;
+    using Microsoft.SharePoint.WebPartPages;
+    using System.Web.SessionState;
+    using System.Configuration;
+    using Microsoft.SharePoint;
+    using System.Web;
+    using System.Web.DynamicData;
+    using System.Web.Caching;
+    using System.Web.Profile;
+    using System.ComponentModel.DataAnnotations;
+    using System.Web.UI.WebControls;
+    using System.Web.Security;
+    using System;
+    using Microsoft.SharePoint.Utilities;
+    using System.Text.RegularExpressions;
+    using System.Collections.Specialized;
+    using System.Web.UI.WebControls.WebParts;
+    using Microsoft.SharePoint.WebControls;
+    
+    
+    public partial class OrderWebPart {
         
         protected global::System.Web.UI.WebControls.Button ClearButton;
         
@@ -22,7 +46,7 @@ namespace SuperMarketSystem.OrderPart
         
         protected global::System.Web.UI.WebControls.Button SubmitButton;
         
-        public static implicit operator global::System.Web.UI.TemplateControl(OrderPart target) 
+        public static implicit operator global::System.Web.UI.TemplateControl(OrderWebPart target) 
         {
             return target == null ? null : target.TemplateControl;
         }
@@ -296,7 +320,7 @@ namespace SuperMarketSystem.OrderPart
         }
         
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
-        private void @__BuildControlTree(global::SuperMarketSystem.OrderPart.OrderPart @__ctrl) {
+        private void @__BuildControlTree(global::SuperMarketSystem.OrderPart.OrderWebPart @__ctrl) {
             System.Web.UI.IParserAccessor @__parser = ((System.Web.UI.IParserAccessor)(@__ctrl));
             @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl(@"
 <style>

@@ -17,14 +17,12 @@ namespace SuperMarketSystem.Diagnostics
         /// the application is unavailable to users. Manual intervention is required
         /// immediately.
         /// </summary>
-        [Obsolete("Use EventSeverity.ErrorCritical")]
         ErrorServiceUnavailable = 10,
         
         /// <summary>
         /// Indicates that a security compromise has occurred and systems on the network
         /// are at risk.
         /// </summary>
-        [Obsolete("Use EventSeverity.ErrorCritical")]
         ErrorSecurityBreach = 20,
 
         /// <summary>
@@ -46,13 +44,11 @@ namespace SuperMarketSystem.Diagnostics
         /// <summary>
         /// Indicates an audited access attempt has failed.
         /// </summary>
-        [Obsolete("Use EventSeverity.Warning")]
         FailureAudit = 60,
 
         /// <summary>
         /// Indicates an audited access attempt is successful.
         /// </summary>
-        [Obsolete("Use EventSeverity.Information")]
         SuccessAudit = 70,
 
         /// <summary>
@@ -63,7 +59,6 @@ namespace SuperMarketSystem.Diagnostics
         /// <summary>
         /// Indicates a successful operation.
         /// </summary>
-        [Obsolete("Use EventSeverity.Verbose")]
         Success = 90,
 
         /// <summary>

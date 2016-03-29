@@ -8,7 +8,8 @@ using SuperMarketSystem.Views;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Web.UI.WebControls; 
+using System.Globalization;
+using System.Web.UI.WebControls;
 #endregion
 
 namespace SuperMarketSystem.OrderPart
@@ -20,7 +21,7 @@ namespace SuperMarketSystem.OrderPart
     /// <seealso cref="System.Web.UI.WebControls.WebParts.WebPart" />
     /// <seealso cref="SuperMarketSystem.Views.IOrderView" />
     [ToolboxItemAttribute(false)]
-    public partial class OrderPart : BasePart<OrderPresenter, IOrderView>, IOrderView
+    public partial class OrderWebPart : BasePart<OrderPresenter, IOrderView>, IOrderView
     {
         #region Properties - Public Members
         /// <summary>
@@ -34,14 +35,6 @@ namespace SuperMarketSystem.OrderPart
             get;
             set;
         }
-
-        /// <summary>
-        /// Gets or sets the product ids.
-        /// </summary>
-        /// <value>
-        /// The product ids.
-        /// </value>
-        public List<int> ProductIds { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is submitted.
@@ -108,9 +101,9 @@ namespace SuperMarketSystem.OrderPart
         /// your constructor, it's not recommended for production purposes.
         /// [System.Security.Permissions.SecurityPermission(System.Security.Permissions.SecurityAction.Assert, UnmanagedCode = true)]
         /// <summary>
-        /// Initializes a new instance of the <see cref="OrderPart"/> class.
+        /// Initializes a new instance of the <see cref="OrderWebPart"/> class.
         /// </summary>
-        public OrderPart()
+        public OrderWebPart()
             : base()
         {
         }
@@ -137,8 +130,8 @@ namespace SuperMarketSystem.OrderPart
             //// Check if the current user has access to Sales Group.
             if (!ConfigurationManager.IsAuthenticated)
             {
-                var error = "Only users in sales group can access";
-                SPUtility.SendAccessDeniedHeader(new SPException(error));
+                SPUtility.SendAccessDeniedHeader(
+                    new SPException(SupermarketResources.AuthenticationError));
             }
 
             if (!Page.IsPostBack)
@@ -190,6 +183,19 @@ namespace SuperMarketSystem.OrderPart
         /// <param name="e">The <see cref="GridViewRowEventArgs"/> instance containing the event data.</param>
         protected void OnRowDataBound(object sender, GridViewRowEventArgs e)
         {
+            if (e == null)
+            {
+                throw new ArgumentNullException(
+                    typeof(GridViewRowEventArgs).Name,
+                    SupermarketResources.ArgumentNullError);
+            }
+            else if (e.Row == null)
+            {
+                throw new ArgumentNullException(
+                    typeof(GridViewRow).Name,
+                    SupermarketResources.ArgumentNullError);
+            }
+
             if (e.Row.RowType == DataControlRowType.Footer)
             {
                 TextBox productIdText = e.Row.FindControl(IdTextID) as TextBox;
@@ -200,10 +206,10 @@ namespace SuperMarketSystem.OrderPart
                 //// Disable controls if submit button was hit.
                 if (this.IsSubmitted)
                 {
-                    Label totalLabel = e.Row.FindControl(OrderPart.TotalLabel) as Label;
-                    totalLabel.Text = this.Model.Total.ToString("C");
+                    Label totalLabel = e.Row.FindControl(OrderWebPart.TotalLabel) as Label;
+                    totalLabel.Text = this.Model.Total.ToString("C", CultureInfo.InvariantCulture);
 
-                    TextBox quantityText = e.Row.FindControl(QuantityTextID) as TextBox;                    
+                    TextBox quantityText = e.Row.FindControl(QuantityTextID) as TextBox;
 
                     quantityText.Enabled = false;
                     productIdText.Enabled = false;
@@ -218,10 +224,7 @@ namespace SuperMarketSystem.OrderPart
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void OnAdd(object sender, EventArgs e)
         {
-            if (!this.IsSubmitted)
-            {
-                this.Add();
-            }
+            this.Add();
         }
 
         #endregion
@@ -272,7 +275,7 @@ namespace SuperMarketSystem.OrderPart
             this.orderView.DataSource = this.Model.Items;
             this.orderView.DataBind();
             this.orderView.Rows[0].Visible = false;     // Workaround for showing the empty grid.
-            this.ShowMessage("Please add items to the cart");
+            this.ShowMessage(SupermarketResources.MessageAddItem);
         }
 
         /// <summary>
@@ -322,9 +325,14 @@ namespace SuperMarketSystem.OrderPart
                 return;
             }
 
-            int productId = int.Parse(productIdText.Text);
-            int quantity = int.Parse(quantityText.Text);
-            this.Presenter.Add(productId, quantity);
+            int productId;
+            int quantity;
+
+            if (int.TryParse(productIdText.Text, out productId) &&
+                int.TryParse(quantityText.Text, out quantity))
+            {
+                this.Presenter.Add(productId, quantity);
+            }
         }
 
         /// <summary>
@@ -338,14 +346,20 @@ namespace SuperMarketSystem.OrderPart
                 Label idLabel = this.orderView.Rows[i].FindControl(IdLabelID) as Label;
 
                 // Escape invalid items.
-                if (string.IsNullOrEmpty(quantityLabel.Text) || string.IsNullOrEmpty(idLabel.Text))
+                if (string.IsNullOrEmpty(quantityLabel.Text) ||
+                    string.IsNullOrEmpty(idLabel.Text))
                 {
                     continue;
                 }
 
-                int productId = int.Parse(idLabel.Text);
-                int quantity = int.Parse(quantityLabel.Text);
-                this.Presenter.Add(productId, quantity);
+                int productId;
+                int quantity;
+
+                if (int.TryParse(idLabel.Text, out productId) &&
+                    int.TryParse(quantityLabel.Text, out quantity))
+                {
+                    this.Presenter.Add(productId, quantity);
+                }
             }
         }
         #endregion

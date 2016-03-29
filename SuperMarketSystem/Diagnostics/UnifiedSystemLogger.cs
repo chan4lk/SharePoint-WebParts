@@ -1,4 +1,5 @@
 ﻿using Microsoft.SharePoint.Administration;
+using System.Globalization;
 
 namespace SuperMarketSystem.Diagnostics
 {
@@ -6,12 +7,12 @@ namespace SuperMarketSystem.Diagnostics
     /// The logger which writes to ULS log.
     /// </summary>
     /// <seealso cref="SuperMarketSystem.Diagnostics.ILogger" />
-    public class UlsLogger : ILogger
+    public class UnifiedSystemLogger : ILogger
     {
         /// <summary>
         /// The category.
         /// </summary>
-        private const string Category = "Supermarket System";
+        private static string category = SupermarketResources.Catelog;
 
         /// <summary>
         /// The diagnostic service.
@@ -33,10 +34,10 @@ namespace SuperMarketSystem.Diagnostics
             switch (level)
             {
                 case EventSeverity.ErrorCritical:
-                    this.Error(message);
+                    this.Err(message);
                     break;
                 case EventSeverity.Error:
-                    this.Error(message);
+                    this.Err(message);
                     break;
                 case EventSeverity.Warning:
                     this.Warn(message);
@@ -55,7 +56,7 @@ namespace SuperMarketSystem.Diagnostics
         /// <param name="args">The arguments.</param>
         public void Log(string format, EventSeverity level, params object[] args)
         {
-            var message = string.Format(format, args);
+            var message = string.Format(CultureInfo.CurrentCulture, format, args);
 
             this.Log(message, level);
         }
@@ -64,7 +65,7 @@ namespace SuperMarketSystem.Diagnostics
         /// Error level log the specified message.
         /// </summary>
         /// <param name="message">The message.</param>
-        public void Error(string message)
+        public void Err(string message)
         {
             this.Write(message, EventSeverity.Error, TraceSeverity.High);
         }
@@ -74,9 +75,9 @@ namespace SuperMarketSystem.Diagnostics
         /// </summary>
         /// <param name="format">The format.</param>
         /// <param name="args">The arguments.</param>
-        public void Error(string format, params object[] args)
+        public void Err(string format, params object[] args)
         {
-            this.Error(string.Format(format, args));
+            this.Err(string.Format(CultureInfo.CurrentCulture, format, args));
         }
 
         /// <summary>
@@ -95,7 +96,7 @@ namespace SuperMarketSystem.Diagnostics
         /// <param name="args">The arguments.</param>
         public void Info(string format, params object[] args)
         {
-            this.Info(string.Format(format, args));
+            this.Info(string.Format(CultureInfo.CurrentCulture, format, args));
         }
 
         /// <summary>
@@ -114,7 +115,7 @@ namespace SuperMarketSystem.Diagnostics
         /// <param name="args">The arguments.</param>
         public void Warn(string format, params object[] args)
         {
-           this.Warn(string.Format(format, args));
+            this.Warn(string.Format(CultureInfo.CurrentCulture, format, args));
         }
 
         /// <summary>
@@ -128,11 +129,11 @@ namespace SuperMarketSystem.Diagnostics
             this.diagnosticService.WriteTrace(
                 this.id++,
                 new SPDiagnosticsCategory(
-                    UlsLogger.Category,
+                    UnifiedSystemLogger.category,
                     (Microsoft.SharePoint.Administration.TraceSeverity)level,
                     (Microsoft.SharePoint.Administration.EventSeverity)eventLevel),
                     (Microsoft.SharePoint.Administration.TraceSeverity)level,
-                "Writing to the ULS log:  {0}",
+                SupermarketResources.LogFormat,
                 new object[] { message });
         }
     }

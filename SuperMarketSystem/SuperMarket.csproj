@@ -83,7 +83,7 @@
     <Compile Include="Common\Extensions.cs" />
     <Compile Include="Diagnostics\ILogger.cs" />
     <Compile Include="Diagnostics\TraceSeverity.cs" />
-    <Compile Include="Diagnostics\UlsLogger.cs" />
+    <Compile Include="Diagnostics\UnifiedSystemLogger.cs" />
     <Compile Include="Features\SuperMarketFeature\SuperMarketFeature.EventReceiver.cs">
       <DependentUpon>SuperMarketFeature.feature</DependentUpon>
     </Compile>
@@ -94,10 +94,10 @@
     <Compile Include="Models\ProductItem.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderViewModel.cs" />
-    <Compile Include="OrderPart\OrderPart.ascx.g.cs">
+    <Compile Include="OrderPart\OrderWebPart.ascx.g.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>OrderPart.ascx</DependentUpon>
+      <DependentUpon>OrderWebPart.ascx</DependentUpon>
     </Compile>
     <Compile Include="Presenters\IOrderPresenter.cs" />
     <Compile Include="Presenters\IPresenter.cs" />
@@ -107,6 +107,11 @@
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\OrderRepository.cs" />
     <Compile Include="Repository\ProductRepository.cs" />
+    <Compile Include="SupermarketResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SupermarketResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Views\IOrderView.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -164,12 +169,12 @@
     <Content Include="Lists\Product\Elements.xml" />
     <Content Include="Lists\Product\ProductInstance\Elements.xml" />
     <Content Include="Lists\Product\Schema.xml" />
-    <Content Include="OrderPart\OrderPart.ascx">
+    <Content Include="OrderPart\OrderWebPart.ascx">
       <Generator>SharePointWebPartCodeGenerator</Generator>
-      <LastGenOutput>OrderPart.ascx.g.cs</LastGenOutput>
+      <LastGenOutput>OrderWebPart.ascx.g.cs</LastGenOutput>
     </Content>
-    <Compile Include="OrderPart\OrderPart.ascx.cs">
-      <DependentUpon>OrderPart.ascx</DependentUpon>
+    <Compile Include="OrderPart\OrderWebPart.ascx.cs">
+      <DependentUpon>OrderWebPart.ascx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -188,7 +193,12 @@
       <DependentUpon>SuperMarketFeature.feature</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="SupermarketResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SupermarketResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0'">11.0</VisualStudioVersion>

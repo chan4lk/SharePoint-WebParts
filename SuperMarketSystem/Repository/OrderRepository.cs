@@ -83,29 +83,36 @@ namespace SuperMarketSystem.Repository
         /// <summary>
         /// Creates the specified order.
         /// </summary>
-        /// <param name="order">The order.</param>
+        /// <param name="item">The order.</param>
         /// <returns>
         /// 0 if success.
         /// </returns>
-        public int Create(Order order)
+        public int Create(Order item)
         {
             int result = 0;
+
+            if (item == null)
+            {
+                throw new ArgumentNullException(
+                    typeof(Order).Name, 
+                    SupermarketResources.ArgumentNullError);
+            }
 
             using (SPSite site = new SPSite(this.SiteUrl))
             {
                 using (SPWeb web = site.OpenWeb())
                 {
                     SPList list = web.Lists[OrderRepository.ListName];
-                    SPListItem item = list.Items.Add();
+                    SPListItem listItem = list.Items.Add();
 
-                    item[FieldProductId] = order.ProductId;
-                    item[FieldInvoiceId] = order.InvoiceId;
-                    item[FieldQuantity] = order.Quantity;
-                    item[FieldTotal] = order.Total;
+                    listItem[FieldProductId] = item.ProductId;
+                    listItem[FieldInvoiceId] = item.InvoiceId;
+                    listItem[FieldQuantity] = item.Quantity;
+                    listItem[FieldTotal] = item.Total;
 
-                    item.Update();
+                    listItem.Update();
 
-                    result = item.ID;
+                    result = listItem.ID;
                 }
             }
 

@@ -61,7 +61,7 @@ namespace SuperMarketSystem.Commands
             }
             catch (Exception)
             {
-                this.Logger.Error("Could not create the invoice.");
+                this.Logger.Err(SupermarketResources.InvoiceCreateError);
                 throw;
             }
         }

@@ -34,7 +34,7 @@ namespace SuperMarketSystem.Tests
         /// Error level log the specified message.
         /// </summary>
         /// <param name="message">The message.</param>
-        public void Error(string message)
+        public void Err(string message)
         {
             this.Write(message);
         }
@@ -44,7 +44,7 @@ namespace SuperMarketSystem.Tests
         /// </summary>
         /// <param name="format">The format.</param>
         /// <param name="args">The arguments.</param>
-        public void Error(string format, params object[] args)
+        public void Err(string format, params object[] args)
         {
             var message = string.Format(format, args);
             this.Write(message);

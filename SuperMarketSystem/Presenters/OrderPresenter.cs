@@ -56,7 +56,7 @@ namespace SuperMarketSystem.Presenters
         public void Add(ProductItem item)
         {
             this.View.Model.Items.Add(item);
-            this.View.ShowMessage("Item added to cart");
+            this.View.ShowMessage(SupermarketResources.MessageItemAdded);
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace SuperMarketSystem.Presenters
         {
             if (this.View.Model.Items.IsEmpty())
             {
-                this.View.ShowMessage("There are no orders.", true);
+                this.View.ShowMessage(SupermarketResources.MessageNoOrders, true);
                 return;
             }
 
@@ -91,18 +91,18 @@ namespace SuperMarketSystem.Presenters
                     }
                     catch (Exception)
                     {
-                        this.View.ShowMessage("Could not create Order", true);
+                        this.View.ShowMessage(SupermarketResources.OrderCreateError, true);
                         break;
                     }
                 }
             }
             catch (Exception)
             {
-                this.View.ShowMessage("Could not create Invoice", true);
+                this.View.ShowMessage(SupermarketResources.InvoiceCreateError, true);
             }
 
             this.View.Freeze();
-            this.View.ShowMessage("Invoice created");
+            this.View.ShowMessage(SupermarketResources.InvoiceCreated);
         }
 
         /// <summary>
@@ -114,7 +114,6 @@ namespace SuperMarketSystem.Presenters
         {
             if (productId == 0 || quantity == 0)
             {
-                Console.WriteLine("Cannot add item with zero count or id");
                 return;
             }
 
@@ -138,7 +137,7 @@ namespace SuperMarketSystem.Presenters
             }
             catch (Exception)
             {
-                this.View.ShowMessage("No product item with given ID", true);
+                this.View.ShowMessage(SupermarketResources.ProductIDNotFound, true);
             }
         }
         #endregion

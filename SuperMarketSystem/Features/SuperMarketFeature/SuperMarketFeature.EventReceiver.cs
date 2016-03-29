@@ -23,12 +23,14 @@ namespace SuperMarketSystem.Features.SuperMarketFeature
     /// The GUID attached to this class may be used during packaging and should not be modified.
     /// </remarks>
     [Guid("7b50c7cb-da8c-431b-ab65-2a6ca50a584e")]
-    public class SuperMarketFeatureEventReceiver : SPFeatureReceiver
+    public class SupermarketFeatureEventReceiver : SPFeatureReceiver
     {
+        #region Fields - Private Members
         /// <summary>
         /// The logger.
         /// </summary>
-        private ILogger logger;
+        private ILogger logger; 
+        #endregion
 
         #region Methods - Public Memebrs - SPFeatureReciver Memebers
 
@@ -38,6 +40,13 @@ namespace SuperMarketSystem.Features.SuperMarketFeature
         /// <param name="properties">An <see cref="T:Microsoft.SharePoint.SPFeatureReceiverProperties" /> object that represents the properties of the event.</param>
         public override void FeatureActivated(SPFeatureReceiverProperties properties)
         {
+            if (properties == null)
+            {
+                throw new ArgumentNullException(
+                    typeof(SPFeatureReceiverProperties).Name, 
+                    SupermarketResources.ArgumentNullError);
+            }
+
             SPSite site = properties.Feature.Parent as SPSite;
             this.logger = ConfigurationManager.Container.Resolve<ILogger>();
             try
@@ -45,19 +54,15 @@ namespace SuperMarketSystem.Features.SuperMarketFeature
                 SPSecurity.RunWithElevatedPrivileges(delegate()
                 {
                     //// Create Sales group and add current user to the group.
-                    this.SetPermissions(site);
+                    SetPermissions(site);
 
                     //// Create timer job to be run with the current site collection.
-                    this.CreateJob(site);
+                    CreateJob(site);
                 });
             }
-            catch (Exception exception)
+            catch (Exception)
             {
-                this.logger.Error("could not activate features");
-                this.logger.Error(
-                    "Message: {0}, Stack trace: {1}",
-                    exception.Message,
-                    exception.StackTrace);
+                this.logger.Err(SupermarketResources.LogFeatureActivateError);
                 throw;
             }
         }
@@ -68,6 +73,13 @@ namespace SuperMarketSystem.Features.SuperMarketFeature
         /// <param name="properties">An <see cref="T:Microsoft.SharePoint.SPFeatureReceiverProperties" /> object that represents the properties of the event.</param>
         public override void FeatureDeactivating(SPFeatureReceiverProperties properties)
         {
+            if (properties == null)
+            {
+                throw new ArgumentNullException(
+                    typeof(SPFeatureReceiverProperties).Name,
+                    SupermarketResources.ArgumentNullError);
+            }
+
             this.logger = ConfigurationManager.Container.Resolve<ILogger>();
             try
             {
@@ -75,17 +87,17 @@ namespace SuperMarketSystem.Features.SuperMarketFeature
                 SPSecurity.RunWithElevatedPrivileges(delegate()
                 {
                     //// Unset permission for web part.
-                    this.UnsetPermissions(site);
+                    UnsetPermissions(site);
 
                     //// Delete the time job.
-                    this.DeleteJob(site);
+                    DeleteJob(site);
                 });
             }
             catch (Exception exception)
             {
-                this.logger.Error("could not deactivate features");
-                this.logger.Error(
-                    "Message: {0}, Stack trace: {1}",
+                this.logger.Err(SupermarketResources.LogFeatureDeactivateError);
+                this.logger.Err(
+                    SupermarketResources.LogMessageStacktrace,
                     exception.Message,
                     exception.StackTrace);
                 throw;
@@ -100,9 +112,9 @@ namespace SuperMarketSystem.Features.SuperMarketFeature
         /// Creates the job.
         /// </summary>
         /// <param name="site">The site.</param>
-        private void CreateJob(SPSite site)
+        private static void CreateJob(SPSite site)
         {
-            this.DeleteJob(site);
+            DeleteJob(site);
 
             GenerateReportJob reportJob = new GenerateReportJob(
                 GenerateReportJob.JobName,
@@ -127,7 +139,7 @@ namespace SuperMarketSystem.Features.SuperMarketFeature
         /// Deletes the job.
         /// </summary>
         /// <param name="site">The site.</param>
-        private void DeleteJob(SPSite site)
+        private static void DeleteJob(SPSite site)
         {
             foreach (SPJobDefinition job in site.WebApplication.JobDefinitions)
             {
@@ -144,7 +156,7 @@ namespace SuperMarketSystem.Features.SuperMarketFeature
         /// <param name="site">
         /// The site.
         /// </param>
-        private void SetPermissions(SPSite site)
+        private static void SetPermissions(SPSite site)
         {
             using (SPWeb web = site.OpenWeb())
             {
@@ -192,7 +204,7 @@ namespace SuperMarketSystem.Features.SuperMarketFeature
         /// Unsets the permissions.
         /// </summary>
         /// <param name="site">The site.</param>
-        private void UnsetPermissions(SPSite site)
+        private static void UnsetPermissions(SPSite site)
         {
             using (SPWeb web = site.OpenWeb())
             {

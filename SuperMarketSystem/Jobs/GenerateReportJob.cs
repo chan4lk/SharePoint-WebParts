@@ -123,8 +123,8 @@ namespace SuperMarketSystem.Jobs
         /// <param name="targetInstanceId">For target types of <see cref="T:Microsoft.SharePoint.Administration.SPContentDatabase" /> this is the database ID of the content database being processed by the running job. This value is GUID.Empty for all other target types.</param>
         public override void Execute(Guid targetInstanceId)
         {
-            this.logger = new UlsLogger();
-            this.logger.Info("Starting to execute");
+            this.logger = new UnifiedSystemLogger();
+            this.logger.Info(SupermarketResources.JobStart);
 
             if (this.Properties.ContainsKey(GenerateReportJob.SiteUrlKey))
             {
@@ -159,10 +159,10 @@ namespace SuperMarketSystem.Jobs
             try
             {
                 IEnumerable<Invoice> invoices = this.GetInvoicesByDate(DateTime.Today);
-                this.logger.Info("Got invoices");
+                this.logger.Info(SupermarketResources.JobRetrievedInvoices);
                 if (invoices.Count() > 0)
                 {
-                    this.logger.Info("Writing to CSV");
+                    this.logger.Info(SupermarketResources.JobWritingDocument);
                     var csv = new StringBuilder();
 
                     //// Add data rows
@@ -178,14 +178,14 @@ namespace SuperMarketSystem.Jobs
 
                     //// Write to disk.
                     File.WriteAllText(GenerateReportJob.FilePath, csv.ToString());
-                    this.logger.Info("CSV written successfully.");
+                    this.logger.Info(SupermarketResources.JobFinished);
                 }
             }
             catch (Exception exception)
             {
-                this.logger.Error("Could not generate report exception occurred.");
-                this.logger.Error(exception.Message);
-                this.logger.Error(exception.StackTrace);
+                this.logger.Err(SupermarketResources.JobError);
+                this.logger.Err(exception.Message);
+                this.logger.Err(exception.StackTrace);
                 throw;
             }
         }

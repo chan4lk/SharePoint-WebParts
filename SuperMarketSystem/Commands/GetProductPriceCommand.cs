@@ -69,7 +69,7 @@ namespace SuperMarketSystem.Commands
             }
             catch (Exception exp)
             {
-                this.Logger.Error(exp.Message);
+                this.Logger.Err(exp.Message);
                 throw;
             }
         }

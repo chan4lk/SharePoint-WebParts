@@ -2,6 +2,7 @@
 using SuperMarketSystem.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace SuperMarketSystem.Repository
 {
@@ -43,7 +44,7 @@ namespace SuperMarketSystem.Repository
         /// <value>
         /// The site URL.
         /// </value>
-        public string SiteUrl { get; set; } 
+        public string SiteUrl { get; set; }
 
         #endregion
 
@@ -135,22 +136,18 @@ namespace SuperMarketSystem.Repository
                     SPList list = web.Lists[ProductRepository.ListName];
                     SPQuery query = new SPQuery()
                     {
-                        Query = @"<Where><Eq>
-                                        <FieldRef Name='ID' />
-                                        <Value Type='Number'>
-                                        " +
-                                          id
-                                          + @"</Value>
-                                    </Eq></Where>
-                                  ",
-                        ViewFields = string.Concat("<FieldRef Name='CategoryName' />", "<FieldRef Name='ID' />", "<FieldRef Name='Price' />")
+                        Query = string.Format(
+                            CultureInfo.InvariantCulture,
+                            SupermarketResources.ProductByIDQuery,
+                            id),
+                        ViewFields = SupermarketResources.ProductViewFileds
                     };
 
                     SPListItemCollection products = list.GetItems(query);
 
                     if (products.Count > 1)
                     {
-                        throw new Exception("Two products cannot have the same ID");
+                        throw new Exception(SupermarketResources.ProductNotUniqeError);
                     }
 
                     item = new Product
@@ -182,12 +179,8 @@ namespace SuperMarketSystem.Repository
                     SPList list = web.Lists[ProductRepository.ListName];
                     SPQuery query = new SPQuery()
                     {
-                        Query = @"<Query>                                   
-                                  </Query>",
-                        ViewFields = string.Concat(
-                            "<FieldRef Name='Category' />",
-                            "<FieldRef Name='ID' />",
-                            "<FieldRef Name='Price' />")
+                        Query = SupermarketResources.ProductAllQuery,
+                        ViewFields = SupermarketResources.ProductViewFileds
                     };
 
                     SPListItemCollection products = list.GetItems(query);
@@ -196,14 +189,21 @@ namespace SuperMarketSystem.Repository
 
                     foreach (SPListItem product in products)
                     {
-                        var item = new Product
+                        int productId;
+                        decimal price;
+                        
+                        if (int.TryParse(product[FieldId].ToString(), out productId)
+                            && decimal.TryParse(product[FieldPrice].ToString(), out price))
                         {
-                            ProductId = int.Parse(product[FieldId].ToString()),
-                            Price = decimal.Parse(product[FieldPrice].ToString()),
-                            Category = product[FieldCategory].ToString()
-                        };
+                            var item = new Product
+                            {
+                                ProductId = productId,
+                                Price = price,
+                                Category = product[FieldCategory].ToString()
+                            };
 
-                        items.Add(item);
+                            items.Add(item);
+                        }
                     }
                 }
             }
@@ -211,7 +211,7 @@ namespace SuperMarketSystem.Repository
             return items;
         }
 
-        #endregion 
+        #endregion
         #endregion
     }
 }

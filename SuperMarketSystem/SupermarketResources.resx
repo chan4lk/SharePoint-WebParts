@@ -185,7 +185,7 @@
     <value>Query&gt;&lt;/Query&gt;</value>
   </data>
   <data name="ProductByIDQuery" xml:space="preserve">
-    <value>&lt;Where&gt;&lt;Eq&gt;&lt;FieldRef Name='ID' /&gt;&lt;Value Type='Number'&gt;{0}&lt;Value&gt;&lt;/Eq&gt;&lt;/Where&gt;</value>
+    <value>&lt;Where&gt;&lt;Eq&gt;&lt;FieldRef Name='ID' /&gt;&lt;Value Type='Number'&gt;{0}&lt;/Value&gt;&lt;/Eq&gt;&lt;/Where&gt;</value>
   </data>
   <data name="ProductNotUniqeError" xml:space="preserve">
     <value>Two products cannot have the same ID.</value>

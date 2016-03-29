@@ -250,7 +250,7 @@ namespace SuperMarketSystem {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;Where&gt;&lt;Eq&gt;&lt;FieldRef Name=&apos;ID&apos; /&gt;&lt;Value Type=&apos;Number&apos;&gt;{0}&lt;Value&gt;&lt;/Eq&gt;&lt;/Where&gt;.
+        ///   Looks up a localized string similar to &lt;Where&gt;&lt;Eq&gt;&lt;FieldRef Name=&apos;ID&apos; /&gt;&lt;Value Type=&apos;Number&apos;&gt;{0}&lt;/Value&gt;&lt;/Eq&gt;&lt;/Where&gt;.
         /// </summary>
         public static string ProductByIDQuery {
             get {

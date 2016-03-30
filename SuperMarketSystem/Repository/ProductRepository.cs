@@ -147,15 +147,22 @@ namespace SuperMarketSystem.Repository
 
                     if (products.Count > 1)
                     {
-                        throw new Exception(SupermarketResources.ProductNotUniqeError);
+                        throw new ArgumentOutOfRangeException(SupermarketResources.ProductNotUniqeError);
                     }
 
-                    item = new Product
+                    int productId;
+                    decimal price;
+
+                    if (int.TryParse(products[0][FieldId].ToString(), out productId)
+                        && decimal.TryParse(products[0][FieldPrice].ToString(), out price))
                     {
-                        ProductId = int.Parse(products[0][FieldId].ToString()),
-                        Price = decimal.Parse(products[0][FieldPrice].ToString()),
-                        Category = products[0][FieldCategory].ToString().Remove(0, 3)
-                    };
+                        item = new Product
+                        {
+                            ProductId = productId,
+                            Price = price,
+                            Category = products[0][FieldCategory].ToString().Remove(0, 3)
+                        };
+                    }
                 }
             }
 
@@ -191,7 +198,7 @@ namespace SuperMarketSystem.Repository
                     {
                         int productId;
                         decimal price;
-                        
+
                         if (int.TryParse(product[FieldId].ToString(), out productId)
                             && decimal.TryParse(product[FieldPrice].ToString(), out price))
                         {
